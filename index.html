@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>Dropbox | Faster than flow</title>
+	<link rel="stylesheet" href="css/index.css" class="css">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" > 
+</head>
+<body>
+  <!-- 页眉 -->
+	<header>
+	  <div class="logo">Dropbox</div>
+	  <div class="control-panel">
+	  	<span class="user"></span>
+	  	<span class="setting"></span>
+	  	<span class="write-off"></span>
+	  </div>
+    <div class="notification"><p>You are successed in delete some files.</p>
+    <span>x</span></div>
+	</header>
+
+  <!-- 主体部分 -->
+	<div class="main">
+    <!-- 分类区 -->
+		<div class="side-bar">
+		  <ul class="file-type">
+			  <li class="all active">All</li>
+			  <li class="picture">Picture</li>
+			  <li class="diary">Diary</li>
+			  <li class="video">Video</li>
+			  <li class="other">Other</li>
+		  </ul>
+		  <div class="capacity">
+	  	    <span></span>
+	  	    <p>25 G / 100 G</p>
+		  </div>
+		</div>
+
+    <!-- 内容区 -->
+		<div class="container">
+      
+      <!-- 功能栏 -->
+			<div class="feature">
+        <!-- 功能按键面板 -->
+        <div class="feature-panel">
+          <!-- <div class="all-in"></div> -->
+          <span class="upload">Upload</span>
+          <span class="new-file">Create</span>
+          <span class="download">Download</span>
+          <span class="move-to">Move</span>
+          <span class="delete-file">Delete</span>
+          <span class="share">Share</span>
+        </div>
+        <!-- 搜索排序面板 -->
+        <div class="search-panel">
+          <div class="search">
+            <input class="search-text" type="text" name="搜索文件" value="Search your files">
+            <span class="search-click"></span>
+          </div>
+          <span class="sort-by initial-letter"></span>
+          <span class="to-view tabular-form"></span>   
+        </div>
+
+			</div>
+
+      <!-- 导航栏 -->
+      <div class="nav">
+        <div class="catalog">
+          Root
+          <!-- <a class="to-root" href="javascript:;">  Root</a>
+          <span>|</span>
+          <a class="to-parent" href="javascript:;">Previous</a>   --> 
+        </div> 
+      </div>
+      <!-- 文件列表区 -->
+			<div class="wrap-file" id="file-container">
+
+        <!-- 单个文件夹示例 -->
+				<!-- <div class="file">
+          <div class="file-panel">
+            <span class="file-checkbox"></span>
+            <span class="file-rename"></span>
+            <span class="file-delete"></span>
+          </div>
+					<div class="file-img"></div>
+					<div class="file-info">New File(1)</div>
+          <input class="file-rename-text" type="text" value="New File(1)">
+				</div> -->
+
+			</div><!-- 文件夹内容区 -->
+
+      <!-- 鼠标右键菜单 -->
+      <ul class="menu">
+        <li class="menu_extend">查看(V)</li>
+        <li class="menu_extend">排序方式(O)</li>
+        <li>刷新(E)</li>
+        <li>重新加载页面(R)</li>
+        <li>新建文件夹</li>
+      </ul>
+
+		</div><!-- 内容区 -->
+	</div><!-- 主体部分 -->
+	
+  <script src="js/tool.js"></script>
+	<script src="js/data.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/mouse.js"></script>
+
+</body>
+</html>
