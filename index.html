@@ -10,7 +10,7 @@
 <body>
   <!-- 页眉 -->
 	<header>
-	  <div class="logo">Dropbox</div>
+	  <h1 class="logo">Dropbox</h1>
 	  <div class="control-panel">
 	  	<span class="user"></span>
 	  	<span class="setting"></span>
@@ -19,8 +19,9 @@
     <div class="notification"><p>You are successed in delete some files.</p>
     <span>x</span></div>
 	</header>
+  <!--/ 页眉 -->
 
-  <!-- 主体部分 -->
+  <!-- 页面主体部分 -->
 	<div class="main">
     <!-- 分类区 -->
 		<div class="side-bar">
@@ -36,11 +37,12 @@
 	  	    <p>25 G / 100 G</p>
 		  </div>
 		</div>
+    <!--/ 分类区 -->
 
-    <!-- 内容区 -->
+    <!-- 云盘内容主体区 -->
 		<div class="container">
       
-      <!-- 功能栏 -->
+      <!-- 功能区 -->
 			<div class="feature">
         <!-- 功能按键面板 -->
         <div class="feature-panel">
@@ -52,6 +54,8 @@
           <span class="delete-file">Delete</span>
           <span class="share">Share</span>
         </div>
+        <!--/ 功能按键面板 -->
+
         <!-- 搜索排序面板 -->
         <div class="search-panel">
           <div class="search">
@@ -61,10 +65,11 @@
           <span class="sort-by initial-letter"></span>
           <span class="to-view tabular-form"></span>   
         </div>
-
+        <!--/ 搜索排序面板 -->
 			</div>
+      <!--/ 功能区 -->
 
-      <!-- 导航栏 -->
+      <!-- 导航区 -->
       <div class="nav">
         <div class="catalog">
           Root
@@ -73,7 +78,9 @@
           <a class="to-parent" href="javascript:;">Previous</a>   --> 
         </div> 
       </div>
-      <!-- 文件列表区 -->
+      <!--/ 导航区 -->
+
+      <!-- 文件内容区 -->
 			<div class="wrap-file" id="file-container">
 
         <!-- 单个文件夹示例 -->
@@ -88,7 +95,8 @@
           <input class="file-rename-text" type="text" value="New File(1)">
 				</div> -->
 
-			</div><!-- 文件夹内容区 -->
+			</div>
+      <!--/ 文件夹内容区 -->
 
       <!-- 鼠标右键菜单 -->
       <ul class="menu">
@@ -98,9 +106,12 @@
         <li>重新加载页面(R)</li>
         <li>新建文件夹</li>
       </ul>
+      <!--/ 鼠标右键菜单 -->
 
-		</div><!-- 内容区 -->
-	</div><!-- 主体部分 -->
+		</div>
+    <!--/ 云盘主体区 -->
+	</div>
+  <!--/ 页面主体部分 -->
 	
   <script src="js/tool.js"></script>
 	<script src="js/data.js"></script>

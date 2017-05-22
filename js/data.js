@@ -10,7 +10,7 @@
 
 
 var user_data = {
-  maxId: 6,
+  maxId: 7,
   files: [
     {
       name: 'Root',
@@ -24,18 +24,18 @@ var user_data = {
           children: [
             {
               name: 'React',
-              id: 3,
+              id: 4,
               pId: 1,
               children: []
             },
             {
               name: 'Vue',
-              id: 4,
+              id: 5,
               pId: 1,
               children: [
                 {
                   name: 'vue-cli',
-                  id: 38,
+                  id: 6,
                   pId: 4,
                   children: []
                 }
@@ -45,13 +45,13 @@ var user_data = {
         },
         {
           name: 'HTML5',
-          id: 669852,
+          id: 2,
           pId: 0,
           children: []
         },
         {
           name: 'CSS3',
-          id: 256355,
+          id: 3,
           pId: 0,
           children:[]
         }

@@ -3,13 +3,13 @@
  */ 
 
 //云盘内容区
-var container = xjx.$('.container');
+var container = tool.$('.container');
 
 // 文件夹根目录
 var wrapFile = document.getElementById('file-container');
 
 //右键菜单
-var menu = xjx.$('.menu');
+var menu = tool.$('.menu');
 
 container.oncontextmenu = function(e) {
   e.preventDefault();
@@ -23,15 +23,15 @@ container.oncontextmenu = function(e) {
   menu.style.display = 'block';
 
   if (disX > menu.offsetWidth) {
-    xjx.css(menu, 'left', x);
+    tool.css(menu, 'left', x);
   } else {
-    xjx.css(menu, 'left', window.innerWidth - menu.offsetWidth);
+    tool.css(menu, 'left', window.innerWidth - menu.offsetWidth);
   }
 
   if (disY > menu.offsetHeight) {
-    xjx.css(menu, 'top', y);
+    tool.css(menu, 'top', y);
   } else {
-    xjx.css(menu, 'top', window.innerHeight - menu.offsetHeight);
+    tool.css(menu, 'top', window.innerHeight - menu.offsetHeight);
   }
 }
 
@@ -42,7 +42,7 @@ window.addEventListener('click',function(){
 
 
 // 二级列表
-var menuExtend = xjx.$('.menu_extend');
+var menuExtend = tool.$('.menu_extend');
 
 
 

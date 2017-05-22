@@ -109,6 +109,7 @@ header {
 /* 商标 */
 .logo {
   float: left;
+  display: block;
   width: 160px;
   height: 58px;
   padding-left: 80px;
@@ -186,13 +187,13 @@ header {
 .write-off {background: url(../img/control-panel.png) 19px -94px ;}
 .write-off:hover{background: url(../img/control-panel.png) 19px -226px no-repeat;}
 
-/* 云盘内容框 */
+/* 页面主体部分 */
 .main {
   width: 100%;
   height: calc(100% - 58px);
 }
 
-/* 侧栏 */
+/* 分类区（侧栏） */
 .side-bar {
   float: left;
   width: 240px;
@@ -217,7 +218,7 @@ header {
   line-height: 42px;
   box-sizing: border-box;
 }
-.file-type li:hover {
+.file-type li:hover,.file-type li.active {
   color: #fff;
   border-right: 6px solid rgba(47, 117, 245, 1.0);
   background-color: rgba(47, 117, 245, 0.2);
@@ -229,19 +230,19 @@ header {
 }
 /* 侧栏栏目样式 */
 .all {background: url(../img/file-type.png) 50px -1px;}
-.all:hover {background: url(../img/file-type.png) 50px -221px;}
+.all:hover,.all.active {background: url(../img/file-type.png) 50px -221px;}
 
 .picture {background: url(../img/file-type.png) 50px -45px;}
 .picture:hover {background: url(../img/file-type.png) 50px -265px;}
 
 .diary {background: url(../img/file-type.png) 50px -89px;}
-.diary:hover {background: url(../img/file-type.png) 50px -309px;}
+.diary:hover,.diary.active {background: url(../img/file-type.png) 50px -309px;}
 
 .video {background: url(../img/file-type.png) 50px -131px;}
-.video:hover {background: url(../img/file-type.png) 50px -351px;}
+.video:hover,.video.active {background: url(../img/file-type.png) 50px -351px;}
 
 .other {background: url(../img/file-type.png) 50px -177px;}
-.other:hover {background: url(../img/file-type.png) 50px -397px;}
+.other:hover,.other.active {background: url(../img/file-type.png) 50px -397px;}
 
 /* 云盘容量 */
 .capacity {
@@ -268,39 +269,15 @@ header {
   font-size: 12px;
 }
 
-
-/* 文件界面 */
+/* 云盘内容主体区 */
 .container {
   float: left;
   width: calc(100% - 240px);
   height: 100%;
   background-color: #f6f6f6;
-
 }
 
-/* 文件排序方式 */
-.search-panel .initial-letter {
-  background: url(../img/search-panel.png) -2px -72px no-repeat;
-}
-/* -6px -114px
--6px -150px
--6px -186px  */
-.search-panel .time-sort {
-  background: url(../img/search-panel.png) -8px -146px no-repeat;
-}
-
-/* 文件查看方式 */
-.search-panel .tabular-form {
-  background: url(../img/search-panel.png) -1px -216px no-repeat;
-}
-.search-panel .preview-form {
-  background: url(../img/search-panel.png) -1px -253px no-repeat;
-}
-
-/* -6px -250px */
-
-
-/* 功能栏 */
+/* 功能区 */
 .feature {
   width: 100%;
   height: 48px;
@@ -311,6 +288,7 @@ header {
   background-color: rgba(222, 232, 233, 1.0);
 }
 
+/* 功能按键面板 */
 .feature-panel {
   display: flex;
   float: left;
@@ -344,9 +322,6 @@ header {
 }
 
 /* 全选框 */
-.catalog {
-  display: inline;
-}
 .all-in {
   float: left;
   width: 18px;
@@ -355,9 +330,7 @@ header {
   background-color: #f6f6f6;
   cursor: default;
 }
-.all-in.active {
-  background-color: rgba(47, 117, 245, 1.0);
-}
+.all-in.active {background-color: rgba(47, 117, 245, 1.0);}
 
 .upload {  }
 .new-file {  }
@@ -366,7 +339,7 @@ header {
 .delete-file {  }
 .share { }
 
-/* 搜索面板 */
+/* 搜索排序面板 */
 .search-panel {
   float: right;
   display: flex;
@@ -424,8 +397,29 @@ header {
   background: url(../img/search-panel.png) -3px -39px no-repeat;
 }
 
+/* 文件排序方式 */
+.search-panel .initial-letter {
+  background: url(../img/search-panel.png) -2px -72px no-repeat;
+}
+/* -6px -114px
+-6px -150px
+-6px -186px  */
+.search-panel .time-sort {
+  background: url(../img/search-panel.png) -8px -146px no-repeat;
+}
 
-/* 文件路径导航 */
+/* 文件查看方式 */
+.search-panel .tabular-form {
+  background: url(../img/search-panel.png) -1px -216px no-repeat;
+}
+.search-panel .preview-form {
+  background: url(../img/search-panel.png) -1px -253px no-repeat;
+}
+
+/* -6px -250px */
+
+
+/* 导航区 */
 .nav {
   width: 100%;
   height: 38px;
@@ -434,8 +428,9 @@ header {
   line-height: 38px;
 }
 
-/* 目录面板 */
+/* 文件路径导航栏 */
 .catalog {
+  display: inline;
   margin-left: 10px;
   font-size: 13px;
   font-weight: bold;
@@ -452,8 +447,7 @@ header {
   border-bottom: 1px solid rgba(47, 117, 245, 1.0);
 }
 
-
-/* 文件容器 */
+/* 文件内容区 */
 #file-container {
   height: 517px;
   /* min-height: 517px; */
@@ -531,7 +525,7 @@ header {
   font-size: 14px;
   text-align: center;
 }
-
+/* 文件重命名输入框 */
 .file-rename-text {
   display: none;
   width: 90%;

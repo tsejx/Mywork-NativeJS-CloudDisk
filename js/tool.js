@@ -2,10 +2,10 @@
  * 用来获取选择的元素
  */
 
-var xjx = {};
+var tool = {};
 
 // 元素选择器
-xjx.$ = function (selector, context){
+tool.$ = function (selector, context){
   var context = context || document;
   var first = selector.substr(0, 1);
   var len = selector.split(' ').length; // join
@@ -23,7 +23,7 @@ xjx.$ = function (selector, context){
 /**
  * 获取或者设置一个DOM元素的innerHTML
  */
-xjx.html = function html(ele, val){
+tool.html = function html(ele, val){
   if(typeof val === 'undefined'){
     return ele.innerHTML;
   }
@@ -33,7 +33,7 @@ xjx.html = function html(ele, val){
 /**
  * 获取或者设置一个元素的value
  */
-xjx.val = function val(ele, value){
+tool.val = function val(ele, value){
   if(typeof value === 'undefined'){
     return ele.value;
   }
@@ -41,29 +41,29 @@ xjx.val = function val(ele, value){
 }
 
 // 判断某个元素是否有某个class
-xjx.hasClass = function (ele, cls){
+tool.hasClass = function (ele, cls){
   return ele.classList.contains(cls);
 };
 
 // 给某个元素添加一个class
-xjx.addClass = function (ele, cls){
+tool.addClass = function (ele, cls){
   ele.classList.add(cls);
 };
 
 // 给某个元素删除某个class
-xjx.rmClass = function (ele, cls){
+tool.rmClass = function (ele, cls){
   ele.classList.remove(cls);
 };
 
 // 给某个元素toggle某个class
-xjx.toggleClass = function (ele, cls){
+tool.toggleClass = function (ele, cls){
   ele.classList.toggle(cls);
 };
 
 /**
  * 用来获取和设置元素的css样式
  */
-xjx.css = function css(){
+tool.css = function css(){
   var args = arguments, ele = args[0], type = args[1], value = args[2], len = args.length, ret, _this = this;
   
   if(len === 2){
@@ -117,7 +117,7 @@ xjx.css = function css(){
 }
 
 // 必须通过这个函数设置的才能通过这个函数获取
-xjx.cssTransform = function cssTransform(ele, type, value){
+tool.cssTransform = function cssTransform(ele, type, value){
   var attrs = ele.__transform = ele.__transform || {}, str = '';
   if(typeof value === 'undefined'){
     return attrs[type];
@@ -144,7 +144,7 @@ xjx.cssTransform = function cssTransform(ele, type, value){
 }
 
 // 动画函数
-xjx.animate = function animate(ele, attrs, duration, fx, fn){
+tool.animate = function animate(ele, attrs, duration, fx, fn){
   if(typeof duration === 'undefined'){
     duration = 500;
     fx = 'linear';
@@ -215,7 +215,7 @@ xjx.animate = function animate(ele, attrs, duration, fx, fn){
 };
 
 //抖函数
-xjx.shake = function shake(ele, attr, nums, fn){
+tool.shake = function shake(ele, attr, nums, fn){
   if(ele.shake) return;
   
   var arr = [], index = 0, _this = this;
