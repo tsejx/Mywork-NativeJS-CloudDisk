@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<title>Dropbox | Faster than flow</title>
-	<link rel="stylesheet" href="css/index.css" class="css">
+  <link rel="stylesheet" href="css/init.css" class="css">
+	<link rel="stylesheet" href="css/master.css" class="css">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" > 
 </head>
 <body>
@@ -18,6 +19,9 @@
 	  </div>
     <div class="notification"><p>You are successed in delete some files.</p>
     <span>x</span></div>
+    <div class="shadow">
+      <div class="question"><p>您要删除选中的文件吗？</p><span>确定</span><span>取消</span></div>
+    </div>
 	</header>
   <!--/ 页眉 -->
 
@@ -112,6 +116,35 @@
     <!--/ 云盘主体区 -->
 	</div>
   <!--/ 页面主体部分 -->
+
+  <!-- 目录树 -->
+  <div class="catalog-tree">
+    <span data-id=0>Root</span>
+    <ul class="catalog-tree-list">
+
+      <!-- <li>
+       <span>框架</span>
+       <ul>
+         <li><span>React</span></li>
+         <li><span>Vue</span></li>
+         <li><span>Angular</span></li>
+       </ul>
+      </li>
+
+      <li>
+        <span>HTML5</span>
+      </li>
+
+      <li>
+        <span>CSS3</span>
+      </li> -->
+
+    </ul>
+
+  </div>
+  
+  
+  <!--/ 目录树 -->
 	
   <script src="js/tool.js"></script>
 	<script src="js/data.js"></script>

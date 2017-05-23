@@ -1,7 +1,6 @@
 /**
  * 用来获取选择的元素
  */
-
 var tool = {};
 
 // 元素选择器
@@ -391,17 +390,16 @@ function getItemDataById(data, id) {
 }
 
 // 通过id获取对应祖先数据
-function getAllParentById(data, id) {
+function getParentsById(data, id) {
   if (typeof id === 'undefined') return;
 
   var arr = [];
-
 
   var current = getItemDataById(data, id);
 
   arr.push(current);
 
-  arr = arr.concat(getAllParentById(data, current.pId));
+  arr = arr.concat(getParentsById(data, current.pId));
 
   return arr;
 }

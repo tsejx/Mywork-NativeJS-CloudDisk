@@ -1,89 +1,3 @@
-/* 初始化部分 */
-body, 
-div, 
-span, 
-object, 
-input, 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6, 
-p, 
-blockquote, 
-pre, 
-a, 
-abbr, 
-acronym, 
-address, 
-big, 
-cite, 
-code, 
-del, 
-dfn, 
-em, 
-img, 
-ins, 
-kbd, 
-q, 
-samp, 
-small, 
-strong, 
-sub, 
-sup, 
-tt, 
-var, 
-b, 
-i, 
-dl, 
-dt, 
-dd, 
-ol, 
-ul, 
-li, 
-fieldset, 
-form, 
-label, 
-legend, 
-table, 
-caption, 
-tbody, 
-tfoot, 
-thead, 
-tr, 
-th, 
-td, 
-hr { padding: 0; margin: 0; } 
-table { border-collapse: collapse; border-spacing: 0; } 
-caption{ text-align:left;} 
-input,
-select{ vertical-align:middle;} 
-input,
-textarea,
-select{ font:12px Arial, Helvetica, sans-serif; } 
-fieldset, 
-img { border: 0; } 
-address,
-code,
-caption,
-th,
-cite,
-dfn,
-em,
-var{font-style:normal;} 
-ol, 
-ul { list-style: none; } 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6 { font-size: 100%; } 
-q::before, 
-q::after { content:""; } 
-legend{ display:none;} 
-
 /* 页面样式部分 */
 html,
 body{
@@ -91,6 +5,7 @@ body{
   height: 100%;
   overflow: hidden;
 }
+
 /* .clearfloat:after {
   display: block;
   clear: both;
@@ -100,6 +15,7 @@ body{
 }
 .clearfloat{zoom:1;} */
 
+/* ------------------------------------- 页眉 ------------------------------------------- */
 header {
   width: 100%;
   height: 58px;
@@ -144,17 +60,21 @@ header {
   border-left: 1px solid #464545;
 }
 
-/* 消息弹框 */
-.notification {
+/* -------------------------消息弹框---------------------- */
+.notification,
+.question {
   position: absolute;
-  top: -100px;
   left: calc(50% - 100px);
-  width: 160px;
-  height: 80px;
   background: #f6f6f6;
-  border-radius: 5%;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, .5);
   overflow: hidden;
+  z-index: 10;
+}
+.notification {
+  top: -100px;
+  width: 160px;
+  height: 80px;
 }
 .notification p {
   position: absolute;
@@ -164,7 +84,9 @@ header {
   color: rgba(120, 128, 138, 1.0);
   font-size: 13px;
   text-align: center;
+  cursor: default;
 }
+
 .notification span {
   position: absolute;
   top: 2px;
@@ -177,6 +99,60 @@ header {
   cursor: pointer;
 }
 
+/* -----------------------------------咨询弹窗---------------------------- */
+.shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: scale(0);
+  transition: 200ms linear;
+  z-index: 5;
+}
+.question {
+  top: 120px;
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 180px;
+  transform-origin: 50% 50%;
+  z-index: 10;
+}
+.question p {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.question span {
+  display: inline-block;
+  bottom: 15px;
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  background: rgba(47, 117, 245, .2);
+  color: #000;
+  font-size: 13px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+.question span:hover {
+  background: rgba(47, 117, 245, .4);
+}
+.question span:nth-of-type(1) {
+  left: calc(50% - 65px);
+}
+.question span:nth-of-type(2) {
+  left: calc(50% + 25px );
+}
+
+
+
 /* 用户信息 */
 .user {background: url(../img/control-panel.png) 19px -6px ;}
 .user:hover{background: url(../img/control-panel.png) 19px  -138px no-repeat;}
@@ -187,7 +163,7 @@ header {
 .write-off {background: url(../img/control-panel.png) 19px -94px ;}
 .write-off:hover{background: url(../img/control-panel.png) 19px -226px no-repeat;}
 
-/* 页面主体部分 */
+/* ------------------------------- 页面主体部分 -------------------------------------------- */
 .main {
   width: 100%;
   height: calc(100% - 58px);
@@ -218,7 +194,8 @@ header {
   line-height: 42px;
   box-sizing: border-box;
 }
-.file-type li:hover,.file-type li.active {
+.file-type li:hover,
+.file-type li.active {
   color: #fff;
   border-right: 6px solid rgba(47, 117, 245, 1.0);
   background-color: rgba(47, 117, 245, 0.2);
@@ -230,19 +207,24 @@ header {
 }
 /* 侧栏栏目样式 */
 .all {background: url(../img/file-type.png) 50px -1px;}
-.all:hover,.all.active {background: url(../img/file-type.png) 50px -221px;}
+.all:hover,
+.all.active {background: url(../img/file-type.png) 50px -221px;}
 
 .picture {background: url(../img/file-type.png) 50px -45px;}
-.picture:hover {background: url(../img/file-type.png) 50px -265px;}
+.picture:hover,
+.picture.active {background: url(../img/file-type.png) 50px -265px;}
 
 .diary {background: url(../img/file-type.png) 50px -89px;}
-.diary:hover,.diary.active {background: url(../img/file-type.png) 50px -309px;}
+.diary:hover,
+.diary.active {background: url(../img/file-type.png) 50px -309px;}
 
 .video {background: url(../img/file-type.png) 50px -131px;}
-.video:hover,.video.active {background: url(../img/file-type.png) 50px -351px;}
+.video:hover,
+.video.active {background: url(../img/file-type.png) 50px -351px;}
 
 .other {background: url(../img/file-type.png) 50px -177px;}
-.other:hover,.other.active {background: url(../img/file-type.png) 50px -397px;}
+.other:hover,
+.other.active {background: url(../img/file-type.png) 50px -397px;}
 
 /* 云盘容量 */
 .capacity {
@@ -269,7 +251,7 @@ header {
   font-size: 12px;
 }
 
-/* 云盘内容主体区 */
+/* ---------------------------- 云盘内容主体区 --------------------------------------------- */
 .container {
   float: left;
   width: calc(100% - 240px);
@@ -305,7 +287,6 @@ header {
   /* width: 80px; */
   height: 32px;
   margin: 0 5px;
-  /* border: 1px solid #ccc;  */
   border-radius: 10px;
   background-color: #f6f6f6;
   color: rgba(120, 128, 138, 1.0);
@@ -347,7 +328,8 @@ header {
   align-items: center;
   justify-content: center;
 }
-.search-panel span,.search-panel div{
+.search-panel span,
+.search-panel div{
   float: left;
   align-items: center;
   margin: 0 10px;
@@ -418,8 +400,7 @@ header {
 
 /* -6px -250px */
 
-
-/* 导航区 */
+/* ---------------------------- 导航区 --------------------------------------------- */
 .nav {
   width: 100%;
   height: 38px;
@@ -436,7 +417,8 @@ header {
   font-weight: bold;
   color: rgba(120, 128, 138, 1.0);
 }
-.catalog a ,.catalog span{
+.catalog a ,
+.catalog span{
   margin-right: 4px;
   /* font-family: "Source Sans Pro Black"; */
   color: rgba(120, 128, 138, 1.0);
@@ -467,7 +449,8 @@ header {
   box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
   /* overflow: hidden; */
 }
-#file-container .file:hover,#file-container .file.active {
+#file-container .file:hover,
+#file-container .file.active {
   border: 2px solid skyblue;
   box-shadow: 2px 3px 6px rgba(0,0,0,0.6); 
 }
@@ -518,7 +501,7 @@ header {
 /* 文件信息 */
 .file-info {
   /* display: none; */
-  width: 100%;
+  max-width: 100%;
   height: 16%;
   border: 2px solid transparent;
   color: rgba(120, 128, 138, 1.0);
@@ -540,7 +523,7 @@ header {
   outline: none;
 }
 
-/* 鼠标右键菜单 */
+/* ---------------------------- 鼠标右键菜单 --------------------------------------------- */
 .menu {
   display: none;
   position: absolute;
@@ -574,3 +557,53 @@ header {
 .menu .menu_extend:hover {
   background: url(../img/extend.png) 110px -34px  no-repeat rgba(47, 117, 245, .7);
 }
+
+
+/* ---------------------------- 目录树 --------------------------------------------- */
+
+.catalog-tree {
+  position: absolute;
+  top: 60px;
+  left: -238px;
+  width: 226px;
+  height: 410px;
+  overflow: hidden;
+  padding: 6px;
+  border: 1px solid rgba(120, 128, 138, 1.0);
+  border-radius: 10px;
+  background: rgba(222, 232, 233, .8);
+  /* background: rgba(47, 117, 245, 0.6); */
+  box-shadow: 2px 2px 10px rgba(0,0,0, .3); 
+  /* color: rgba(120, 128, 138, 1.0); */
+  color: rgba(0, 0, 0, .7);
+  font-size: 13.5px;
+  font-weight: bold;
+}
+.catalog-tree ul {
+  /* display: none; */
+  position: relative;
+  padding: 0 0 0 16px;
+}
+.catalog-tree ul.active {
+  display: block;
+}
+.catalog-tree li {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.catalog-tree span {
+  display: block;
+  position: relative;
+  padding: 4px 0 0 14px;
+  background: url(../img/file_icon.png) 0 6px no-repeat;
+  cursor: default;
+}
+.catalog-tree span:hover {
+  color: rgba(47, 117, 245, 1.0);
+}
+
+.catalog-tree span.active {
+  
+}
+
