@@ -12,16 +12,20 @@
   <!-- 页眉 -->
 	<header>
 	  <h1 class="logo">Dropbox</h1>
+
 	  <div class="control-panel">
 	  	<span class="user"></span>
 	  	<span class="setting"></span>
 	  	<span class="write-off"></span>
 	  </div>
-    <div class="notification"><p>You are successed in delete some files.</p>
-    <span>x</span></div>
-    <div class="shadow">
-      <div class="question"><p>您要删除选中的文件吗？</p><span>确定</span><span>取消</span></div>
+
+    <div class="" id="notification"><p>You are successed in delete some files.</p>
+    <span></span></div>
+
+    <div class="shadow shadow-question">
+      <div class="question"><strong></strong><p>Do you want to delete this files?</p><span>确定</span><span>取消</span></div>
     </div>
+
 	</header>
   <!--/ 页眉 -->
 
@@ -50,11 +54,10 @@
 			<div class="feature">
         <!-- 功能按键面板 -->
         <div class="feature-panel">
-          <!-- <div class="all-in"></div> -->
           <span class="upload">Upload</span>
           <span class="new-file">Create</span>
           <span class="download">Download</span>
-          <span class="move-to">Move</span>
+          <span class="shift-file">Move</span>
           <span class="delete-file">Delete</span>
           <span class="share">Share</span>
         </div>
@@ -75,6 +78,7 @@
 
       <!-- 导航区 -->
       <div class="nav">
+        <div class="all-in">All</div>
         <div class="catalog">
           Root
           <!-- <a class="to-root" href="javascript:;">  Root</a>
@@ -118,10 +122,9 @@
   <!--/ 页面主体部分 -->
 
   <!-- 目录树 -->
-  <div class="catalog-tree">
+  <div class="sidebar-catalog">
     <span data-id=0>Root</span>
     <ul class="catalog-tree-list">
-
       <!-- <li>
        <span>框架</span>
        <ul>
@@ -130,21 +133,46 @@
          <li><span>Angular</span></li>
        </ul>
       </li>
-
       <li>
         <span>HTML5</span>
       </li>
-
       <li>
         <span>CSS3</span>
       </li> -->
-
     </ul>
-
+  </div>
+  <!--/ 目录树 -->
+  
+  <!-- 移动文件弹窗 -->
+  <div class="shadow shadow-shift-file">
+    
+    <div id="shift-file-box">
+      <div class="shiftfile-close"></div>
+      <div class="shiftfile-catalog">
+        <span data-id=0>Root</span>
+        <ul class="catalog-tree-list">
+          <!-- <li>
+           <span>框架</span>
+           <ul>
+             <li><span>React</span></li>
+             <li><span>Vue</span></li>
+             <li><span>Angular</span></li>
+           </ul>
+          </li>
+          <li>
+            <span>HTML5</span>
+          </li>
+          <li>
+            <span>CSS3</span>
+          </li> -->
+        </ul>
+      </div>
+    </div>
   </div>
   
-  
-  <!--/ 目录树 -->
+
+  <!--/ 移动文件弹窗 -->
+
 	
   <script src="js/tool.js"></script>
 	<script src="js/data.js"></script>

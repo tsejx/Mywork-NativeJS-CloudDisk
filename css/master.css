@@ -61,42 +61,79 @@ header {
 }
 
 /* -------------------------消息弹框---------------------- */
-.notification,
-.question {
+#notification {
   position: absolute;
-  left: calc(50% - 100px);
-  background: #f6f6f6;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+  top: -50px;
+  /* top: 5px; */
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 38px;
   overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px rgba(255,255,255,0.4);
   z-index: 10;
 }
-.notification {
-  top: -100px;
-  width: 160px;
-  height: 80px;
-}
-.notification p {
-  position: absolute;
-  width: 85%;
-  height: 65%;
-  margin: 30px 0 0 10px;
-  color: rgba(120, 128, 138, 1.0);
+
+#notification p {
+  float: left;
+  width: 90%;
+  height: 38px;
+  color: rgba(240, 240, 240, 1.0);
   font-size: 13px;
+  text-shadow: 1px 2px 3px #000;
   text-align: center;
+  line-height: 38px;
   cursor: default;
 }
 
-.notification span {
-  position: absolute;
-  top: 2px;
-  right: 6px;
-  color: #ccc;
+#notification span {
+  display: inline-block;
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin: 11px 5px 0 0;
+  background: url(../img/notification.png) -10px -10px no-repeat;
+  border-radius: 50%;
+  font-size: 16px;
   font-weight: bold;
+  text-align: center;
+  line-height: 16px;
 }
-.notification span:hover {
-  color: rgba(47, 117, 245, 1.0);
+#notification span:hover {
+  background: url(../img/notification.png) -10px -45px no-repeat;
   cursor: pointer;
+}
+
+.green {
+  background: rgba(112, 158, 87, 1.0);
+  border: 1px solid rgba(53, 120, 16, 1.0);
+}
+.green p {
+  background: url(../img/notification.png) 5px -70px no-repeat;
+}
+
+.red {
+  background: rgba(195, 83, 83, 1.0);
+  border: 1px solid rgba(150, 27, 27, 1.0);
+}
+.red p {
+  background: url(../img/notification.png) 5px -109px no-repeat;
+}
+
+.yellow {
+  background: rgba(255, 195, 79, 1.0);
+  border: 1px solid rgba(193, 131, 11, 1.0) ;
+}
+.yellow p {
+  background: url(../img/notification.png) 5px -191px no-repeat;
+}
+
+.blue {
+  background: rgba(105, 162, 208, 1.0);
+  border: 1px solid rgba(60, 112, 154, 1.0);
+}
+.blue p {
+  background: ;background: url(../img/notification.png) 5px -149px no-repeat;
 }
 
 /* -----------------------------------咨询弹窗---------------------------- */
@@ -107,23 +144,42 @@ header {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  transform: scale(0);
+  
   transition: 200ms linear;
   z-index: 5;
 }
+.shadow-question {
+  transform: scale(0);
+  z-index: 50;
+}
 .question {
+  position: absolute;
   top: 120px;
   left: calc(50% - 180px);
   width: 360px;
   height: 180px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f6f6f6;
   transform-origin: 50% 50%;
-  z-index: 10;
+  z-index: 50;
+}
+.question strong {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  background: url(../img/logo.png) center center no-repeat rgba(47, 117, 245, 1.0);
+  background-size: 6%;
 }
 .question p {
   position: absolute;
   width: 100%;
   height: 60px;
-  margin: 50px auto;
+  margin: 70px auto;
+  font-size: 15px;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -131,25 +187,28 @@ header {
   display: inline-block;
   bottom: 15px;
   position: absolute;
-  width: 60px;
-  height: 30px;
+  width: 48px;
+  height: 36px;
+  padding-left: 48px;
   border-radius: 10px;
   background: rgba(47, 117, 245, .2);
-  color: #000;
+  color: #fff;
   font-size: 13px;
-  text-align: center;
-  line-height: 30px;
+  font-weight: bold;
+  line-height: 36px;
   cursor: pointer;
 }
-.question span:hover {
-  background: rgba(47, 117, 245, .4);
-}
 .question span:nth-of-type(1) {
-  left: calc(50% - 65px);
+  left: calc(50% - 106px);
+  background: url(../img/notification.png) 5px -70px no-repeat rgba(112, 158, 87, .8);
 }
+.question span:nth-of-type(1):hover {background-color:rgba(112, 158, 87, 1.0);}
+
 .question span:nth-of-type(2) {
-  left: calc(50% + 25px );
+  left: calc(50% + 10px);
+  background: url(../img/notification.png) 5px -109px no-repeat rgba(195, 83, 83, .8);
 }
+.question span:nth-of-type(2):hover {background-color:rgba(195, 83, 83, 1.0);}
 
 
 
@@ -302,21 +361,10 @@ header {
   background-color: rgba(47, 117, 245, 0.8);
 }
 
-/* 全选框 */
-.all-in {
-  float: left;
-  width: 18px;
-  height: 18px;
-  border: 1px solid #ccc;
-  background-color: #f6f6f6;
-  cursor: default;
-}
-.all-in.active {background-color: rgba(47, 117, 245, 1.0);}
-
 .upload {  }
 .new-file {  }
 .download { }
-.move-to {  }
+.shift-file {  }
 .delete-file {  }
 .share { }
 
@@ -406,16 +454,28 @@ header {
   height: 38px;
   border: 1px solid rgba(229, 231, 233, 1.0);
   background-color: rgba(238, 242, 246, 1.0);
+  font-size: 13px;
+  font-weight: bold;
+  color: rgba(120, 128, 138, 1.0);
   line-height: 38px;
 }
+
+/* 全选框 */
+.all-in {
+  float: left;
+  width: 28px;
+  height: 16px;
+  margin: 11px 0 0 5px;
+  padding-left: 20px;
+  background: url(../img/file-panel.png) -2px 0 no-repeat;
+  line-height: 16px;
+  cursor: default;
+}
+.all-in.active {background-color: rgba(47, 117, 245, 1.0);}
 
 /* 文件路径导航栏 */
 .catalog {
   display: inline;
-  margin-left: 10px;
-  font-size: 13px;
-  font-weight: bold;
-  color: rgba(120, 128, 138, 1.0);
 }
 .catalog a ,
 .catalog span{
@@ -431,6 +491,7 @@ header {
 
 /* 文件内容区 */
 #file-container {
+  width: 100%;
   height: 517px;
   /* min-height: 517px; */
   overflow: auto;
@@ -561,7 +622,7 @@ header {
 
 /* ---------------------------- 目录树 --------------------------------------------- */
 
-.catalog-tree {
+.sidebar-catalog {
   position: absolute;
   top: 60px;
   left: -238px;
@@ -575,35 +636,83 @@ header {
   /* background: rgba(47, 117, 245, 0.6); */
   box-shadow: 2px 2px 10px rgba(0,0,0, .3); 
   /* color: rgba(120, 128, 138, 1.0); */
-  color: rgba(0, 0, 0, .7);
-  font-size: 13.5px;
-  font-weight: bold;
+  
 }
-.catalog-tree ul {
+.sidebar-catalog ul,.shiftfile-catalog ul {
   /* display: none; */
   position: relative;
   padding: 0 0 0 16px;
 }
-.catalog-tree ul.active {
+.sidebar-catalog ul.active {
   display: block;
 }
-.catalog-tree li {
+.sidebar-catalog li,
+.shiftfile-catalog li {
   position: relative;
   width: 100%;
   height: auto;
 }
-.catalog-tree span {
-  display: block;
+.sidebar-catalog span,
+.shiftfile-catalog span {
+  display: inline-block;
   position: relative;
   padding: 4px 0 0 14px;
   background: url(../img/file_icon.png) 0 6px no-repeat;
+  color: rgba(0, 0, 0, .7);
+  font-size: 13.5px;
+  font-weight: bold;
   cursor: default;
 }
-.catalog-tree span:hover {
+.sidebar-catalog span:hover,
+.shiftfile-catalog span:hover {
   color: rgba(47, 117, 245, 1.0);
+  cursor: pointer;
 }
 
-.catalog-tree span.active {
-  
+/* 移动文件弹窗 */
+/* 遮罩层 */
+.shadow-shift-file {
+  display: none;
 }
+#shift-file-box {
+  display: flex;
+  position: absolute;
+  /* top: 80px; */
+  top: -450px;
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 420px;
+  /* overflow: hidden; */
+  border-radius: 10px;
+  background: url(../img/logo.png) center 12px no-repeat rgba(47, 117, 245, .8);
+  background-size: 6%;
+  box-shadow: 7px 8px 9px rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#shift-file-box .shiftfile-catalog {
+  position: absolute;
+  width: 85%;
+  height: 75%;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid rgba(120, 128, 138, 1.0);
+  border-radius: 5px;
+  background-color: rgba(238, 242, 246, 1.0);
+}
+.shiftfile-close {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  background: url(../img/notification.png) -10px -10px no-repeat;
+}
+.shiftfile-close:hover {
+  background: url(../img/notification.png) -10px -45px no-repeat;
+  cursor: pointer;
+}
+
 

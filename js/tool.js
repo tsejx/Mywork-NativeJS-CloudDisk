@@ -403,3 +403,26 @@ function getParentsById(data, id) {
 
   return arr;
 }
+
+function getChildrenById(data, id){
+  if (typeof id === 'undefined') return;
+
+  var arr = [];
+
+  var current = getItemDataById(data, id);
+
+  arr.push(current);
+
+  var currentChildren = current.children;
+
+  if (current.children.length) {
+    for (var i = 0; i < currentChildren.length; i++) {
+
+    if (currentChildren[i].children) {
+      arr = arr.concat(getChildrenById(data,currentChildren[i].id));
+    }
+   }
+  }
+  
+  return arr;
+}
