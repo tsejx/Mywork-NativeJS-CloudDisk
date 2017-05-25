@@ -30,11 +30,12 @@ header {
   height: 58px;
   padding-left: 80px;
   background: url(../img/logo.png) 35px center no-repeat;
-  background-color: rgba(47, 117, 245, 1.0);
+  /* background-color: rgba(47, 117, 245, 1.0); */
+  background-color: rgba(105, 162, 208, 1.0);
   color: #fff;
   font-size: 28px;
   line-height: 58px;
-  cursor: default;
+  cursor: pointer;
 }
 
 /* 控制面板 */
@@ -85,6 +86,7 @@ header {
   line-height: 38px;
   cursor: default;
 }
+#notification p::selection {background-color: transparent}
 
 #notification span {
   display: inline-block;
@@ -104,57 +106,43 @@ header {
   cursor: pointer;
 }
 
-.green {
+.success {
   background: rgba(112, 158, 87, 1.0);
   border: 1px solid rgba(53, 120, 16, 1.0);
 }
-.green p {
+.success p {
   background: url(../img/notification.png) 5px -70px no-repeat;
 }
 
-.red {
+.worry {
   background: rgba(195, 83, 83, 1.0);
   border: 1px solid rgba(150, 27, 27, 1.0);
 }
-.red p {
+.worry p {
   background: url(../img/notification.png) 5px -109px no-repeat;
 }
 
-.yellow {
+.error {
   background: rgba(255, 195, 79, 1.0);
   border: 1px solid rgba(193, 131, 11, 1.0) ;
 }
-.yellow p {
+.error p {
   background: url(../img/notification.png) 5px -191px no-repeat;
 }
 
-.blue {
+.tip {
   background: rgba(105, 162, 208, 1.0);
   border: 1px solid rgba(60, 112, 154, 1.0);
 }
-.blue p {
+.tip p {
   background: ;background: url(../img/notification.png) 5px -149px no-repeat;
 }
 
 /* -----------------------------------咨询弹窗---------------------------- */
-.shadow {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  
-  transition: 200ms linear;
-  z-index: 5;
-}
-.shadow-question {
-  transform: scale(0);
-  z-index: 50;
-}
 .question {
   position: absolute;
   top: 120px;
+  /* top: -200px; */
   left: calc(50% - 180px);
   width: 360px;
   height: 180px;
@@ -162,6 +150,7 @@ header {
   border-radius: 10px;
   background: #f6f6f6;
   transform-origin: 50% 50%;
+  transform: scale(0);
   z-index: 50;
 }
 .question strong {
@@ -170,7 +159,7 @@ header {
   left: 0;
   width: 100%;
   height: 36px;
-  background: url(../img/logo.png) center center no-repeat rgba(47, 117, 245, 1.0);
+  background: url(../img/logo.png) center center no-repeat rgba(105, 162, 208, 1.0);
   background-size: 6%;
 }
 .question p {
@@ -256,8 +245,8 @@ header {
 .file-type li:hover,
 .file-type li.active {
   color: #fff;
-  border-right: 6px solid rgba(47, 117, 245, 1.0);
-  background-color: rgba(47, 117, 245, 0.2);
+  border-right: 6px solid rgba(105, 162, 208, 1.0);
+  background-color: rgba(105, 162, 208, .2);
   background-repeat: no-repeat;
   cursor: pointer;
 }
@@ -299,7 +288,7 @@ header {
   width: 65%;
   height: 8px;
   border-radius: 10px;
-  background-color: rgba(47, 117, 245, 0.8);
+  background-color: rgba(105, 162, 208, 1.0);
 }
 .capacity p {
   display: inline-block;
@@ -358,7 +347,7 @@ header {
 }
 .feature-panel span:hover {
   color: #f6f6f6;
-  background-color: rgba(47, 117, 245, 0.8);
+  background-color: rgba(105, 162, 208, .8);
 }
 
 .upload {  }
@@ -467,11 +456,11 @@ header {
   height: 16px;
   margin: 11px 0 0 5px;
   padding-left: 20px;
-  background: url(../img/file-panel.png) -2px 0 no-repeat;
+  background: url(../img/file-panel.png) -8px -68px no-repeat;
   line-height: 16px;
   cursor: default;
 }
-.all-in.active {background-color: rgba(47, 117, 245, 1.0);}
+.all-in.active {background: url(../img/file-panel.png) -8px -36px no-repeat;}
 
 /* 文件路径导航栏 */
 .catalog {
@@ -485,7 +474,7 @@ header {
   text-decoration: none;
 }
 .catalog a:hover {
-  color: rgba(47, 117, 245, 1.0);
+  color: rgba(105, 162, 208, 1.0);
   border-bottom: 1px solid rgba(47, 117, 245, 1.0);
 }
 
@@ -495,6 +484,7 @@ header {
   height: 517px;
   /* min-height: 517px; */
   overflow: auto;
+  cursor: default;
 }
 
 /* 文件样式 */
@@ -512,7 +502,7 @@ header {
 }
 #file-container .file:hover,
 #file-container .file.active {
-  border: 2px solid skyblue;
+  border: 2px solid rgba(105, 162, 208, 1.0);
   box-shadow: 2px 3px 6px rgba(0,0,0,0.6); 
 }
 
@@ -538,18 +528,18 @@ header {
   border-radius: 2px;
 }
 .file-checkbox.active {
-  background: url(../img/file-panel.png) -2px -2px no-repeat;
+  background: url(../img/file-panel.png) -10px -38px no-repeat #fff;
 }
 
 /* 文件重命名 */
 .file-rename {
   float: right;
-  background: url(../img/file-panel.png) -4px -36px no-repeat;
+  background: url(../img/file-panel.png) -10px -102px no-repeat;
 }
 /* 文件删除 */
 .file-delete {
   float: right;
-  background: url(../img/file-panel.png) -4px -18px no-repeat;
+  background: url(../img/file-panel.png) -10px -8px no-repeat;
 }
 
 /* 文件图片 */
@@ -568,6 +558,9 @@ header {
   color: rgba(120, 128, 138, 1.0);
   font-size: 14px;
   text-align: center;
+}
+.file-info::selection {
+  background: transparent;
 }
 /* 文件重命名输入框 */
 .file-rename-text {
@@ -624,15 +617,16 @@ header {
 
 .sidebar-catalog {
   position: absolute;
-  top: 60px;
-  left: -238px;
+  top: 0;
+  left: -239px;
+  /* left: 0; */
   width: 226px;
-  height: 410px;
+  height: 100%;
   overflow: hidden;
   padding: 6px;
   border: 1px solid rgba(120, 128, 138, 1.0);
-  border-radius: 10px;
-  background: rgba(222, 232, 233, .8);
+  /* border-radius: 10px; */
+  background: rgba(222, 232, 233, 1.0);
   /* background: rgba(47, 117, 245, 0.6); */
   box-shadow: 2px 2px 10px rgba(0,0,0, .3); 
   /* color: rgba(120, 128, 138, 1.0); */
@@ -665,15 +659,12 @@ header {
 }
 .sidebar-catalog span:hover,
 .shiftfile-catalog span:hover {
-  color: rgba(47, 117, 245, 1.0);
+  color: rgba(105, 162, 208, 1.0);
   cursor: pointer;
 }
 
-/* 移动文件弹窗 */
+/* ---------------------------------------移动文件弹窗----------------------------- */
 /* 遮罩层 */
-.shadow-shift-file {
-  display: none;
-}
 #shift-file-box {
   display: flex;
   position: absolute;
@@ -684,9 +675,10 @@ header {
   height: 420px;
   /* overflow: hidden; */
   border-radius: 10px;
-  background: url(../img/logo.png) center 12px no-repeat rgba(47, 117, 245, .8);
+  background: url(../img/logo.png) center 12px no-repeat rgba(105, 162, 208, .8);
   background-size: 6%;
   box-shadow: 7px 8px 9px rgba(0,0,0,0.7);
+  
   align-items: center;
   justify-content: center;
   z-index: 10;
@@ -701,6 +693,7 @@ header {
   border: 1px solid rgba(120, 128, 138, 1.0);
   border-radius: 5px;
   background-color: rgba(238, 242, 246, 1.0);
+  /* background-color: rgba(105, 162, 208, 1.0); */
 }
 .shiftfile-close {
   position: absolute;
@@ -716,3 +709,82 @@ header {
 }
 
 
+/*----------------------- 分享弹窗  -------------------- */
+
+.share-box {
+  display: flex;
+  position: absolute;
+  /* top: 120px; */
+  top: -200px;
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 180px;
+  /* overflow: hidden; */
+  border: 2px solid rgba(105, 162, 208, .9);
+  border-radius: 10px;
+  background: rgba(238, 242, 246, 1.0);
+  transform-origin: 50% 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.share-box h2 {
+  width: 100%;
+  height: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+}
+.share-box span {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  background: url(../img/notification.png) -10px -45px no-repeat;
+  /* background-size: 50%; */
+}
+.share-box span:hover {
+  background: url(../img/notification.png) -10px -10px no-repeat;
+}
+
+.social-list {
+  display: flex;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.social-list li {
+  float: left;
+  width: 48px;
+  height: 48px;
+  margin: 10px 15px 0 15px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  /* border: 2px solid red; */
+}
+
+.shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(0);
+  z-index: 5;
+}
+
+.facebook {background: url(../img/social/facebook.png);}
+.birdie {background: url(../img/social/birdie.png);}
+.google {background: url(../img/social/google_plus.png);}
+.github {background: url(../img/social/github.png);}
+.gmail {background: url(../img/social/gmail.png);}
+.evernote {background: url(../img/social/evernote.png);}
+.jolicloud {background: url(../img/social/jolicloud.png);}
+.pinterest {background: url(../img/social/pinterest.png);}

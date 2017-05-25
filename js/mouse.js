@@ -1,12 +1,12 @@
 /*
  * 页面文件内容框右键菜单
- */ 
+ */
 
 //云盘内容区
 var container = tool.$('.container');
 
 // 文件夹根目录
-var wrapFile = document.getElementById('file-container');
+var wrapFiles = document.getElementById('file-container');
 
 //右键菜单
 var menu = tool.$('.menu');
@@ -35,7 +35,7 @@ container.oncontextmenu = function(e) {
   }
 }
 
-window.addEventListener('click',function(){
+window.addEventListener('click', function() {
   menu.style.display = 'none';
 })
 
@@ -44,15 +44,20 @@ window.addEventListener('click',function(){
 // 二级列表
 var menuExtend = tool.$('.menu_extend');
 
-
-
 //鼠标画框
-wrapFile.onmousedown = function (e){
-  e.preventDefault();
-  
+wrapFiles.onmousedown = function(e) {
+  // e.preventDefault();
+
   // 按下的时候的横纵坐标
-  var startX = e.pageX, startY = e.pageY;
-  
+  var startX = e.pageX,
+    startY = e.pageY;
+
+  for (var i = 0; i < arrFile.length; i++) {
+    if (isMouseIn(startX, startY, arrFile[i])) {
+      return;
+    };
+  }
+
   // 创建一个画框的div
   var div = document.createElement('div');
   div.style.position = 'absolute';
@@ -61,57 +66,59 @@ wrapFile.onmousedown = function (e){
   div.style.width = div.style.height = 0;
   div.style.border = '1px dashed rgba(47, 117, 245, 1.0)';
   div.style.backgroundColor = 'rgba(47, 117, 245, .3)';
-  
-  wrapFile.appendChild(div);
-  
+  div.style.cursor = 'default';
 
+  wrapFiles.appendChild(div);
 
-  document.onmousemove = function (e){
-    var currentX = e.pageX, currentY = e.pageY;
-    
+  document.addEventListener('mousemove', mouseMove);
+
+  function mouseMove(e) {
+
+    div.addEventListener('mousemove', function(e) {
+      e.preventDefault();
+      // e.stopPropagation();
+    })
+
+    var currentX = e.pageX,
+      currentY = e.pageY;
+
     div.style.width = Math.abs(currentX - startX) + 'px';
     div.style.height = Math.abs(currentY - startY) + 'px';
-    div.style.left = Math.min(currentX, startX) + 'px'; 
+    div.style.left = Math.min(currentX, startX) + 'px';
     div.style.top = Math.min(currentY, startY) + 'px';
 
     //如果超出文件容器，位置值要保持不变，画框不超出容器
-
-    // console.log(currentY,wrapFile.offsetTop);
-    if (currentX <= wrapFile.offsetLeft) { 
-      div.style.left = wrapFile.offsetLeft + 'px';
-      div.style.width = Math.abs( wrapFile.offsetLeft - startX) + 'px';
+    if (currentX <= wrapFiles.offsetLeft) {
+      div.style.left = wrapFiles.offsetLeft + 'px';
+      div.style.width = Math.abs(wrapFiles.offsetLeft - startX) + 'px';
     };
 
-    if (currentY <= wrapFile.offsetTop) { 
-      div.style.top = wrapFile.offsetTop + 'px';
-      div.style.height = Math.abs( wrapFile.offsetTop - startY) + 'px';
+    if (currentY <= wrapFiles.offsetTop) {
+      div.style.top = wrapFiles.offsetTop + 'px';
+      div.style.height = Math.abs(wrapFiles.offsetTop - startY) + 'px';
     };
-    
-    var arrData = Array.from(currentData);
 
-    //div与文件 绝对位置 为文件添加active样式 
-    //对应文件数据也要添加(onmouseup)
-    //1文件样式 2勾选框选中 3文件移出事件取消
-    for (var i = 0; i < arrFile.length; i++) {
-      if (isCollide(div,arrFile[i])) {
-        arrFile[i].classList.add('active');
-        arrFile[i].onmouseleave = null;
-        arrData[i].checked = true;
-      }else{
-        arrFile[i].classList.remove('active');
-        arrFile[i].onmouseleave = function() {
-            var itemPanel = tool.$('.file-panel', this);
-            itemPanel.style.display = '';
-        }
-        console.log(arrData);
-        arrData[i].checked = false;
-      }
+
+    var arrCheckedBox = document.querySelectorAll('.file-checkbox');
+
+    for (var i = 0; i < arrFile.length - 1; i++) {
+
+      changeCheckedbox(arrFile[i], arrCheckedBox[i], currentData[i], isCollide(div, arrFile[i]));
+
+      eventAllChecked();
     }
+
   };
 
-  document.onmouseup = function (){
-    document.onmouseup = document.onmousemove = null;
-    wrapFile.removeChild(div);
+  document.addEventListener('mouseup', mouseUp);
+
+  function mouseUp() {
+
+    document.removeEventListener('mouseup', mouseUp);
+
+    document.removeEventListener('mousemove', mouseMove);
+
+    wrapFiles.removeChild(div);
   };
 };
 
@@ -134,5 +141,15 @@ function isCollide(current, target) {
   return currentR >= targetL && currentB >= targetT && currentL <= targetR && currentT <= targetB;
 }
 
+//检测鼠标按下时的起点是否在某元素内
+function isMouseIn(mouseX, mouseY, ele) {
+  var eleRect = ele.getBoundingClientRect();
+
+  var eleTop = eleRect.top,
+    eleRight = eleRect.right,
+    eleBottom = eleRect.bottom,
+    eleLeft = eleRect.left;
 
 
+  return mouseX >= eleLeft && mouseX <= eleRight && mouseY >= eleTop && mouseY <= eleBottom;
+}

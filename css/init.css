@@ -83,3 +83,4 @@ h6 { font-size: 100%; }
 q::before, 
 q::after { content:""; } 
 legend{ display:none;} 
+span::selection{background-color: transparent}
