@@ -41,6 +41,9 @@ header {
 /* 控制面板 */
 .control-panel {
   float: right;
+  /* position: absolute;
+  top: 0;
+  right: 0; */
   display: flex;
   width: 246px;
   height: 58px;
@@ -141,16 +144,16 @@ header {
 /* -----------------------------------咨询弹窗---------------------------- */
 .question {
   position: absolute;
-  top: 120px;
-  /* top: -200px; */
+  /* top: 120px; */
+  top: -200px;
   left: calc(50% - 180px);
   width: 360px;
   height: 180px;
   overflow: hidden;
   border-radius: 10px;
   background: #f6f6f6;
-  transform-origin: 50% 50%;
-  transform: scale(0);
+  /* transform-origin: 50% 50%; */
+  /* transform: scale(0); */
   z-index: 50;
 }
 .question strong {
@@ -433,6 +436,7 @@ header {
 }
 .search-panel .preview-form {
   background: url(../img/search-panel.png) -1px -253px no-repeat;
+  /* background-size: 100%; */
 }
 
 /* -6px -250px */
@@ -475,196 +479,13 @@ header {
 }
 .catalog a:hover {
   color: rgba(105, 162, 208, 1.0);
-  border-bottom: 1px solid rgba(47, 117, 245, 1.0);
-}
-
-/* 文件内容区 */
-#file-container {
-  width: 100%;
-  height: 517px;
-  /* min-height: 517px; */
-  overflow: auto;
-  cursor: default;
-}
-
-/* 文件样式 */
-#file-container .file {
-  float: left;
-  position: relative;
-  width: 158px;
-  height: 188px;
-  margin: 10px;
-  border: 2px solid transparent;
-  background-color: #fff;
-  box-sizing: border-box;
-  box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
-  /* overflow: hidden; */
-}
-#file-container .file:hover,
-#file-container .file.active {
-  border: 2px solid rgba(105, 162, 208, 1.0);
-  box-shadow: 2px 3px 6px rgba(0,0,0,0.6); 
-}
-
-/* 文件控制面板 */
-.file-panel {
-  display: none;
-  float: left;
-  width: 154px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.75);
-}
-.file-panel span {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin: 4px;
-  cursor: pointer;
-}
-
-/* 文件选中框 */
-.file-checkbox {
-  background-color: #fff;
-  border-radius: 2px;
-}
-.file-checkbox.active {
-  background: url(../img/file-panel.png) -10px -38px no-repeat #fff;
-}
-
-/* 文件重命名 */
-.file-rename {
-  float: right;
-  background: url(../img/file-panel.png) -10px -102px no-repeat;
-}
-/* 文件删除 */
-.file-delete {
-  float: right;
-  background: url(../img/file-panel.png) -10px -8px no-repeat;
-}
-
-/* 文件图片 */
-.file-img {
-  width: 100%;
-  height: 84%;
-  background: url(../img/file.png) center 24px no-repeat;
-  background-size: 80%;
-}
-/* 文件信息 */
-.file-info {
-  /* display: none; */
-  max-width: 100%;
-  height: 16%;
-  border: 2px solid transparent;
-  color: rgba(120, 128, 138, 1.0);
-  font-size: 14px;
-  text-align: center;
-}
-.file-info::selection {
-  background: transparent;
-}
-/* 文件重命名输入框 */
-.file-rename-text {
-  display: none;
-  width: 90%;
-  height: 15%;
-  margin: 0 5%;
-  color: rgba(120, 128, 138, 1.0);
-  font-size: 14px;
-  text-align: center;
-  box-sizing: border-box;
-  border: 2px solid skyblue;
-  border-radius: 10px;
-  outline: none;
-}
-
-/* ---------------------------- 鼠标右键菜单 --------------------------------------------- */
-.menu {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 140px;
-  height: auto;
-  border-radius: 5px;
-  background: #f6f6f6;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .5); 
-  overflow: hidden;
-}
-.menu li {
-  width: 132px;
-  height: 28px;
-  margin: 2px 0;
-  padding-left: 8px;
-  color: rgba(120, 128, 138, 1.0);
-  font-size: 14px;
-  line-height: 28px;
-  cursor: default;
-}
-.menu li:hover {
-  color: #fff;
-  background-color: rgba(47, 117, 245, .7);
-}
-
-.menu .menu_extend {
-  background: url(../img/extend.png) 110px -2px  no-repeat;
-}
-.menu .menu_extend:hover {
-  background: url(../img/extend.png) 110px -34px  no-repeat rgba(47, 117, 245, .7);
+  /* border-bottom: 1px solid rgba(47, 117, 245, 1.0); */
+  transition: 400ms;
 }
 
 
-/* ---------------------------- 目录树 --------------------------------------------- */
-
-.sidebar-catalog {
-  position: absolute;
-  top: 0;
-  left: -239px;
-  /* left: 0; */
-  width: 226px;
-  height: 100%;
-  overflow: hidden;
-  padding: 6px;
-  border: 1px solid rgba(120, 128, 138, 1.0);
-  /* border-radius: 10px; */
-  background: rgba(222, 232, 233, 1.0);
-  /* background: rgba(47, 117, 245, 0.6); */
-  box-shadow: 2px 2px 10px rgba(0,0,0, .3); 
-  /* color: rgba(120, 128, 138, 1.0); */
-  
-}
-.sidebar-catalog ul,.shiftfile-catalog ul {
-  /* display: none; */
-  position: relative;
-  padding: 0 0 0 16px;
-}
-.sidebar-catalog ul.active {
-  display: block;
-}
-.sidebar-catalog li,
-.shiftfile-catalog li {
-  position: relative;
-  width: 100%;
-  height: auto;
-}
-.sidebar-catalog span,
-.shiftfile-catalog span {
-  display: inline-block;
-  position: relative;
-  padding: 4px 0 0 14px;
-  background: url(../img/file_icon.png) 0 6px no-repeat;
-  color: rgba(0, 0, 0, .7);
-  font-size: 13.5px;
-  font-weight: bold;
-  cursor: default;
-}
-.sidebar-catalog span:hover,
-.shiftfile-catalog span:hover {
-  color: rgba(105, 162, 208, 1.0);
-  cursor: pointer;
-}
 
 /* ---------------------------------------移动文件弹窗----------------------------- */
-/* 遮罩层 */
 #shift-file-box {
   display: flex;
   position: absolute;
@@ -687,11 +508,12 @@ header {
 #shift-file-box .shiftfile-catalog {
   position: absolute;
   width: 85%;
-  height: 75%;
+  height: 80%;
   overflow: auto;
+  margin-top: 10px;
   padding: 8px;
   border: 1px solid rgba(120, 128, 138, 1.0);
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: rgba(238, 242, 246, 1.0);
   /* background-color: rgba(105, 162, 208, 1.0); */
 }
@@ -709,7 +531,7 @@ header {
 }
 
 
-/*----------------------- 分享弹窗  -------------------- */
+/*----------------------- 分享文件弹窗  -------------------- */
 
 .share-box {
   display: flex;
@@ -745,6 +567,7 @@ header {
   height: 16px;
   background: url(../img/notification.png) -10px -45px no-repeat;
   /* background-size: 50%; */
+  cursor: pointer;
 }
 .share-box span:hover {
   background: url(../img/notification.png) -10px -10px no-repeat;
@@ -769,7 +592,10 @@ header {
   /* border: 2px solid red; */
 }
 
-.shadow {
+
+/* 遮罩层 */
+.shadow,
+.question-shadow {
   position: absolute;
   left: 0;
   top: 0;
@@ -777,7 +603,12 @@ header {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   transform: scale(0);
+}
+.shadow {
   z-index: 5;
+}
+.question-shadow {
+  z-index: 20;
 }
 
 .facebook {background: url(../img/social/facebook.png);}
