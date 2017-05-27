@@ -20,19 +20,25 @@
   box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
   /* overflow: hidden; */
 }
-.layout-preview .file:hover,
+
 .layout-preview .file.active {
   border: 2px solid rgba(105, 162, 208, 1.0);
-  box-shadow: 2px 3px 6px rgba(0,0,0,0.6); 
+  box-shadow: 6px 6px 6px rgba(120, 128, 138, .6); 
 }
+.layout-preview .file:hover {
+  box-shadow: 7px 7px 8px rgba(120, 128, 138, .5); 
+}
+
 
 /* 文件控制面板 */
 .layout-preview .file-panel {
-  display: none;
+  /* display: none; */
   float: left;
   width: 154px;
   height: 20px;
   background: rgba(0, 0, 0, 0.75);
+  transition: 500ms;
+  opacity: 0;
 }
 .layout-preview .file-panel span {
   display: inline-block;
@@ -197,9 +203,7 @@
   height: 28px;
   margin: 2px 0;
   padding-left: 8px;
-  color: rgba(120, 128, 138, 1.0);
-  font-size: 14px;
-  line-height: 28px;
+  
   transition: background-color 300ms;
   cursor: default;
 }
@@ -213,9 +217,15 @@
   background-color: #e9e9e9;
   cursor: default;
 }
-.menu li:hover {
+.menu li:hover{
   color: #fff;
   background-color: rgba(105, 162, 208, .7);
+}
+.menu a {
+  color: rgba(120, 128, 138, 1.0);
+  font-size: 14px;
+  line-height: 28px;
+  text-decoration: none;
 }
 
 .menu .parent-menu {
@@ -226,10 +236,10 @@
 }
 
 .menu .sub-menu {
-  display: none;
+  /* display: none; */
   position: relative;
-  top: -14px;
-  left: 132px;
+  top: 9999px;
+  left: 9999px;
   width: 145px;
   height: auto;
   overflow: hidden;
@@ -237,6 +247,7 @@
   background: #f6f6f6;
   box-shadow: 0 0 10px rgba(0, 0, 0, .5);
   transition: opacity 300ms;
+  opacity: 0;
 }
 .menu .sub-menu li{
   width: 134px;

@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<title>Dropbox | Faster than flow</title>
-  <link rel="stylesheet" href="css/init.css" class="css">
+  <link rel="stylesheet" href="css/reset.css" class="css">
 	<link rel="stylesheet" href="css/master.css" class="css">
   <link rel="stylesheet" href="css/file.css" class="css">
-  <link rel="stylesheet" href="css/treemenu.css" class="css">
+  <link rel="stylesheet" href="css/alert.css" class="css">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" > 
 </head>
 <body>
@@ -101,15 +101,26 @@
 
       <!-- 鼠标右键菜单 -->
       <ul class="menu">
-        <li class="parent-menu view-way">查看(V)<ul class="sub-menu view-menu"><li>缩略图布局</li><li>列表布局</li></ul></li>
-        <li class="parent-menu sort-way" >排序(O)<ul class="sub-menu sort-menu"><li>字母排序</li>
-        <li>大小排序</li><li>时间排序</li></ul></li>
+        <!-- <li class="parent-menu view-way">
+          <a href="javascript:;">查看</a>
+          <ul class="sub-menu view-menu">
+            <li><a href="javascript:;">缩略图布局</a></li>
+            <li><a href="javascript:;">列表布局</a></li>
+          </ul>
+        </li>
+        <li class="parent-menu sort-way" >
+          <a href="javascript:;">排序</a>
+          <ul class="sub-menu sort-menu">
+            <li><a href="javascript:;">字母排序</a></li>
+            <li><a href="javascript:;">大小排序</a></li>
+            <li><a href="javascript:;">时间排序</a></li>
+          </ul>
+        </li>
         <li class="botbor"></li>
-        <!-- <li>刷新(E)</li> -->
-        <li class="reload">重新加载页面(R)</li>
-        <li class="new-file">新建文件夹</li>
+        <li class="reload"><a href="javascript:;">重新加载页面(R)</a></li>
+        <li class="new-file"><a href="javascript:;">新建文件夹</a></li>  -->
       </ul>
-      <!--/ 鼠标右键菜单 -->
+      <!--/ 鼠标右键菜单-->
 
 		</div>
     <!--/ 云盘主体区 -->
@@ -127,71 +138,60 @@
   
   <!--/ 询问弹窗 -->
 
-  <!-- 目录树 -->
-  <div class="sidebar-catalog" >
-    <!-- <span data-id="0">Root</span>
-    <ul class="catalog-tree-list">
-      <li>
-       <span>框架</span>
-       <ul>
-         <li><span>React</span></li>
-         <li><span>Vue</span></li>
-         <li><span>Angular</span></li>
-       </ul>
-      </li>
-      <li>
-        <span>HTML5</span>
-      </li>
-      <li>
-        <span>CSS3</span>
-      </li>
-    </ul> -->
-
-    <ul class="tree">  
-      <li><span>Root</span>
-        <ul class='root-tree'>
-          <!-- <li><a href="#">Front Frame</a>
-            <ul>
-              <li><a href="#">React</a></li>
-              <li><a href="#">Vue</a></li>
-              <li><a href="#">Other</a></li>
-            </ul>
-          </li>
-          <li><a href="#">JavaScript</a>
-            <ul>
-              <li><a class="" href="#">AngularJS</a></li>
-              <li><a href="#">React</a></li>
-              <li><a href="#">Backbone</a></li>
-            </ul>
-          </li>
-          <li><a href="#suits">HTML5</a></li> -->
-        </ul>
-      </li>
-    </ul>
-
+  <!-- 活动框 -->
+  <div class="active-window">
+    <div>
+      <h2>TreeMenu</h2>
+      <ul class="tree-menu">
+        <!-- <span></span>
+        <a data-id="0">Root</a>
+        <li>
+          <span></span>
+          <a data-id="1">框架</a>
+         <ul>
+           <li><span></span><a>React</a></li>
+           <li><span></span><a>Vue</a></li>
+           <li><span></span><a>Angular</a></li>
+         </ul>
+        </li>
+        <li>
+          <span></span>
+          <a>HTML5</a>
+        </li>
+        <li>
+          <span></span>
+          <a>CSS3</a>
+        </li> -->
+      </ul>
+    </div>
+    
   </div>
-  <!--/ 目录树 -->
+  <!--/ 活动框 -->
   
   <!-- 移动文件弹窗 -->  
     <div id="shift-file-box">
       <div class="shiftfile-close"></div>
       <div class="shiftfile-catalog">
-        <span data-id=0>Root</span>
         <ul class="catalog-tree-list">
-          <!-- <li>
-           <span>框架</span>
-           <ul>
-             <li><span>React</span></li>
-             <li><span>Vue</span></li>
-             <li><span>Angular</span></li>
-           </ul>
-          </li>
-          <li>
-            <span>HTML5</span>
-          </li>
-          <li>
-            <span>CSS3</span>
-          </li> -->
+          <!-- <span></span>
+        <a data-id="0">Root</a>
+        <li>
+          <span></span>
+          <a data-id="1">框架</a>
+         <ul>
+           <li><span></span><a>React</a></li>
+           <li><span></span><a>Vue</a></li>
+           <li><span></span><a>Angular</a></li>
+         </ul>
+        </li>
+        <li>
+          <span></span>
+          <a>HTML5</a>
+        </li>
+        <li>
+          <span></span>
+          <a>CSS3</a>
+        </li> -->
         </ul>
       </div>
     </div>
@@ -220,21 +220,9 @@
 	
   <script src="js/tool.js"></script>
 	<script src="js/data.js"></script>
-
-
-  <script src="js/treemenu-min.js"></script> 
-  <script src="js/treemenu.js"></script> 
-  
   <script src="js/view.js"></script>
+  <script src="js/animate.js"></script>
   <script src="js/mouse.js"></script>
-
-  
-
-  <script>
-  $(function(){
-          $(".tree").treemenu({delay:300}).openActive();
-      });
-  </script>
 
 </body>
 </html>

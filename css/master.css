@@ -15,7 +15,7 @@ body{
 }
 .clearfloat{zoom:1;} */
 
-/* ------------------------------------- 页眉 ------------------------------------------- */
+/* ------------------------------------------ 页眉 ------------------------------------------- */
 header {
   width: 100%;
   height: 58px;
@@ -35,7 +35,9 @@ header {
   color: #fff;
   font-size: 28px;
   line-height: 58px;
+  box-shadow: 12px 0 16px rgba(0,0,0, .4); 
   cursor: pointer;
+  z-index: 1;
 }
 
 /* 控制面板 */
@@ -64,146 +66,6 @@ header {
   border-left: 1px solid #464545;
 }
 
-/* -------------------------消息弹框---------------------- */
-#notification {
-  position: absolute;
-  top: -50px;
-  /* top: 5px; */
-  left: calc(50% - 180px);
-  width: 360px;
-  height: 38px;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 1px 1px 1px rgba(255,255,255,0.4);
-  z-index: 10;
-}
-
-#notification p {
-  float: left;
-  width: 90%;
-  height: 38px;
-  color: rgba(240, 240, 240, 1.0);
-  font-size: 13px;
-  text-shadow: 1px 2px 3px #000;
-  text-align: center;
-  line-height: 38px;
-  cursor: default;
-}
-#notification p::selection {background-color: transparent}
-
-#notification span {
-  display: inline-block;
-  float: left;
-  width: 16px;
-  height: 16px;
-  margin: 11px 5px 0 0;
-  background: url(../img/notification.png) -10px -10px no-repeat;
-  border-radius: 50%;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 16px;
-}
-#notification span:hover {
-  background: url(../img/notification.png) -10px -45px no-repeat;
-  cursor: pointer;
-}
-
-.success {
-  background: rgba(112, 158, 87, 1.0);
-  border: 1px solid rgba(53, 120, 16, 1.0);
-}
-.success p {
-  background: url(../img/notification.png) 5px -70px no-repeat;
-}
-
-.worry {
-  background: rgba(195, 83, 83, 1.0);
-  border: 1px solid rgba(150, 27, 27, 1.0);
-}
-.worry p {
-  background: url(../img/notification.png) 5px -109px no-repeat;
-}
-
-.error {
-  background: rgba(255, 195, 79, 1.0);
-  border: 1px solid rgba(193, 131, 11, 1.0) ;
-}
-.error p {
-  background: url(../img/notification.png) 5px -191px no-repeat;
-}
-
-.tip {
-  background: rgba(105, 162, 208, 1.0);
-  border: 1px solid rgba(60, 112, 154, 1.0);
-}
-.tip p {
-  background: ;background: url(../img/notification.png) 5px -149px no-repeat;
-}
-
-/* -----------------------------------咨询弹窗---------------------------- */
-.question {
-  position: absolute;
-  /* top: 120px; */
-  top: -200px;
-  left: calc(50% - 180px);
-  width: 360px;
-  height: 180px;
-  overflow: hidden;
-  border-radius: 10px;
-  background: #f6f6f6;
-  /* transform-origin: 50% 50%; */
-  /* transform: scale(0); */
-  z-index: 50;
-}
-.question strong {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 36px;
-  background: url(../img/logo.png) center center no-repeat rgba(105, 162, 208, 1.0);
-  background-size: 6%;
-}
-.question p {
-  position: absolute;
-  width: 100%;
-  height: 60px;
-  margin: 70px auto;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.question span {
-  display: inline-block;
-  bottom: 15px;
-  position: absolute;
-  width: 48px;
-  height: 36px;
-  padding-left: 48px;
-  border-radius: 10px;
-  background: rgba(47, 117, 245, .2);
-  color: #fff;
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 36px;
-  cursor: pointer;
-}
-.question span:nth-of-type(1) {
-  left: calc(50% - 106px);
-  background: url(../img/notification.png) 5px -70px no-repeat rgba(112, 158, 87, .8);
-}
-.question span:nth-of-type(1):hover {background-color:rgba(112, 158, 87, 1.0);}
-
-.question span:nth-of-type(2) {
-  left: calc(50% + 10px);
-  background: url(../img/notification.png) 5px -109px no-repeat rgba(195, 83, 83, .8);
-}
-.question span:nth-of-type(2):hover {background-color:rgba(195, 83, 83, 1.0);}
-
-
-
 /* 用户信息 */
 .user {background: url(../img/control-panel.png) 19px -6px ;}
 .user:hover{background: url(../img/control-panel.png) 19px  -138px no-repeat;}
@@ -214,7 +76,7 @@ header {
 .write-off {background: url(../img/control-panel.png) 19px -94px ;}
 .write-off:hover{background: url(../img/control-panel.png) 19px -226px no-repeat;}
 
-/* ------------------------------- 页面主体部分 -------------------------------------------- */
+/* ------------------------------------- 页面主体部分 -------------------------------------------- */
 .main {
   width: 100%;
   height: calc(100% - 58px);
@@ -227,6 +89,7 @@ header {
   height: 100%;
   box-sizing: border-box;
   background-color: rgba(52, 55, 66, 1.0);
+  box-shadow: -10px 10px 18px rgba(0,0,0, .3) inset;
 }
 /* 文件属性列表 */
 .file-type {
@@ -256,7 +119,8 @@ header {
 .file-type li::selection {
   background-color: transparent;
 }
-/* 侧栏栏目样式 */
+
+/* 侧栏项目样式 */
 .all {background: url(../img/file-type.png) 50px -1px;}
 .all:hover,
 .all.active {background: url(../img/file-type.png) 50px -221px;}
@@ -302,15 +166,16 @@ header {
   font-size: 12px;
 }
 
-/* ---------------------------- 云盘内容主体区 --------------------------------------------- */
+/* ------------------------------------- 云盘内容主体区 --------------------------------------------- */
 .container {
   float: left;
   width: calc(100% - 240px);
   height: 100%;
   background-color: #f6f6f6;
+  box-shadow: 0 -12px 16px rgba(0,0,0, .4); 
 }
 
-/* 功能区 */
+/* ------------------------------------ 功能区 -------------------------------------------------------- */
 .feature {
   width: 100%;
   height: 48px;
@@ -414,6 +279,7 @@ header {
   border: none;
   background: url(../img/search-panel.png) -3px -3px no-repeat;
   background-color: transparent;
+  background-repeat: no-repeat;
 }
 .search span:hover {
   background: url(../img/search-panel.png) -3px -39px no-repeat;
@@ -421,27 +287,26 @@ header {
 
 /* 文件排序方式 */
 .search-panel .initial-letter {
-  background: url(../img/search-panel.png) -2px -72px no-repeat;
+  background: url(../img/search-panel.png) -2px -72px;
 }
 /* -6px -114px
 -6px -150px
 -6px -186px  */
 .search-panel .time-sort {
-  background: url(../img/search-panel.png) -8px -146px no-repeat;
+  background: url(../img/search-panel.png) -8px -146px;
 }
 
 /* 文件查看方式 */
 .search-panel .tabular-form {
-  background: url(../img/search-panel.png) -1px -216px no-repeat;
+  background: url(../img/search-panel.png) -1px -253px;
 }
 .search-panel .preview-form {
-  background: url(../img/search-panel.png) -1px -253px no-repeat;
+  background: url(../img/search-panel.png) -1px -216px;
   /* background-size: 100%; */
 }
-
 /* -6px -250px */
 
-/* ---------------------------- 导航区 --------------------------------------------- */
+/* ----------------------------------------- 导航区 --------------------------------------------- */
 .nav {
   width: 100%;
   height: 38px;
@@ -483,139 +348,118 @@ header {
   transition: 400ms;
 }
 
+/* ----------------------------------------- 活动框 ----------------------------------------------- */
 
-
-/* ---------------------------------------移动文件弹窗----------------------------- */
-#shift-file-box {
-  display: flex;
+.active-window {
   position: absolute;
-  /* top: 80px; */
-  top: -450px;
-  left: calc(50% - 180px);
-  width: 360px;
-  height: 420px;
-  /* overflow: hidden; */
-  border-radius: 10px;
-  background: url(../img/logo.png) center 12px no-repeat rgba(105, 162, 208, .8);
-  background-size: 6%;
-  box-shadow: 7px 8px 9px rgba(0,0,0,0.7);
-  
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
+  top: 0;
+  left: -239px;
+  /* left: 0; */
+  width: 228px;
+  height: 100%;
+  overflow: hidden;
+  padding: 6px;
+  background: rgba(52, 55, 66, 1.0);
+  box-shadow: 2px 6px 20px rgba(0,0,0, .9); 
+}
+.active-window h2 {
+  margin-bottom: 20px;
+  color: rgba(105, 162, 208, 1.0);
+  font-size: 20px;
 }
 
-#shift-file-box .shiftfile-catalog {
-  position: absolute;
-  width: 85%;
-  height: 80%;
-  overflow: auto;
-  margin-top: 10px;
-  padding: 8px;
-  border: 1px solid rgba(120, 128, 138, 1.0);
-  border-radius: 10px;
-  background-color: rgba(238, 242, 246, 1.0);
-  /* background-color: rgba(105, 162, 208, 1.0); */
+.tree-menu ul {
+  /* display: none; */
+  margin-bottom: 8px;
+  padding-left:12px;
 }
-.shiftfile-close {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 16px;
-  height: 16px;
-  background: url(../img/notification.png) -10px -10px no-repeat;
-}
-.shiftfile-close:hover {
-  background: url(../img/notification.png) -10px -45px no-repeat;
-  cursor: pointer;
+.tree-menu ul li {
+  margin-top: 4px;
 }
 
-
-/*----------------------- 分享文件弹窗  -------------------- */
-
-.share-box {
-  display: flex;
-  position: absolute;
-  /* top: 120px; */
-  top: -200px;
-  left: calc(50% - 180px);
-  width: 360px;
-  height: 180px;
-  /* overflow: hidden; */
-  border: 2px solid rgba(105, 162, 208, .9);
-  border-radius: 10px;
-  background: rgba(238, 242, 246, 1.0);
-  transform-origin: 50% 50%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-}
-.share-box h2 {
-  width: 100%;
-  height: 40px;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 40px;
-}
-.share-box span {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 16px;
-  height: 16px;
-  background: url(../img/notification.png) -10px -45px no-repeat;
-  /* background-size: 50%; */
-  cursor: pointer;
-}
-.share-box span:hover {
-  background: url(../img/notification.png) -10px -10px no-repeat;
-}
-
-.social-list {
-  display: flex;
+.tree-menu li {
+  position: relative;
   width: 100%;
   height: auto;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  font-size: 0;
 }
-.social-list li {
-  float: left;
-  width: 48px;
-  height: 48px;
-  margin: 10px 15px 0 15px;
-  background-position: center center;
-  background-repeat: no-repeat;
+
+.tree-menu span {
+  display: inline-block;
+  width: 16px;
+  height: 26px;
+  vertical-align: bottom;
+  background: url(../img/unfold.png) center center no-repeat;
+}
+.tree-menu span:hover {
+  /* background: url() center center no-repeat; */
   cursor: pointer;
-  /* border: 2px solid red; */
+}
+.tree-menu span.active {
+  background: url(../img/fold.png) center center no-repeat;
 }
 
+.tree-menu a {
+  display: inline-block;
+  width: auto;
+  height: 26px;
+  padding: 0 6px 0 22px;
+  border-radius: 2px;
+  background: url(../img/file_icon.png) 4px center no-repeat;
+  color: rgba(190, 213, 232, 1.0);
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 26px;
+  transition: 300ms;
+}
+.tree-menu a:hover,
+.tree-menu a.active{
+  color: rgba(255, 255, 255, 1.0);
+  /* background-color: rgba(105, 162, 208, 1.0); */
+  background-color: rgba(105, 162, 208, .6);
+}
 
-/* 遮罩层 */
-.shadow,
-.question-shadow {
-  position: absolute;
-  left: 0;
-  top: 0;
+/* ----------------------------------------- 移动到目录树 ----------------------------------------------- */
+
+.catalog-tree-list ul {
+  /* display: none; */
+  position: relative;
+  padding-left: 12px;
+  margin-bottom: 10px;
+}
+.shiftfile-catalog li {
+  position: relative;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  transform: scale(0);
+  height: auto;
+  margin-top: 5px;
 }
-.shadow {
-  z-index: 5;
+.catalog-tree-list span {
+  display: inline-block;
+  width: 16px;
+  height: 22px;
+  background: url(../img/fold.png) center center no-repeat;
+  vertical-align: bottom;
 }
-.question-shadow {
-  z-index: 20;
+.catalog-tree-list span.active {
+  background: url(../img/unfold.png) center center no-repeat;
 }
-
-.facebook {background: url(../img/social/facebook.png);}
-.birdie {background: url(../img/social/birdie.png);}
-.google {background: url(../img/social/google_plus.png);}
-.github {background: url(../img/social/github.png);}
-.gmail {background: url(../img/social/gmail.png);}
-.evernote {background: url(../img/social/evernote.png);}
-.jolicloud {background: url(../img/social/jolicloud.png);}
-.pinterest {background: url(../img/social/pinterest.png);}
+.catalog-tree-list a {
+  display: inline-block;
+  width: auto;
+  height: 22px;
+  padding: 0 10px 0 22px;
+  border-radius: 2px;
+  background: url(../img/file_icon.png) 4px center no-repeat;
+  color: rgba(190, 213, 232, 1.0);
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 22px;
+  transition: 300ms;
+}
+.catalog-tree-list a:hover {
+  color: rgba(255, 255, 255, 1.0);
+  background-color: rgba(105, 162, 208, .6);
+  cursor: pointer;
+}

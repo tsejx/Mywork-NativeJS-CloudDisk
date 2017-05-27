@@ -1,0 +1,287 @@
+/* ----------------------------------------  消息弹窗   ----------------------------------------------- */
+#notification {
+  position: absolute;
+  top: -50px;
+  /* top: 5px; */
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 38px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px rgba(255,255,255,0.4);
+  z-index: 10;
+}
+
+#notification p {
+  float: left;
+  width: 90%;
+  height: 38px;
+  color: rgba(240, 240, 240, 1.0);
+  font-size: 13px;
+  text-shadow: 1px 2px 3px #000;
+  text-align: center;
+  line-height: 38px;
+  cursor: default;
+}
+#notification p::selection {background-color: transparent}
+
+#notification span {
+  display: inline-block;
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin: 11px 5px 0 0;
+  background: url(../img/notification.png) -10px -10px no-repeat;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 16px;
+}
+#notification span:hover {
+  background: url(../img/notification.png) -10px -45px no-repeat;
+  cursor: pointer;
+}
+
+.success {
+  background: rgba(112, 158, 87, 1.0);
+  border: 1px solid rgba(53, 120, 16, 1.0);
+}
+.success p {
+  background: url(../img/notification.png) 5px -70px no-repeat;
+}
+
+.worry {
+  background: rgba(195, 83, 83, 1.0);
+  border: 1px solid rgba(150, 27, 27, 1.0);
+}
+.worry p {
+  background: url(../img/notification.png) 5px -109px no-repeat;
+}
+
+.error {
+  background: rgba(255, 195, 79, 1.0);
+  border: 1px solid rgba(193, 131, 11, 1.0) ;
+}
+.error p {
+  background: url(../img/notification.png) 5px -191px no-repeat;
+}
+
+.tip {
+  background: rgba(105, 162, 208, 1.0);
+  border: 1px solid rgba(60, 112, 154, 1.0);
+}
+.tip p {
+  background: ;background: url(../img/notification.png) 5px -149px no-repeat;
+}
+
+/* ----------------------------------------咨询弹窗----------------------------------------------- */
+.question {
+  position: absolute;
+  /* top: 120px; */
+  top: -200px;
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f6f6f6;
+  /* transform-origin: 50% 50%; */
+  /* transform: scale(0); */
+  z-index: 50;
+}
+.question strong {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  background: url(../img/logo.png) center center no-repeat rgba(105, 162, 208, 1.0);
+  background-size: 6%;
+}
+.question p {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  margin: 70px auto;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.question span {
+  display: inline-block;
+  bottom: 15px;
+  position: absolute;
+  width: 48px;
+  height: 36px;
+  padding-left: 48px;
+  border-radius: 10px;
+  background: rgba(47, 117, 245, .2);
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 36px;
+  cursor: pointer;
+}
+.question span:nth-of-type(1) {
+  left: calc(50% - 106px);
+  background: url(../img/notification.png) 5px -70px no-repeat rgba(112, 158, 87, .8);
+}
+.question span:nth-of-type(1):hover {background-color:rgba(112, 158, 87, 1.0);}
+
+.question span:nth-of-type(2) {
+  left: calc(50% + 10px);
+  background: url(../img/notification.png) 5px -109px no-repeat rgba(195, 83, 83, .8);
+}
+.question span:nth-of-type(2):hover {background-color:rgba(195, 83, 83, 1.0);}
+
+/* ---------------------------------------------- 移动文件弹窗  ------------------------------- */
+#shift-file-box {
+  display: flex;
+  position: absolute;
+  /* top: 80px; */
+  top: -450px;
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 420px;
+  /* overflow: hidden; */
+  border-radius: 10px;
+  background: url(../img/logo.png) center 12px no-repeat rgba(105, 162, 208, .8);
+  background-size: 6%;
+  box-shadow: 7px 8px 9px rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#shift-file-box .shiftfile-catalog {
+  position: absolute;
+  width: 85%;
+  height: 80%;
+  overflow: auto;
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid rgba(120, 128, 138, 1.0);
+  border-radius: 10px;
+  background-color: rgba(52, 55, 66, 1.0);
+}
+.shiftfile-close {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  background: url(../img/notification.png) -10px -10px no-repeat;
+}
+.shiftfile-close:hover {
+  background: url(../img/notification.png) -10px -45px no-repeat;
+  cursor: pointer;
+}
+
+,
+
+.shiftfile-catalog span {
+  color: rgba(52, 55, 66, 1.0);
+}
+.shiftfile-catalog span:hover {
+  color: rgba(105, 162, 208, 1.0);
+  cursor: pointer;
+}
+
+/*----------------------------------------- 分享文件弹窗  ------------------------------------------- */
+
+.share-box {
+  display: flex;
+  position: absolute;
+  /* top: 120px; */
+  top: -200px;
+  left: calc(50% - 180px);
+  width: 360px;
+  height: 180px;
+  /* overflow: hidden; */
+  border: 2px solid rgba(105, 162, 208, .9);
+  border-radius: 10px;
+  background: rgba(238, 242, 246, 1.0);
+  transform-origin: 50% 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.share-box h2 {
+  width: 100%;
+  height: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+}
+.share-box span {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  background: url(../img/notification.png) -10px -45px no-repeat;
+  /* background-size: 50%; */
+  cursor: pointer;
+}
+.share-box span:hover {
+  background: url(../img/notification.png) -10px -10px no-repeat;
+}
+
+.social-list {
+  display: flex;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.social-list li {
+  float: left;
+  width: 48px;
+  height: 48px;
+  margin: 10px 15px 0 15px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  /* border: 2px solid red; */
+}
+
+.facebook {background: url(../img/social/facebook.png);}
+.birdie {background: url(../img/social/birdie.png);}
+.google {background: url(../img/social/google_plus.png);}
+.github {background: url(../img/social/github.png);}
+.gmail {background: url(../img/social/gmail.png);}
+.evernote {background: url(../img/social/evernote.png);}
+.jolicloud {background: url(../img/social/jolicloud.png);}
+.pinterest {background: url(../img/social/pinterest.png);}
+
+/* --------------------------------------- 遮罩层 -------------------------------------------------- */
+.shadow,
+.question-shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(0);
+}
+.shadow {
+  z-index: 5;
+}
+.question-shadow {
+  z-index: 20;
+}
+
+/* ------------------------------------ 高斯模糊 -------------------------------------------------- */
+.blur {
+-webkit-filter: blur(5px); /* Chrome, Opera */
+   -moz-filter: blur(5px);
+    -ms-filter: blur(5px);    
+        filter: blur(5px);
+filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+}
