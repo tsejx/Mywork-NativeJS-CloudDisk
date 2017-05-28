@@ -404,6 +404,7 @@ function getParentsById(data, id) {
   return arr;
 }
 
+// 通过id获取对应子孙数据
 function getChildrenById(data, id){
   if (typeof id === 'undefined') return;
 

@@ -1,98 +1,43 @@
-
 //////////////////-----------  鼠标事件 ----------------///////////////
 
-wrapFiles.addEventListener('contextmenu',contextMenu);
+wrapFiles.addEventListener('contextmenu', contextMenu);
 
-wrapFiles.addEventListener('mousedown',mouseDraw);
+wrapFiles.addEventListener('mousedown', mouseDraw);
 
-var showTimer,hideTimer;
+var timerShowSubMenu, timerHideSubMenu;
 
 //右键菜单函数
 function contextMenu(e) {
 
   e.preventDefault();
 
-  var menu = tool.$('.menu');
+  var menu = tool.$('.menu'),
+  dataId;
 
-  createContextMenu(e);
+  dataId = isFileChecked() || isMouseInFile(e.pageX, e.pageY) ? 1:0;
 
-  //点击window隐藏右键菜单
-  window.addEventListener('click', function() {
-    menu.style.display = 'none';
-  })
+  createContextMenu(e, dataId);
 
   //右键菜单选项的相关事件------------------------
+  !!dataId ? eventFileMenu(menu):eventWrapMenu(menu);
   
-  //右键菜单选项的点击事件-----------------------------------------------------
-  menu.addEventListener('click',function(e){
-    var target = e.target,
-    targetCls = target.classList;
-
-    if (targetCls.contains('reload')) {
-      location.reload();
-    };
-
-    if (targetCls.contains('new-file')) {
-      fileCreate();
+  //点击window隐藏右键菜单
+  window.addEventListener('mousedown', function(e) {
+    if (isMouseInEle(e.pageX, e.pageY, menu)) return;
+    var arrSubMenu = tool.$('.sub-menu',menu);
+    for (var i = 0; i < arrSubMenu.length; i++) {
+      if (isMouseInEle(e.pageX,e.pageY,arrSubMenu[i])) return;
     }
+    hiddenContextMenu(menu);
   })
-
-  //右键菜单的移动事件----------------------------------------------------------
-  var arrSubMenu = tool.$('.sub-menu');//子菜单数组
-  var arrParentMenu = tool.$('.parent-menu');
-
-  menu.addEventListener('mouseover',function(e){
-    var target = e.target,targetCls = target.classList;
-    if (targetCls.contains('parent-menu')) {
-      setSubMenuPosition(menu,target,target.lastElementChild);
-      showSubMenu(target.lastElementChild);
-    }
-    if (targetCls.contains('sub-menu')) {
-      clearTimeout(hideTimer);
-    }
-    if (target.nodeName === 'A') {
-      if (target.parentNode.classList.contains('parent-menu')) {
-        showSubMenu(target.parentNode.lastElementChild);
-      }
-      if (target.parentNode.classList.contains('sub-menu')) {
-        clearTimeout(hideTimer);
-      }
-    }
-  });
-  
-  for (var i = 0; i < arrParentMenu.length; i++) {
-    arrParentMenu[i].addEventListener('mouseleave',function(e){
-      hiddenSubMenu(e.target.lastElementChild);
-    });
-    arrSubMenu[i].addEventListener('mouseleave',function(e){
-      hiddenSubMenu(e.target);
-    });
-  }
-   
-  function showSubMenu(submenu) {
-    clearTimeout(hideTimer);
-    showTimer = setTimeout(function() {
-      for (var i = 0; i < arrSubMenu.length; i++) {
-        arrSubMenu[i].style.opacity = '';
-      }
-      submenu.style.opacity = '1';
-    }, 400)
-  }
-
-  function hiddenSubMenu(submenu) {
-    clearTimeout(showTimer);
-    hideTimer = setTimeout(function() {
-      submenu.style.opacity = '';
-    }, 600)
-    tool.css(submenu,{left:9999,top:9999,bottom:9999});
-  }
 }
 
 //鼠标画框函数
 function mouseDraw(e) {
   // e.preventDefault();
-
+  console.log(isRename());
   if (isRename()) return;
+
 
   // 按下的时候的横纵坐标
   var startX = e.pageX,
@@ -111,6 +56,7 @@ function mouseDraw(e) {
   div.style.cursor = 'default';
 
   wrapFiles.appendChild(div);
+  console.log(wrapFiles);
 
   document.addEventListener('mousemove', mouseMove);
 
@@ -154,18 +100,23 @@ function mouseDraw(e) {
     document.removeEventListener('mouseup', mouseUp);
     document.removeEventListener('mousemove', mouseMove);
 
-    wrapFiles.removeChild(div);
-    wrapFiles.addEventListener('click',cancelChecked);
+    wrapFiles.addEventListener('click', cancelChecked);
 
-    function cancelChecked(e){
+    console.log(div);
+    console.log(div.parentNode);
+    wrapFiles.removeChild(div);
+    
+    function cancelChecked(e) {
       if (isMouseInFile(e.pageX, e.pageY)) return;
-      if (!isFileChecked) return;
-      var arrCheckedBox = tool.$('.file-checkbox')
+      if (!isFileChecked()) return;
+      if (isRename()) return;
+
+      var arrCheckedBox = tool.$('.file-checkbox');
       for (var i = 0; i < arrFile.length; i++) {
         changeCheckedbox(arrFile[i], arrCheckedBox[i], currentData[i], false);
       }
       eventAllChecked();
-      window.removeEventListener('click',cancelChecked);
+      window.removeEventListener('click', cancelChecked);
     }
   };
 };
@@ -191,12 +142,12 @@ function isCollide(current, target) {
 
 //检测鼠标按下时的起点是否在文件范围内
 function isMouseInFile(mouseX, mouseY) {
-  var eleTop,eleRight,eleBottom,eleLeft;
+  var eleTop, eleRight, eleBottom, eleLeft;
   for (var i = 0; i < arrFile.length; i++) {
     eleTop = arrFile[i].getBoundingClientRect().top,
-    eleRight = arrFile[i].getBoundingClientRect().right,
-    eleBottom = arrFile[i].getBoundingClientRect().bottom,
-    eleLeft = arrFile[i].getBoundingClientRect().left;
+      eleRight = arrFile[i].getBoundingClientRect().right,
+      eleBottom = arrFile[i].getBoundingClientRect().bottom,
+      eleLeft = arrFile[i].getBoundingClientRect().left;
 
     if (mouseX >= eleLeft && mouseX <= eleRight && mouseY >= eleTop && mouseY <= eleBottom) {
       return true;
@@ -206,7 +157,7 @@ function isMouseInFile(mouseX, mouseY) {
 }
 
 //检测鼠标是否在元素上
-function isMouseInEle(mouseX,mouseY,ele) {
+function isMouseInEle(mouseX, mouseY, ele) {
   var eleRect = ele.getBoundingClientRect();
 
   var eleTop = eleRect.top,
@@ -214,15 +165,15 @@ function isMouseInEle(mouseX,mouseY,ele) {
     eleBottom = eleRect.bottom,
     eleLeft = eleRect.left;
 
-    return mouseX >= eleLeft && mouseX <= eleRight && mouseY >= eleTop && mouseY <= eleBottom;
+  return mouseX >= eleLeft && mouseX <= eleRight && mouseY >= eleTop && mouseY <= eleBottom;
 }
 
 //生成右键菜单
-function createContextMenu(e){
-  
+function createContextMenu(e, dataId) {
+
   var menu = tool.$('.menu');
 
-  menu.innerHTML = createContextMenuHtml(dataContextMenu[0].data);
+  menu.innerHTML = createContextMenuHtml(dataContextMenu[dataId].data);
 
   var x = e.pageX,
     y = e.pageY;
@@ -244,44 +195,51 @@ function createContextMenu(e){
   } else {
     tool.css(menu, 'top', window.innerHeight - menu.offsetHeight);
   }
-
 }
 
 
-function setSubMenuPosition(parentMenu,parentMenuItem,subMenu){
+function setSubMenuPosition(parentMenu, parentMenuItem, subMenu) {
   var parentRight = window.innerWidth - parentMenu.offsetLeft - parentMenu.offsetWidth,
-  parentBottom = window.innerHeight - parentMenu.offsetTop - parentMenu.offsetHeight,
-  subWidth = subMenu.offsetWidth,
-  subHeight = subMenu.offsetHeight;
+    parentBottom = window.innerHeight - parentMenu.offsetTop - parentMenu.offsetHeight,
+    subWidth = subMenu.offsetWidth,
+    subHeight = subMenu.offsetHeight;
 
   //右边放得下子菜单的情况
   if (parentRight > subWidth) {
-    tool.css(subMenu,{left:132});
+    tool.css(subMenu, {
+      left: 132
+    });
   }
 
   //右边放不下子菜单的情况
   if (parentRight <= subWidth) {
-    tool.css(subMenu,{left:-152});
+    tool.css(subMenu, {
+      left: -152
+    });
   }
 
   //下边放得下子菜单的情况
   if (parentBottom > subHeight) {
-    tool.css(subMenu,{top:-14});
+    tool.css(subMenu, {
+      top: -14
+    });
   }
 
   //下边放不下子菜单的情况
   if (parentBottom <= subHeight) {
-    tool.css(subMenu,{top:-subHeight-14});
+    tool.css(subMenu, {
+      top: -subHeight - 14
+    });
   }
 }
 
-function createContextMenuHtml(data){
+function createContextMenuHtml(data) {
   var str = '';
   for (var i = 0; i < data.length; i++) {
     str += `<li class="${data[i].classname}"><a href="javascript:;">${data[i].name}</a>`;
     if (data[i].children) {
       str += `<ul class="sub-menu ${data[i].childname}">
-            ` + createContextMenuHtml(data[i].children) +`
+            ` + createContextMenuHtml(data[i].children) + `
           </ul>`;
     }
     str += `</li>`
@@ -289,63 +247,155 @@ function createContextMenuHtml(data){
   return str;
 }
 
-var dataContextMenu = [{
-  menuname: 'document',
-  data: [{
-    name: '查看',
-    id: 0,
-    classname: 'parent-menu view-way',
-    childname: 'view-menu',
-    children: [{
-      name: '缩略图布局',
-      classname: 'preview-way'
-    }, {
-      name: '列表布局',
-      classname: 'list-way'
-    }]
-  }, {
-    name: '排序',
-    id: 1,
-    classname: 'parent-menu sort-way',
-    childname: 'sort-menu',
-    children: [{
-      name: 　 '名称排序',
-      classname: 'letter-way'
-    }, {
-      name: '大小排序',
-      classname: 'size-way'
-    }, {
-      name: '时间排序',
-      classname: 'time-way'
-    }]
-  }, {
-    name: '新建文件夹',
-    id : 2,
-    classname: 'file-create'
-  }, {
-    name: '重新加载页面',
-    id : 3,
-    classname: 'reload'
-  }]
-}, {
-  menuname: 'file',
-  data: [{
-    name: '打开',
-    classname: 'file-open',
-  }, {
-    name: '复制',
-    classname: 'file-copy',
-  }, {
-    name: '剪切',
-    classname: 'file-cut',
-  }, {
-    name: '粘贴',
-    classname: 'file-paste',
-  }, {
-    name: '移动到',
-    classname: 'file-move',
-  }, {
-    name: '重命名',
-    classname: 'file-rename',
-  }]
-}];
+
+//右键菜单（文档内容区相关操作）
+function eventWrapMenu(menu,arrSubMenu) {
+  //右键菜单选项的点击事件-----------------------------------------------------
+  menu.addEventListener('click', function(e) {
+    if (!e.target.parentNode || !e.target.parentNode.parentNode) return;
+    var targetCls = e.target.classList,
+      targetParentCls = e.target.parentNode.classList;
+
+    if (targetCls.contains('reload') || targetParentCls.contains('reload')) {
+      location.reload();
+      return;
+    };
+
+    if (targetCls.contains('file-create') || targetParentCls.contains('file-create')) {
+      hiddenContextMenu(menu);
+      fileCreate(); 
+      return;
+    }
+
+    var btnViewCls = tool.$('.btn-view').classList;
+
+    if (targetCls.contains('preview-way') || targetParentCls.contains('preview-way')) {
+      eventView(btnViewCls, false);
+      hiddenContextMenu(menu);
+      return;
+    }
+
+    if (targetCls.contains('list-way') || targetParentCls.contains('list-way')) {
+      eventView(btnViewCls, true);
+      hiddenContextMenu(menu);
+      return;
+    }
+    
+    if (targetCls.contains('sort-way') ) {
+      notification('相关功能仍在紧张开发中，敬请期待','error');
+    }
+
+    if (targetCls.contains('file-paste') || target.parentNode.classList.contains('file-paste')) {
+
+      if (!clipBoard[0]) {
+        console.log(1);
+        notification('未复制文件','error');
+        hiddenContextMenu(menu);
+        return;
+      }
+      filePaste();
+      hiddenContextMenu(menu);
+    }
+
+  })
+
+  //右键菜单的移动事件----------------------------------------------------------
+  menu.addEventListener('mouseover', function(e) {
+    var target = e.target,
+      targetCls = target.classList;
+    if (targetCls.contains('parent-menu')) {
+      setSubMenuPosition(menu, target, target.lastElementChild);
+      showSubMenu(target.lastElementChild);
+    }
+    if (targetCls.contains('sub-menu')) {
+      clearTimeout(timerHideSubMenu);
+    }
+    if (target.nodeName === 'A') {
+      if (target.parentNode.classList.contains('parent-menu')) {
+        showSubMenu(target.parentNode.lastElementChild);
+      }
+      if (target.parentNode.classList.contains('sub-menu')) {
+        clearTimeout(timerHideSubMenu);
+      }
+    }
+  });
+
+  (function eventSubMenu() {
+    var arrParentMenu = tool.$('.parent-menu',menu),
+    arrSubMenu = tool.$('.sub-menu',menu);
+    for (var i = 0; i < arrParentMenu.length; i++) {
+      arrParentMenu[i].addEventListener('mouseleave', function(e) {
+        hiddenSubMenu(e.target.lastElementChild);
+      });
+      arrSubMenu[i].addEventListener('mouseleave', function(e) {
+        hiddenSubMenu(e.target);
+      });
+    }
+  })();
+}
+
+// 右键菜单（文件相关操作）
+function eventFileMenu(menu){
+  menu.addEventListener('mousedown',function(e){
+    var target = e.target,targetCls = target.classList;
+    if (targetCls.contains('file-open') || target.parentNode.classList.contains('file-open')) {
+      var arrChecked = filesChecked();
+      if (!arrChecked[0]) return;
+      fileClick(arrChecked[0].id);
+      hiddenContextMenu(menu);
+      return;
+    }
+
+    if (targetCls.contains('file-move') || target.parentNode.classList.contains('file-move')) {
+      fileShift();
+      hiddenContextMenu(menu);
+      return;
+    }
+
+    if (targetCls.contains('file-copy') || target.parentNode.classList.contains('file-copy')) {
+      fileCopy();
+      hiddenContextMenu(menu);
+      return;
+    }
+
+    // notification('相关功能仍在紧张开发中，敬请期待','error');
+
+    if (targetCls.contains('file-cut') || target.parentNode.classList.contains('file-cut')) {
+      
+    }
+    
+
+  })
+}
+
+
+
+
+//显示右键菜单子菜单
+function showSubMenu(submenu) {
+  clearTimeout(timerHideSubMenu);
+  timerShowSubMenu = setTimeout(function() {
+    submenu.style.opacity = '1';
+  }, 400)
+}
+
+// 隐藏右键菜单子菜单
+function hiddenSubMenu(submenu) {
+  clearTimeout(timerShowSubMenu);
+  timerHideSubMenu = setTimeout(function() {
+    submenu.style.opacity = '';
+  }, 600)
+  tool.css(submenu, {
+    left: 9999,
+    top: 9999
+  });
+}
+
+//隐藏右键菜单
+function hiddenContextMenu(menu) {
+  menu.innerHTML = '';
+  tool.css(menu, {
+    top: 9999,
+    left: 9999
+  });
+}

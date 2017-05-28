@@ -1,6 +1,6 @@
 //-------------------------------------------------------------
 // 获取全局公用元素
-var header = tool.$('header');//页眉
+var header = tool.$('header'); //页眉
 
 var wrapFiles = tool.$('#file-container'); //文件内容区
 
@@ -26,6 +26,8 @@ var currentData = data[0].children; //当前页面显示的文件的数据（初
 
 var currentDataId = 0; //当前数据的Id
 
+var clipBoard = new Array(); //剪贴板
+
 // -------------------------------------------------------------
 //初始化页面
 function initHtml() {
@@ -34,12 +36,14 @@ function initHtml() {
   addFileEvent();
   catalogEvent();
   eventAllChecked();
+  eventFileExist();
 }
 initHtml();
 
 // -------------------------- 页眉相关事件 --------------------------
-header.addEventListener('click',function(e){
-  var target = e.target,targetCls = target.classList;
+header.addEventListener('click', function(e) {
+  var target = e.target,
+    targetCls = target.classList;
   if (targetCls.contains('logo')) {
     location.reload();
   }
@@ -64,13 +68,13 @@ wrapFiles.addEventListener('click', function(e) {
   }
 
   //重命名功能--------------------------------------------------------
-  if (targetCls.contains('file-rename')) {  
-    fileRename(target,fileId); 
+  if (targetCls.contains('file-rename')) {
+    fileRename(target, fileId);
   }
 
   //删除文件功能----------------------------------------------------------
   if (targetCls.contains('file-delete')) {
-    fileDelete(fileId);
+    fileDeleteSingle(fileId);
   }
 
   //进入文件夹----------------------------------------------------------
@@ -115,7 +119,7 @@ wrapFeature.addEventListener('click', function(e) {
       return;
     }
 
-    question('您要删除选中的文件吗？',true);
+    question('您要删除选中的文件吗？', true);
 
     arrBtn.forEach(function(item, i) {
       item.index = i;
@@ -132,40 +136,51 @@ wrapFeature.addEventListener('click', function(e) {
           notification(`您已成功删除${deleteNum}个文件`, 'success');
           initHtml();
         }
-        question('',false);
+        question('', false);
       };
     })
   }
 
   //分享文件夹----------------------------------------------------------------
   if (targetCls.contains('share')) {
-    
+
     if (!isFileChecked()) {
       notification('您未选中文件！', 'worry');
       return;
     }
 
     shadow(true);
-    
-    var wrapShare = tool.$('.share-box'),listSocial = wrapShare.lastElementChild;
-    
-    tool.animate(wrapShare,{top:120},'easeBoth');
 
-    wrapShare.addEventListener('click',function(e){
-      if ( e.target.classList.contains('share-box-close')) {
-        tool.animate(wrapShare,{top:800},'easeBoth',function(){
-            tool.css(wrapShare,{top:-200});
-            shadow(false);
+    var wrapShare = tool.$('.share-box'),
+      listSocial = wrapShare.lastElementChild;
+
+    tool.animate(wrapShare, {
+      top: 120
+    }, 'easeBoth');
+
+    wrapShare.addEventListener('click', function(e) {
+      if (e.target.classList.contains('share-box-close')) {
+        tool.animate(wrapShare, {
+          top: 800
+        }, 500, 'easeBoth', function() {
+          tool.css(wrapShare, {
+            top: -200
+          });
+          shadow(false);
         });
       }
     })
 
-    listSocial.addEventListener('click',function(e){ 
-      tool.animate(wrapShare,{top:800},'easeBoth',function(){
-            tool.css(wrapShare,{top:-200});
-            shadow(false);
-        })
-      notification(`您已成功分享文件到 ${e.target.dataset.name}`,'success');
+    listSocial.addEventListener('click', function(e) {
+      tool.animate(wrapShare, {
+        top: 800
+      }, 500, 'easeBoth', function() {
+        tool.css(wrapShare, {
+          top: -200
+        });
+        shadow(false);
+      })
+      notification(`您已成功分享文件到 ${e.target.dataset.name}`, 'success');
     })
   }
 
@@ -194,12 +209,16 @@ wrapFeature.addEventListener('click', function(e) {
   }
 
   //查看方式-------------------------------------------------------------------
-  if (targetCls.contains('view-way')) {
+  if (targetCls.contains('btn-view')) {
     // notification('尚未开启查看方式转换功能', 'error');
-    targetCls.toggle('preview-form');
-    targetCls.toggle('tabular-form');   
-    wrapFiles.classList.toggle('layout-preview');
-    wrapFiles.classList.toggle('layout-list');
+
+
+    if (targetCls.contains('tabular-form')) {
+      eventView(targetCls, true);
+    } else {
+      eventView(targetCls, false);
+    }
+
   }
 });
 
@@ -240,7 +259,7 @@ wrapSidebar.addEventListener('click', function(e) {
 
   if (targetId === 0) {
     currentData = getItemDataById(data, 0).children;
-    initHtml();
+    eventFileExist();
     catalog.innerHTML = 'Root';
   }
 
@@ -250,17 +269,15 @@ wrapSidebar.addEventListener('click', function(e) {
 
   if (target.nodeName === 'SPAN') {
     if (target.parentNode.lastElementChild.children[0]) {
-      if (target.classList.toggle('active')) {
+      if (target.classList.toggle('close')) {
         target.parentNode.lastElementChild.style.display = 'none';
-      }else{
+      } else {
         target.parentNode.lastElementChild.style.display = '';
       }
-    }else{
+    } else {
       target.style.background = 'none';
     }
-
   }
-
 })
 
 
@@ -296,63 +313,75 @@ function notification(message, type) {
 //咨询弹窗
 function question(message, onOff) {
   var askMessage = tool.$('p', questionBox),
-    shadowQuestion = tool.$('.question-shadow');
+    shadowQuestion = tool.$('.question-shadow'),
+    main = tool.$('.main');
 
   if (onOff) { //弹出弹窗
+    main.classList.add('blur');
+    header.classList.add('blur');
     askMessage.innerHTML = message;
     shadowQuestion.style.transform = 'scale(1)';
-    tool.animate(questionBox,{top:120},'easeBoth');
+    tool.animate(questionBox, {
+      top: 120
+    }, 'easeBoth');
   } else { //去除弹窗
-    tool.animate(questionBox,{top:1000},'easeBoth',function(){
+
+    tool.animate(questionBox, {
+      top: 1000
+    }, 'easeBoth', function() {
       shadowQuestion.style.transform = '';
-      tool.css(questionBox,{top:-200});
+      tool.css(questionBox, {
+        top: -200
+      });
+      main.classList.remove('blur');
+      header.classList.remove('blur');
     });
   }
 }
 
 
 // 重命名功能
- function fileRename(target,fileId){
+function fileRename(target, fileId) {
   if (isFileChecked()) {
     var arrCheckedBox = tool.$('.file-checkbox');
     for (var i = 0; i < arrFile.length; i++) {
-        changeCheckedbox(arrFile[i], arrCheckedBox[i], currentData[i], false);
-        allChecked.classList.remove('active');
-      }  
+      changeCheckedbox(arrFile[i], arrCheckedBox[i], currentData[i], false);
+      allChecked.classList.remove('active');
     }
+  }
 
-    var inputFileName = target.parentNode.parentNode.lastElementChild;
+  var inputFileName = target.parentNode.parentNode.lastElementChild;
 
-    var textFileName = inputFileName.previousElementSibling;
+  var textFileName = inputFileName.previousElementSibling;
 
-    // 未重命名的文件名
-    var originFileName = inputFileName.value;
+  // 未重命名的文件名
+  var originFileName = inputFileName.value;
 
-    textFileName.style.display = 'none';
-    inputFileName.style.display = 'block';
-    inputFileName.select();
+  textFileName.style.display = 'none';
+  inputFileName.style.display = 'block';
+  inputFileName.select();
 
-    var isRename;
+  var isRename;
 
-    //键盘确认
-    inputFileName.onkeydown = function(e) {
-      var e = event || window.event || arguments.callee.caller.arguments[0];
+  //键盘确认
+  inputFileName.onkeydown = function(e) {
+    var e = event || window.event || arguments.callee.caller.arguments[0];
 
-      if (e && e.keyCode == 13) { // enter 键
-        isRename = rename(textFileName, this, 'rename-file', originFileName, fileId);
-        if (isRename === 'success') initHtml();
-      }
+    if (e && e.keyCode == 13) { // enter 键
+      isRename = rename(textFileName, this, 'rename-file', originFileName, fileId);
+      if (isRename === 'success') initHtml();
     }
+  }
 
-    inputFileName.addEventListener('blur', function() {
-      if (this.style.display === 'none') {
-        return;
-      } else {
-        isRename = rename(textFileName, this, 'rename-file', originFileName, fileId);
-        if (isRename === 'success') initHtml();
-      }
-    })
- }
+  inputFileName.addEventListener('blur', function() {
+    if (this.style.display === 'none') {
+      return;
+    } else {
+      isRename = rename(textFileName, this, 'rename-file', originFileName, fileId);
+      if (isRename === 'success') initHtml();
+    }
+  })
+}
 
 
 //判断文件重命名时输入的文件名是否重复
@@ -370,13 +399,15 @@ function nameCanUse(nameInput, fileId) {
 }
 
 //判断是否在重命名
-function isRename(){
+function isRename() {
   var arrFileInfo = tool.$('.file-info');
+  console.log(arrFileInfo);
   for (var i = 0; i < arrFileInfo.length; i++) {
     if (arrFileInfo[i].style.display === 'none') {
       return true;
     }
   }
+  return false;
 }
 
 //重命名函数
@@ -420,110 +451,109 @@ function rename(nameShow, nameInput, approch, nameOrigin, fileClickId) {
 }
 
 //新建文件夹----------------------------------------------------------
-function fileCreate(){
+function fileCreate() {
 
-    var file = document.createElement('div');
-    file.className = 'file';
+  var file = document.createElement('div');
+  file.className = 'file';
 
-    var filePanel = document.createElement('div');
-    filePanel.className = 'file-panel';
+  var filePanel = document.createElement('div');
+  filePanel.className = 'file-panel';
 
-    var fileCheckbox = document.createElement('span');
-    fileCheckbox.className = 'file-checkbox';
-    filePanel.appendChild(fileCheckbox);
+  var fileCheckbox = document.createElement('span');
+  fileCheckbox.className = 'file-checkbox';
+  filePanel.appendChild(fileCheckbox);
 
-    var fileRename = document.createElement('span');
-    fileRename.className = 'file-rename';
-    filePanel.appendChild(fileRename);
+  var fileRename = document.createElement('span');
+  fileRename.className = 'file-rename';
+  filePanel.appendChild(fileRename);
 
-    var fileDelete = document.createElement('span');
-    fileDelete.className = 'file-delete';
-    filePanel.appendChild(fileDelete);
+  var fileDelete = document.createElement('span');
+  fileDelete.className = 'file-delete';
+  filePanel.appendChild(fileDelete);
 
-    var fileImg = document.createElement('div');
-    fileImg.className = 'file-img';
+  var fileImg = document.createElement('div');
+  fileImg.className = 'file-img';
 
-    var fileInfo = document.createElement('div');
-    fileInfo.className = 'file-info';
+  var fileInfo = document.createElement('div');
+  fileInfo.className = 'file-info';
 
-    var fileRenameText = document.createElement('input')
-    fileRenameText.className = 'file-rename-text';
+  var fileRenameText = document.createElement('input')
+  fileRenameText.className = 'file-rename-text';
 
-    file.appendChild(filePanel);
-    file.appendChild(fileImg);
-    file.appendChild(fileInfo);
-    file.appendChild(fileRenameText);
+  file.appendChild(filePanel);
+  file.appendChild(fileImg);
+  file.appendChild(fileInfo);
+  file.appendChild(fileRenameText);
 
-    wrapFiles.insertBefore(file, arrFile[0]);
+  wrapFiles.insertBefore(file, arrFile[0]);
 
-    fileInfo.style.display = 'none';
-    fileRenameText.style.display = 'block';
-    fileRenameText.focus();
-    notification('请为新建文件夹命名','tip');
+  fileInfo.style.display = 'none';
+  fileRenameText.style.display = 'block';
+  fileRenameText.focus();
+  notification('请为新建文件夹命名', 'tip');
 
-    fileRenameText.onkeydown = function(e) {
-
-      if (e.keyCode === 13) {
-        setName();
-      }
+  fileRenameText.onkeydown = function(e) {
+    if (e.keyCode === 13) {
+      setName();
     }
+  }
 
-    fileRenameText.addEventListener('blur', function() {
-      if (this.style.display === 'none') {
-        return;
-      } else {
-        setName();
-      }
-
-    });
-
-    function setName() {
-      var isCreate = rename(fileInfo, fileRenameText, 'create-file');
-
-      var newFileData = {
-        name: fileRenameText.value,
-        id: ++user_data.maxId,
-        pId: currentDataId,
-        children: [],
-      };
-      switch (isCreate) {
-        case 'cancel':
-          wrapFiles.removeChild(wrapFiles.firstElementChild);
-          notification('您已取消创建文件夹', 'error');
-          break;
-        case 'repeat':
-          notification('你输入的文件名已经有了！', 'worry');
-          break;
-        case 'success':
-          currentData.unshift(newFileData);
-          initHtml();
-          notification('您已成功创建文件夹', 'success');
-          break;
-      }
+  fileRenameText.addEventListener('blur', function() {
+    if (this.style.display === 'none') {
+      return;
+    } else {
+      setName();
     }
+  });
+
+  function setName() {
+    var isCreate = rename(fileInfo, fileRenameText, 'create-file');
+
+    var newFileData = {
+      name: fileRenameText.value,
+      id: ++user_data.maxId,
+      pId: currentDataId,
+      children: [],
+    };
+    switch (isCreate) {
+      case 'cancel':
+        wrapFiles.removeChild(wrapFiles.firstElementChild);
+        notification('您已取消创建文件夹', 'error');
+        break;
+      case 'repeat':
+        notification('你输入的文件名已经有了！', 'worry');
+        break;
+      case 'success':
+        currentData.unshift(newFileData);
+        initHtml();
+        notification('您已成功创建文件夹', 'success');
+        break;
+    }
+  }
 }
 
+
 //删除单个文件-----------------------------------------------------------
-function fileDelete(fileId){
-  question('您要删除这个文件吗？',true);
+function fileDeleteSingle(fileId) {
+  question('您要删除这个文件吗？', true);
 
-    arrBtn.forEach(function(item, i) {
-      item.index = i;
-      item.onclick = function() {
-        if (!this.index) {
-          var fileData = getItemDataById(currentData, fileId);
+  arrBtn.forEach(function(item, i) {
+    item.index = i;
+    item.onclick = function() {
+      if (!this.index) {
+        var fileData = getItemDataById(currentData, fileId);
 
-          for (var i = 0; i < currentData.length; i++) {
-            if (currentData[i] === fileData) {
-              currentData.splice(i, 1);
-            }
+        for (var i = 0; i < currentData.length; i++) {
+          if (currentData[i] === fileData) {
+            currentData.splice(i, 1);
           }
-          notification(`您已成功删除文件`, 'success');
-          initHtml();
         }
-        question('',false);
-      };
-    })
+        notification(`您已成功删除文件`, 'success');
+        initHtml();
+      }
+      question('', false);
+    };
+  })
 }
 //删除多个文件-----------------------------------------------------------
 //
@@ -543,15 +573,17 @@ function fileShift() {
   var alertShiftFile = tool.$('#shift-file-box'),
     catalogShiftFile = tool.$('.catalog-tree-list', alertShiftFile);
 
+
   catalogShiftFile.innerHTML = createCatalogTree(data);
 
   tool.animate(alertShiftFile, {
     top: 80
-  }, 'easeBoth');
+  }, 'easeBoth', notification('请您选择要移动到的文档', 'tip'));
 
   alertShiftFile.addEventListener('click', function(e) {
-
-    if (e.target.classList.contains('shiftfile-close')) {
+    var target = e.target,
+      targetCls = target.classList;
+    if (targetCls.contains('shiftfile-close')) {
       //取消移动文件夹的操作
       tool.animate(alertShiftFile, {
         top: 1600
@@ -565,82 +597,110 @@ function fileShift() {
       return;
     }
 
-    var target = e.target,
-      targetId = target.dataset.id * 1;
-
-    //获取已选中的文件夹的数据
-    var dataFilesChecked = filesChecked(),
-      numChecked = dataFilesChecked.length;
-
-    //获取已选中的文件夹的子孙级元素的数据
-    var dataFilesChildren = [getItemDataById(data, currentDataId)];
-
-    dataFilesChecked.forEach(function(item) {
-      dataFilesChildren = dataFilesChildren.concat(getChildrenById(data, item.id));
-    })
-
-    //要移动到的文件夹的所有数据
-    var targetData = getItemDataById(data, targetId),
-      targetChildrenData = targetData.children;
-
-    // 目标文件夹不能是选中文件夹的父级和子孙级
-    for (var i = 0; i < dataFilesChildren.length; i++) {
-      if (dataFilesChildren[i].id === targetId) {
-        notification('不能移到该文件夹中！', 'worry');
-        return;
+    if (target.nodeName === 'SPAN') {
+      if (targetCls.toggle('open')) {
+        target.parentNode.lastElementChild.style.display = '';
+      }
+      if (targetCls.toggle('close')) {
+        target.parentNode.lastElementChild.style.display = 'none';
       }
     }
 
-    //目标文件夹中不能有重复名字的文档
-    for (var i = 0; i < dataFilesChecked.length; i++) {
-      for (var j = 0; j < targetChildrenData.length; j++) {
-        if (dataFilesChecked[i].name === targetChildrenData[j].name) {
-          notification('您要移动到文档中有重复的文件！', 'worry');
+    if (target.nodeName === 'A') {
+      var targetId = target.dataset.id * 1;
+
+      //获取已选中的文件夹的数据
+      var dataFilesChecked = filesChecked(),
+        numChecked = dataFilesChecked.length;
+
+      //获取已选中的文件夹的子孙级元素的数据
+      var dataFilesChildren = [getItemDataById(data, currentDataId)];
+
+      dataFilesChecked.forEach(function(item) {
+        dataFilesChildren = dataFilesChildren.concat(getChildrenById(data, item.id));
+      })
+
+      //要移动到的文件夹的所有数据
+      var targetData = getItemDataById(data, targetId),
+        targetChildrenData = targetData.children;
+
+      // 目标文件夹不能是选中文件夹的父级和子孙级
+      for (var i = 0; i < dataFilesChildren.length; i++) {
+        if (dataFilesChildren[i].id === targetId) {
+          notification('不能移到该文件夹中！', 'worry');
           return;
         }
       }
-    }
 
-    //检测无误，询问是否移动
-    question(`您确定要移动到 ${targetData.name} 吗？`, true);
-
-    arrBtn.forEach(function(item, i) {
-      item.index = i;
-      item.onclick = function() {
-        if (!this.index) {
-          //给目标文件夹添加
-          dataFilesChecked.forEach(function(item) {
-            targetChildrenData.push(item);
-            item.pId = targetId;
-          })
-
-
-          // 删除当前文件中选中文件夹
-          for (var i = 0; i < currentData.length; i++) {
-            if (currentData[i].checked) {
-              currentData[i].checked = false;
-              currentData.splice(i, 1);
-              i--;
-            }
+      //目标文件夹中不能有重复名字的文档
+      for (var i = 0; i < dataFilesChecked.length; i++) {
+        for (var j = 0; j < targetChildrenData.length; j++) {
+          if (dataFilesChecked[i].name === targetChildrenData[j].name) {
+            notification('您要移动到文档中有重复的文件！', 'worry');
+            return;
           }
-
-          tool.animate(alertShiftFile, {
-            top: 1600
-          }, 'easeBoth', function() {
-            tool.css(alertShiftFile, {
-              top: -450
-            });
-            shadow(false);
-          });
-
-          initHtml();
-          notification(`您已成功移动 ${numChecked} 个文件到 ${targetData.name}`, 'success');
         }
-        question('', false)
-      };
-    })
+      }
 
+      //检测无误，询问是否移动
+      question(`您确定要移动到 ${targetData.name} 吗？`, true);
+
+      arrBtn.forEach(function(item, i) {
+        item.index = i;
+        item.onclick = function() {
+          if (!this.index) {
+            //给目标文件夹添加
+            dataFilesChecked.forEach(function(item) {
+              targetChildrenData.push(item);
+              item.pId = targetId;
+            })
+
+
+            // 删除当前文件中选中文件夹
+            for (var i = 0; i < currentData.length; i++) {
+              if (currentData[i].checked) {
+                currentData[i].checked = false;
+                currentData.splice(i, 1);
+                i--;
+              }
+            }
+
+            tool.animate(alertShiftFile, {
+              top: 1600
+            }, 'easeBoth', function() {
+              tool.css(alertShiftFile, {
+                top: -450
+              });
+              shadow(false);
+            });
+
+            initHtml();
+            notification(`您已成功移动 ${numChecked} 个文件到 ${targetData.name}`, 'success');
+          }
+          question('', false)
+        };
+      })
+    }
   })
+}
+
+//文档显示方式
+function eventView(btnViewCls, onOff) {
+  if (onOff) { //缩略图形态
+
+    btnViewCls.add('preview-form');
+    wrapFiles.classList.add('layout-list');
+
+    btnViewCls.remove('tabular-form');
+    wrapFiles.classList.remove('layout-preview');
+
+  } else { //列表形态
+    btnViewCls.add('tabular-form');
+    wrapFiles.classList.add('layout-preview');
+
+    btnViewCls.remove('preview-form');
+    wrapFiles.classList.remove('layout-list');
+  }
 }
 
 
@@ -668,7 +728,7 @@ function createFileHtml(data) {
   return str;
 }
 
-// 遍历所有页面显示的所有文件夹
+// 遍历当前页面显示的所有文件夹
 function addFileEvent() {
   Array.from(arrFile).forEach(function(item) {
 
@@ -691,10 +751,7 @@ function fileClick(dataId) {
   dataId = dataId * 1;
 
   //去除未进入文件夹时的数据选中
-  allChecked.classList.remove('active');
-  for (var i = 0; i < currentData.length; i++) {
-    currentData[i].checked = false;
-  }
+  removeFileChecked();
 
   var catalog = tool.$('.catalog'); //目录栏
 
@@ -745,9 +802,12 @@ function catalogEvent() {
 
 //生成侧边栏目录树
 function createCatalogTree(data) {
-  var str = ``;
+  var str = ``,
+    cls;
+
   Array.from(data).forEach(function(item, i) {
-    str += `<li><span></span><a href="javascript:;" data-id="${item.id}">${item.name}</a>`;
+
+    str += `<li><span class="${cls = !!item.children[0] ? 'open':''}"></span><a href="javascript:;" data-id="${item.id}">${item.name}</a>`;
     if (item.children) {
       str += '<ul>' + createCatalogTree(item.children) + '</ul>';
     }
@@ -756,7 +816,12 @@ function createCatalogTree(data) {
   return str;
 }
 
-//判断是否有文件被选中
+//判断当前文档是否有文件
+function eventFileExist() {
+  currentData[0] ? wrapFiles.classList.remove('active') : wrapFiles.classList.add('active');
+}
+
+//判断是否有文件被选中--------------------------------
 function isFileChecked() {
   var isChecked = false,
     arr = [];
@@ -768,7 +833,7 @@ function isFileChecked() {
   return isChecked;
 }
 
-//获取被选中的文件的数据
+//获取被选中的文件的数据--------------------------------
 function filesChecked() {
   var arr = [];
   Array.from(currentData).forEach(function(item) {
@@ -777,6 +842,14 @@ function filesChecked() {
     }
   })
   return arr;
+}
+
+//移除当前文档的选中状态
+function removeFileChecked() {
+  allChecked.classList.remove('active');
+  for (var i = 0; i < currentData.length; i++) {
+    currentData[i].checked = false;
+  }
 }
 
 //判断当前显示数据是否全选
@@ -825,22 +898,87 @@ function changeCheckedbox(file, checkedbox, data, onOff) {
     }
 
     checkedbox.classList.remove('active');
-    
-    data.checked = false;
 
+    data.checked = false;
   }
 }
 
 //遮罩层函数
-function shadow(onOff){
-  var shadowBox = tool.$('.shadow');
+function shadow(onOff) {
+  var shadowBox = tool.$('.shadow'),
+    main = tool.$('.main');
   if (onOff) {
+    main.classList.add('blur');
+    header.classList.add('blur');
     shadowBox.style.transform = 'scale(1)';
-  }else{
+  } else {
+    main.classList.remove('blur');
+    header.classList.remove('blur');
     shadowBox.style.transform = '';
   }
 }
 
+//文件复制功能
+function fileCopy() {
+  var arrFilesChecked = filesChecked();
 
+  for (var i = 0; i < arrFilesChecked.length; i++) {
+    var objNew = JSON.parse(JSON.stringify(arrFilesChecked[i]));
+    clipBoard.push(objNew);
+  }
 
+}
 
+//文件粘贴功能
+function filePaste() {
+
+  if (isCanPaste()) { //有重复名字cover?cancel
+    question('文档中已有重复文件，是否全部覆盖?', true);
+
+    arrBtn.forEach(function(item, i) {
+      item.index = i;
+      item.onclick = function() {
+        if (!this.index) {
+
+        }
+        question('', false);
+        return;
+      };
+    })
+  } else { //无重复名字
+    paste();
+    notification('已成功复制文件', 'success');
+  }
+
+  function paste() {
+    clipBoard = dataCopy(clipBoard, currentDataId);
+
+    for (var i = 0; i < clipBoard.length; i++) {
+      currentData.push(clipBoard[i]);
+    }
+    clipBoard = new Array();
+    initHtml();
+  }
+
+}
+
+function dataCopy(data, parentId) {
+  data.forEach(function(item, i) {
+    item.checked = false;
+    item.id = ++user_data.maxId;
+    item.pId = parentId;
+    if (item.children) {
+      item.children = dataCopy(item.children, item.id);
+    }
+  })
+  return data;
+}
+
+function isCanPaste() {
+  for (var i = 0; i < currentData.length; i++) {
+    for (var j = 0; j < clipBoard.length; j++) {
+      if (currentData[i].name === clipBoard[j].name) return true;
+    }
+  }
+  return false;
+}

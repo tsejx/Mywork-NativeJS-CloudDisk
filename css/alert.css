@@ -164,7 +164,7 @@
   padding: 8px;
   border: 1px solid rgba(120, 128, 138, 1.0);
   border-radius: 10px;
-  background-color: rgba(52, 55, 66, 1.0);
+  background-color: rgba(220, 223, 244, 1.0);
 }
 .shiftfile-close {
   position: absolute;
@@ -176,16 +176,6 @@
 }
 .shiftfile-close:hover {
   background: url(../img/notification.png) -10px -45px no-repeat;
-  cursor: pointer;
-}
-
-,
-
-.shiftfile-catalog span {
-  color: rgba(52, 55, 66, 1.0);
-}
-.shiftfile-catalog span:hover {
-  color: rgba(105, 162, 208, 1.0);
   cursor: pointer;
 }
 

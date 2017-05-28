@@ -6,6 +6,9 @@
   overflow: auto;
   cursor: default;
 }
+#file-container.active {
+  background: url(../img/error-page.png) center center no-repeat;
+}
 
 /* ------------------- 缩略图布局 ----------------------*/
 .layout-preview .file {
@@ -203,8 +206,8 @@
   height: 28px;
   margin: 2px 0;
   padding-left: 8px;
-  
-  transition: background-color 300ms;
+  color: rgba(120, 128, 138, 1.0);
+  transition: background-color color 300ms;
   cursor: default;
 }
 .menu li.botbor {
@@ -222,10 +225,11 @@
   background-color: rgba(105, 162, 208, .7);
 }
 .menu a {
-  color: rgba(120, 128, 138, 1.0);
+  color: inherit;
   font-size: 14px;
   line-height: 28px;
   text-decoration: none;
+  cursor: default;
 }
 
 .menu .parent-menu {
@@ -233,6 +237,7 @@
 }
 .menu .parent-menu:hover {
   background: url(../img/extend.png) 110px -34px  no-repeat rgba(47, 117, 245, .7);
+  color: #fff;
 }
 
 .menu .sub-menu {

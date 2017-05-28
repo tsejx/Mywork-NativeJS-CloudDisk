@@ -32,6 +32,7 @@ header {
   background: url(../img/logo.png) 35px center no-repeat;
   /* background-color: rgba(47, 117, 245, 1.0); */
   background-color: rgba(105, 162, 208, 1.0);
+  /* #69A2D0 */
   color: #fff;
   font-size: 28px;
   line-height: 58px;
@@ -389,14 +390,19 @@ header {
   width: 16px;
   height: 26px;
   vertical-align: bottom;
-  background: url(../img/unfold.png) center center no-repeat;
 }
-.tree-menu span:hover {
-  /* background: url() center center no-repeat; */
-  cursor: pointer;
+
+.tree-menu span.open {
+  background: url(../img/arrow4.png) center center no-repeat;
 }
-.tree-menu span.active {
-  background: url(../img/fold.png) center center no-repeat;
+.tree-menu span.close {
+  background: url(../img/arrow2.png) center center no-repeat;
+}
+.tree-menu span.open:hover {
+  background: url(../img/arrow3.png) center center no-repeat;
+}
+.tree-menu span.close:hover {
+  background: url(../img/arrow1.png) center center no-repeat;
 }
 
 .tree-menu a {
@@ -423,13 +429,11 @@ header {
 /* ----------------------------------------- 移动到目录树 ----------------------------------------------- */
 
 .catalog-tree-list ul {
-  /* display: none; */
   position: relative;
   padding-left: 12px;
   margin-bottom: 10px;
 }
 .shiftfile-catalog li {
-  position: relative;
   width: 100%;
   height: auto;
   margin-top: 5px;
@@ -438,11 +442,13 @@ header {
   display: inline-block;
   width: 16px;
   height: 22px;
-  background: url(../img/fold.png) center center no-repeat;
   vertical-align: bottom;
 }
-.catalog-tree-list span.active {
-  background: url(../img/unfold.png) center center no-repeat;
+.catalog-tree-list span.open {
+  background: url(../img/arrow6.png) center center no-repeat;
+}
+.catalog-tree-list span.close {
+  background: url(../img/arrow5.png) center center no-repeat;
 }
 .catalog-tree-list a {
   display: inline-block;
@@ -451,7 +457,7 @@ header {
   padding: 0 10px 0 22px;
   border-radius: 2px;
   background: url(../img/file_icon.png) 4px center no-repeat;
-  color: rgba(190, 213, 232, 1.0);
+  color: rgba(37, 83, 121, .8);
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
@@ -460,6 +466,9 @@ header {
 }
 .catalog-tree-list a:hover {
   color: rgba(255, 255, 255, 1.0);
-  background-color: rgba(105, 162, 208, .6);
+  background-color: rgba(37, 83, 121, .6);
   cursor: pointer;
+}
+.catalog-tree-list a::selection {
+  background-color: transparent;
 }
