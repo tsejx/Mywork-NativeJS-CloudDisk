@@ -35,10 +35,8 @@ function contextMenu(e) {
 //鼠标画框函数
 function mouseDraw(e) {
   // e.preventDefault();
-  console.log(isRename());
   if (isRename()) return;
-
-
+  
   // 按下的时候的横纵坐标
   var startX = e.pageX,
     startY = e.pageY;
@@ -56,7 +54,6 @@ function mouseDraw(e) {
   div.style.cursor = 'default';
 
   wrapFiles.appendChild(div);
-  console.log(wrapFiles);
 
   document.addEventListener('mousemove', mouseMove);
 
@@ -101,10 +98,9 @@ function mouseDraw(e) {
     document.removeEventListener('mousemove', mouseMove);
 
     wrapFiles.addEventListener('click', cancelChecked);
-
-    console.log(div);
-    console.log(div.parentNode);
+    
     wrapFiles.removeChild(div);
+    
     
     function cancelChecked(e) {
       if (isMouseInFile(e.pageX, e.pageY)) return;
@@ -285,10 +281,8 @@ function eventWrapMenu(menu,arrSubMenu) {
       notification('相关功能仍在紧张开发中，敬请期待','error');
     }
 
-    if (targetCls.contains('file-paste') || target.parentNode.classList.contains('file-paste')) {
-
+    if (targetCls.contains('file-paste') || targetParentCls.contains('file-paste')) {
       if (!clipBoard[0]) {
-        console.log(1);
         notification('未复制文件','error');
         hiddenContextMenu(menu);
         return;
@@ -338,9 +332,8 @@ function eventWrapMenu(menu,arrSubMenu) {
 function eventFileMenu(menu){
   menu.addEventListener('mousedown',function(e){
     var target = e.target,targetCls = target.classList;
+    if (!target.parentNode) return;
     if (targetCls.contains('file-open') || target.parentNode.classList.contains('file-open')) {
-      var arrChecked = filesChecked();
-      if (!arrChecked[0]) return;
       fileClick(arrChecked[0].id);
       hiddenContextMenu(menu);
       return;
@@ -358,12 +351,11 @@ function eventFileMenu(menu){
       return;
     }
 
-    // notification('相关功能仍在紧张开发中，敬请期待','error');
-
     if (targetCls.contains('file-cut') || target.parentNode.classList.contains('file-cut')) {
-      
+      fileCut();
+      hiddenContextMenu(menu);
+      return;
     }
-    
 
   })
 }

@@ -1,228 +1,38 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<title>Dropbox | Faster than flow</title>
-  <link rel="stylesheet" href="css/reset.css" class="css">
-	<link rel="stylesheet" href="css/master.css" class="css">
-  <link rel="stylesheet" href="css/file.css" class="css">
-  <link rel="stylesheet" href="css/alert.css" class="css">
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" > 
+	<title>Flexbox | Faster than flow</title>
+	<link rel="stylesheet" href="css/reset.css" class="css">
+	<link rel="stylesheet" href="css/login.css" class="css">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" > 
 </head>
 <body>
-  <!-- 页眉 -->
-	<header>
-	  <h1 class="logo">Dropbox</h1>
-	  <div class="control-panel">
-	  	<span class="user"></span>
-	  	<span class="setting"></span>
-	  	<span class="write-off"></span>
-	  </div>
-	</header>
-  <!--/ 页眉 -->
-
-  <!-- 页面主体部分 -->
-	<div class="main">
-    <!-- 分类区 -->
-		<div class="side-bar">
-		  <ul class="file-type">
-			  <li class="all active">All</li>
-			  <li class="picture">Picture</li>
-			  <li class="diary">Diary</li>
-			  <li class="video">Video</li>
-			  <li class="other">Other</li>
-		  </ul>
-		  <div class="capacity">
-	  	    <span></span>
-	  	    <p>25 G / 1 T</p>
-		  </div>
-		</div>
-    <!--/ 分类区 -->
-
-    <!-- 云盘内容主体区 -->
-		<div class="container">
-      
-      <!-- 功能区 -->
-			<div class="feature">
-        <!-- 功能按键面板 -->
-        <div class="feature-panel">
-          <span class="upload">Upload</span>
-          <span class="new-file">Create</span>
-          <span class="download">Download</span>
-          <span class="shift-file">Move</span>
-          <span class="delete-file">Delete</span>
-          <span class="share">Share</span>
-        </div>
-        <!--/ 功能按键面板 -->
-
-        <!-- 搜索排序面板 -->
-        <div class="search-panel">
-          <div class="search">
-            <input class="search-text" type="text" name="搜索文件" value="Search your files">
-            <span class="search-click"></span>
-          </div>
-          <span class="sort-by initial-letter"></span>
-          <span class="btn-view tabular-form"></span>   
-        </div>
-        <!--/ 搜索排序面板 -->
-			</div>
-      <!--/ 功能区 -->
-
-      <!-- 导航区 -->
-      <div class="nav">
-        <div class="all-in">All</div>
-        <div class="catalog">
-          Root
-          <!-- <a class="to-root" href="javascript:;">  Root</a>
-          <span>|</span>
-          <a class="to-parent" href="javascript:;">Previous</a>   --> 
-        </div> 
-      </div>
-      <!--/ 导航区 -->
-
-      <!-- 文件内容区 -->
-			<div class="wrap-file layout-preview" id="file-container">
-
-        <!-- 单个文件夹示例 -->
-				<!-- <div class="file">
-          <div class="file-panel">
-            <span class="file-checkbox"></span>
-            <span class="file-rename"></span>
-            <span class="file-delete"></span>
-          </div>
-					<div class="file-img"></div>
-					<div class="file-info">New File(1)</div>
-          <input class="file-rename-text" type="text" value="New File(1)">
-				</div> -->
-
-			</div>
-      <!--/ 文件夹内容区 -->
-
-      <!-- 鼠标右键菜单 -->
-      <ul class="menu">
-        <!-- <li class="parent-menu view-way">
-          <a href="javascript:;">查看</a>
-          <ul class="sub-menu view-menu">
-            <li><a href="javascript:;">缩略图布局</a></li>
-            <li><a href="javascript:;">列表布局</a></li>
-          </ul>
-        </li>
-        <li class="parent-menu sort-way" >
-          <a href="javascript:;">排序</a>
-          <ul class="sub-menu sort-menu">
-            <li><a href="javascript:;">字母排序</a></li>
-            <li><a href="javascript:;">大小排序</a></li>
-            <li><a href="javascript:;">时间排序</a></li>
-          </ul>
-        </li>
-        <li class="botbor"></li>
-        <li class="reload"><a href="javascript:;">重新加载页面(R)</a></li>
-        <li class="new-file"><a href="javascript:;">新建文件夹</a></li>  -->
-      </ul>
-      <!--/ 鼠标右键菜单-->
-
-		</div>
-    <!--/ 云盘主体区 -->
+	<div class="wrap-login">
+	  <form name="login-form" class="login-form" action="" method="" type="hidden">
+    <header>
+      <h1>Login Form</h1>
+      <span>Fill out the form below to login to my FlexBox</span>
+    </header>
+    <section>
+    <input type="text" name="username" class="input username" placeholder="Username">
+    <input type="password" name="password" class="input password" placeholder="Password">
+    </section>
+		<footer>
+		<input type="button" name="submit" value="Sign in" class="sign-in">
+		<input type="submit" name="submit" value="Sign up" class="sign-up">
+		</footer>
+	  </form>
 	</div>
-  <!--/ 页面主体部分 -->
-
-  <!-- 消息弹窗 -->
-  <div class="" id="notification"><p>You are successed in delete some files.</p><span></span></div>
-  <!--/ 消息弹窗 -->
-  
-  <!-- 询问弹窗 -->
-  <div class="question-shadow">
-    <div class="question"><strong></strong><p>Do you want to delete this files?</p><span>确定</span><span>取消</span></div>
-  </div>
-  
-  <!--/ 询问弹窗 -->
-
-  <!-- 活动框 -->
-  <div class="active-window">
-    <div>
-      <h2>TreeMenu</h2>
-      <ul class="tree-menu">
-        <!-- <span></span>
-        <a data-id="0">Root</a>
-        <li>
-          <span></span>
-          <a data-id="1">框架</a>
-         <ul>
-           <li><span></span><a>React</a></li>
-           <li><span></span><a>Vue</a></li>
-           <li><span></span><a>Angular</a></li>
-         </ul>
-        </li>
-        <li>
-          <span></span>
-          <a>HTML5</a>
-        </li>
-        <li>
-          <span></span>
-          <a>CSS3</a>
-        </li> -->
-      </ul>
-    </div>
-    
-  </div>
-  <!--/ 活动框 -->
-  
-  <!-- 移动文件弹窗 -->  
-    <div id="shift-file-box">
-      <div class="shiftfile-close"></div>
-      <div class="shiftfile-catalog">
-        <ul class="catalog-tree-list">
-          <!-- <span></span>
-        <a data-id="0">Root</a>
-        <li>
-          <span></span>
-          <a data-id="1">框架</a>
-         <ul>
-           <li><span></span><a>React</a></li>
-           <li><span></span><a>Vue</a></li>
-           <li><span></span><a>Angular</a></li>
-         </ul>
-        </li>
-        <li>
-          <span></span>
-          <a>HTML5</a>
-        </li>
-        <li>
-          <span></span>
-          <a>CSS3</a>
-        </li> -->
-        </ul>
-      </div>
-    </div>
-  <!--/ 移动文件弹窗 -->
-
-  <!-- 分享弹窗 -->
-    <div class="share-box">
-      <span class="share-box-close"></span>
-      <h2>把精彩分享到您的社交平台上</h2>
-      <ul class="social-list">
-        <li class="facebook" data-name="FaceBook"></li>
-        <li class="birdie"  data-name="Birdie"></li>
-        <li class="google"  data-name="Google"></li>     
-        <li class="evernote"  data-name="Evernote"></li>
-        <li class="jolicloud"  data-name="JoliCloud"></li>
-        <li class="gmail"  data-name="Gmail"></li>
-        <li class="github"  data-name="Github"></li>
-        <li class="pinterest"  data-name="Pinterest"></li>
-      </ul>
-    </div>
-  <!--/ 分享弹窗 -->
-
-  <!-- 遮罩层 -->
-  <div class="shadow"></div>
-  <!--/ 遮罩层 -->
 	
-  <script src="js/tool.js"></script>
-	<script src="js/data.js"></script>
-  <script src="js/view.js"></script>
-  <script src="js/animate.js"></script>
-  <script src="js/mouse.js"></script>
+	<div class="load-bar">
+    <div class="load-bar-inner" data-loading="0"> <span id="counter"></span> </div> 
+	</div>
+
+
+	<script src="js/tool.js"></script>
+	<script src="js/login.js"></script>
 
 </body>
 </html>
