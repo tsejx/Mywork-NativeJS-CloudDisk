@@ -334,6 +334,7 @@ function eventFileMenu(menu){
     var target = e.target,targetCls = target.classList;
     if (!target.parentNode) return;
     if (targetCls.contains('file-open') || target.parentNode.classList.contains('file-open')) {
+      var arrChecked = filesChecked();
       fileClick(arrChecked[0].id);
       hiddenContextMenu(menu);
       return;
@@ -359,9 +360,6 @@ function eventFileMenu(menu){
 
   })
 }
-
-
-
 
 //显示右键菜单子菜单
 function showSubMenu(submenu) {

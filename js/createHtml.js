@@ -8,11 +8,11 @@ var arrFile = wrapFiles.children; //文件内容区的 子元素集合
 
 var wrapFeature = tool.$('.feature'); //功能按键面板
 
-var wrapSidebar = tool.$('.active-window'); //包装目录树的容器
+var wrapSidebar = tool.$('.active-window'); //侧边栏目录树活动窗
 
 var catalogSidebar = tool.$('.tree-menu', wrapSidebar); //目录树根目录列表
 
-var questionBox = tool.$('.question');
+var questionBox = tool.$('.question');//咨询弹窗
 
 var arrBtn = tool.$('span', questionBox); //询问弹窗的确定/取消按钮
 

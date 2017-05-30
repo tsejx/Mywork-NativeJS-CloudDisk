@@ -56,37 +56,23 @@ if (e.target.classList.contains('input') || e.target.classList.contains('sign-in
 login.addEventListener('mousedown',enterCloudDisk);
 
 function enterCloudDisk(){
-	var loadBar = tool.$('.load-bar'),inner = tool.$('.load-bar-inner');
+	var loadBar = tool.$('.load-bar'),inner = tool.$('.load-bar-inner'),fly = tool.$('.fly');
+	
   tool.animate(wrapLogin,{opacity:0},200,function(){
   	wrapLogin.style.display = 'none';
   	loadBar.style.display = 'block';
+  	fly.style.display = 'block';
+  	tool.animate(fly,{opacity:1},400);
   	tool.animate(loadBar,{opacity:1},400,function(){
 			tool.animate(inner,{width:350},5000,function(){
+				tool.animate(loadBar,{opacity:0},1000);
+				fly.classList.remove('float');
+				fly.classList.add('popup');
+				setTimeout(function(){
+					window.location.href = 'home.html';
+				},2000);
 			});
   	})
   });
 
 }
-
-
-
-
-
-	// $(function(){
-
-	//   var interval = setInterval(increment,100);
-	//   var current = 0;
-
-	//   function increment(){
-	//     current++;
-	//     $('#counter').html(current+'%'); 
-	//     if(current == 100) { current = 0; }
-	//   }
-
-	//   $('.load-bar').mouseover(function(){
-	//             clearInterval(interval);
-	//   }).mouseout(function(){
-	//       interval = setInterval(increment,100);
-	//          });
-
-	// });

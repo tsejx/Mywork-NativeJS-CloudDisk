@@ -1,19 +1,10 @@
 /* 页面样式部分 */
 html,
 body{
-	width: 100%;
+  width: 100%;
   height: 100%;
   overflow: hidden;
 }
-
-/* .clearfloat:after {
-  display: block;
-  clear: both;
-  content: '';
-  visibility: hidden;
-  height: 0;
-}
-.clearfloat{zoom:1;} */
 
 /* ------------------------------------------ 页眉 ------------------------------------------- */
 header {
@@ -30,7 +21,7 @@ header {
   height: 58px;
   padding-left: 80px;
   background: url(../img/logo.png) 35px center no-repeat;
-  /* background-color: rgba(47, 117, 245, 1.0); */
+  background-size: 15%;
   background-color: rgba(105, 162, 208, 1.0);
   /* #69A2D0 */
   color: #fff;
@@ -63,19 +54,22 @@ header {
   background-repeat: no-repeat;
   cursor: pointer;
 }
+.control-panel span:hover {
+  background-repeat: no-repeat;
+}
 .control-panel span + span {
   border-left: 1px solid #464545;
 }
 
 /* 用户信息 */
 .user {background: url(../img/control-panel.png) 19px -6px ;}
-.user:hover{background: url(../img/control-panel.png) 19px  -138px no-repeat;}
+.user:hover{background: url(../img/control-panel.png) 19px  -138px;}
 /* 工具设置 */
 .setting {background: url(../img/control-panel.png) 19px -50px ;}
-.setting:hover{background: url(../img/control-panel.png) 19px -182px no-repeat;}
+.setting:hover{background: url(../img/control-panel.png) 19px -182px;}
 /* 注销账户 */
 .write-off {background: url(../img/control-panel.png) 19px -94px ;}
-.write-off:hover{background: url(../img/control-panel.png) 19px -226px no-repeat;}
+.write-off:hover{background: url(../img/control-panel.png) 19px -226px;}
 
 /* ------------------------------------- 页面主体部分 -------------------------------------------- */
 .main {
@@ -98,13 +92,11 @@ header {
   height: 82%;
   padding-top: 48px;
   color: rgba(120, 128, 138, 1.0); 
-  /* background-color: rgba(52, 55, 66, 1.0); */
 }
 .file-type li {
   width: 100%;
   height: 42px;
   padding-left: 108px; 
-  /* background-color: #ccc; */
   background-repeat: no-repeat;
   line-height: 42px;
   box-sizing: border-box;
@@ -116,9 +108,6 @@ header {
   background-color: rgba(105, 162, 208, .2);
   background-repeat: no-repeat;
   cursor: pointer;
-}
-.file-type li::selection {
-  background-color: transparent;
 }
 
 /* 侧栏项目样式 */
@@ -156,7 +145,7 @@ header {
   width: 65%;
   height: 8px;
   border-radius: 10px;
-  background: rgba(105, 162, 208, 1.0);
+  background: rgba(120, 128, 138, .5);
 }
 .capacity span {
   display: inline-block;
@@ -167,7 +156,7 @@ header {
   height: 4px;
   margin: 2px;
   border-radius: 10px;
-  background-color: rgba(44, 97, 140, 1.0);
+  background-color: rgba(105, 162, 208, 1.0);
 }
 .capacity p {
   display: inline-block;
@@ -191,9 +180,6 @@ header {
 .feature {
   width: 100%;
   height: 48px;
-  margin: 0;
-  padding: 0;
-  /* border-bottom: 1px solid ; */
   border: 1px solid rgba(229, 231, 233, 1.0);
   background-color: rgba(222, 232, 233, 1.0);
 }
@@ -204,7 +190,6 @@ header {
   float: left;
   width: 680px;
   height: 100%;
-  /* line-height: 40px;   */
   align-items: center;
   justify-content: center;
 }
@@ -212,7 +197,6 @@ header {
   display: inline-block;
   box-sizing: border-box;
   flex: 1;
-  /* width: 80px; */
   height: 32px;
   margin: 0 5px;
   border-radius: 10px;
@@ -350,13 +334,11 @@ header {
 .catalog a ,
 .catalog span{
   margin-right: 4px;
-  /* font-family: "Source Sans Pro Black"; */
   color: rgba(120, 128, 138, 1.0);
   text-decoration: none;
 }
 .catalog a:hover {
   color: rgba(105, 162, 208, 1.0);
-  /* border-bottom: 1px solid rgba(47, 117, 245, 1.0); */
   transition: 400ms;
 }
 
@@ -366,7 +348,6 @@ header {
   position: absolute;
   top: 0;
   left: -239px;
-  /* left: 0; */
   width: 228px;
   height: 100%;
   overflow: hidden;
@@ -381,7 +362,6 @@ header {
 }
 
 .tree-menu ul {
-  /* display: none; */
   margin-bottom: 8px;
   padding-left:12px;
 }
@@ -404,16 +384,16 @@ header {
 }
 
 .tree-menu span.open {
-  background: url(../img/arrow4.png) center center no-repeat;
+  background: url(../img/arrow.png) -6px -113px no-repeat;
 }
 .tree-menu span.close {
-  background: url(../img/arrow2.png) center center no-repeat;
+  background: url(../img/arrow.png) -6px -29px no-repeat;
 }
 .tree-menu span.open:hover {
-  background: url(../img/arrow3.png) center center no-repeat;
+  background: url(../img/arrow.png) -6px -85px no-repeat;
 }
 .tree-menu span.close:hover {
-  background: url(../img/arrow1.png) center center no-repeat;
+  background: url(../img/arrow.png) -6px -1px no-repeat;
 }
 
 .tree-menu a {
@@ -433,7 +413,6 @@ header {
 .tree-menu a:hover,
 .tree-menu a.active{
   color: rgba(255, 255, 255, 1.0);
-  /* background-color: rgba(105, 162, 208, 1.0); */
   background-color: rgba(105, 162, 208, .6);
 }
 
@@ -456,10 +435,10 @@ header {
   vertical-align: bottom;
 }
 .catalog-tree-list span.open {
-  background: url(../img/arrow6.png) center center no-repeat;
+  background: url(../img/arrow.png) -6px -141px no-repeat;
 }
 .catalog-tree-list span.close {
-  background: url(../img/arrow5.png) center center no-repeat;
+  background: url(../img/arrow.png) -6px -57px no-repeat;
 }
 .catalog-tree-list a {
   display: inline-block;
@@ -479,7 +458,4 @@ header {
   color: rgba(255, 255, 255, 1.0);
   background-color: rgba(37, 83, 121, .6);
   cursor: pointer;
-}
-.catalog-tree-list a::selection {
-  background-color: transparent;
 }

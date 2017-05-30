@@ -1,10 +1,33 @@
-﻿# Cloud Disk Project
+﻿# Cloud Disk Project Notes
 
-## 功能说明
+## HTML
+
+    index.html /*云盘登录页*/
+    home.html /*云盘内容页*/
+
+## CSS
+
+    reset.css /*初始化样式*/
+    login.css /*云盘登录页样式表*/
+    master.css /*云盘内容页主体样式表*/
+    file.css /*云盘文档相关样式表*/
+    alert.css /*云盘内容也弹窗灯箱样式表*/
+
+## Javascript
+    
+    too.js /*工具函数*/
+    data.js /*JSON数据*/
+    createHtml.js /*页面结构生成的相关函数*/
+    feature.js /*文件操作的功能函数*/
+    view.js /*视图层相关函数(元素事件增添)*/
+    mouse.js /*鼠标操作相关函数*/
+    animate.js /*动画相关函数*/
+    
+    
+### 功能说明
  1. 选中文件夹
   - 选中文件夹
   - 全选文件夹
-  - 
 
  2. 重命名文件夹
   - 对已有文件夹重命名
@@ -14,29 +37,54 @@
    - 是否正在重命名
    - 一次只能重命名一个文件夹
 
-
-
  4. 移动文件夹
    - 不能移动到自身及自身的子目录
    - 如果移动的目标目录有相同的名字，要做一些操作
-
-复制文件夹
     
  5. 删除文件夹
    - 如果不选中，不能删除
    - 最少选中一个
 
-6. 事件
+ 6. 复制/剪切/粘贴文件夹
+ 
+ 7. 文件显示方式切换
+
+ 8. 侧栏树状目录栏
+
+ 9. 右键菜单及其子菜单
+
+ 10. 消息灯箱/咨询弹窗
+ 
+
+## Coding Summary
+### HTML
+1. 添加浏览器标签网页图标
+
+(1)favicon图标要求
+位色 :　8 / 24
+像素 :　16*16px / 32*32px
+格式 : png / ico / gif
+
+(2)把图标放在根目录下
+
+(3)在html表头head添加link
+```
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" > 
+```
+
+2. HTML5 input placeholder属性
+
+placeholder 属性规定可描述输入字段预期值的简短的提示信息（比如：一个样本值或者预期格式的短描述）。
+
+该提示会在用户输入值之前显示在输入字段中。
+
+注意：placeholder 属性适用于下面的 input 类型：text、search、url、tel、email 和 password。
+
+### CSS
+1. flex布局
+2. 选择器span + span
+3. keyframes 关键帧
 
 
- - 搜索文件
 
-
- - 排序方式查看方式
-
- - 侧栏树状目录栏
- - 右键菜单及其子菜单
-
-
-
-- 分享文件 
+### Javascript

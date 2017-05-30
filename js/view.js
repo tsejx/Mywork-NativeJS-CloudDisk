@@ -1,10 +1,13 @@
-
 // -------------------------- 页眉相关事件 --------------------------
 header.addEventListener('click', function(e) {
   var target = e.target,
     targetCls = target.classList;
   if (targetCls.contains('logo')) {
     location.reload();
+  }
+
+  if (targetCls.contains('write-off')) {
+    window.location.href = 'index.html';
   }
 })
 
@@ -117,16 +120,6 @@ wrapFeature.addEventListener('click', function(e) {
   //搜索栏------------------------------------------------------------------
   if (targetCls.contains('search-text')) {
     notification('尚未开启搜索功能', 'error');
-
-    if (target.value === 'Search your files') {
-      target.value = '';
-    }
-
-    target.addEventListener('blur', function() {
-      if (target.value === '') {
-        target.value = 'Search your files';
-      }
-    });
   }
 
   //排序方式-----------------------------------------------------------------
@@ -139,7 +132,7 @@ wrapFeature.addEventListener('click', function(e) {
   //查看方式-------------------------------------------------------------------
   if (targetCls.contains('btn-view')) {
     // notification('尚未开启查看方式转换功能', 'error');
-    targetCls.contains('tabular-form')?eventView(targetCls, true):eventView(targetCls, false);
+    targetCls.contains('tabular-form') ? eventView(targetCls, true) : eventView(targetCls, false);
   }
 
 });
@@ -201,5 +194,3 @@ wrapSidebar.addEventListener('click', function(e) {
     }
   }
 })
-
-

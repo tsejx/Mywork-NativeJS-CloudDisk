@@ -135,9 +135,6 @@ function shadow(onOff) {
   }
 }
 
-
-
-
 // 文件操作相关函数---------------------------------------------
 // 重命名功能函数---------------------------------------------
 function fileRename(target, fileId) {
@@ -578,12 +575,6 @@ function fileClick(dataId) {
   initHtml();
 }
 
-
-
-
-
-
-
 //文件复制功能---------------------------------------------------------------------------------------------------------------------------------------
 var isCopyOrCut = true; //剪贴面板的数据是复制还是剪贴的//复制是true//剪贴是false
 
@@ -645,7 +636,6 @@ function spliceOne(arr, index){
   }
   arr.pop();
 }
-
 
 //文件粘贴功能------------------------------------------------------------------------------------------
 function filePaste() {
@@ -718,5 +708,13 @@ function isCanPaste() {
     }
   }
   return false;
+}
+
+function setStorage(){
+  console.log(JSON.stringify(user_data));
+
+  localStorage.setItem('storage',JSON.stringify(user_data));
+
+  console.log(localStorage.getItem('storage'));
 }
 

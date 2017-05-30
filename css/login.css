@@ -3,7 +3,7 @@ body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: rgba(105, 162, 208, .4);
+	background: rgba(45, 117, 134, 1.0);
 }
 input {
 	outline: none;
@@ -19,6 +19,7 @@ input {
   left: calc(50% - 150px);
   width: 300px;
   height: 400px;
+  cursor: default;
 }
 .login-form {
 	width: 300px;
@@ -34,20 +35,7 @@ input {
 /* 登录界面页头 */
 .login-form header {
 	padding: 40px 30px 30px 30px;
-}
-.login-form header h1 {
-	margin-bottom: 10px;
-	font-weight: 300;
-	font-size: 28px;
-	line-height: 34px;
-	color: #414848;
-	text-shadow: 1px 1px 0 rgba(255, 255, 255, 1.0);
-}
-.login-form header span {
-	font-size: 11px;
-  line-height: 16px;
-  color: #678889;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 1.0)
+	background: url(../img/fly2.png) center center no-repeat;
 }
 
 /* 登陆界面主体 */
@@ -115,7 +103,7 @@ FOOTER
 	color: #fff;
 	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
 	
-	background: #56c2e1;
+	background: rgba(105, 162, 208, 1.0);
 	border: 1px solid #46b3d3;
 	border-radius: 5px;
 	cursor: pointer;
@@ -166,17 +154,47 @@ FOOTER
 	transition: all 0.5s ease;
 }
 
+/* 纸飞机 */
+.fly {
+	display: none;
+	position: relative;
+	width: 42px;
+	height: 42px;
+	margin: 200px auto 50px;
+	background: url(../img/logo.png) center center no-repeat;
+	opacity: 0;
+}
+.float {
+  animation: float 2s infinite ease-in-out alternate;
+}
+.popup {
+	animation: popUp 2s infinite ease-out alternate;
+}
+
+
+.fly::after {
+    position: relative;
+    top: 38px;
+    left: -10px;
+    display: block;
+    width: 3em;
+    height: 1em;
+    border-radius: 100%;
+    content: "";
+    animation: zoom 2s ease-in-out infinite alternate;
+}
 
 /* 進度條 */
 .load-bar { 
 	display: none;
+  position: relative;
 	opacity: 0;
 	width: 350px; 
 	height: 10px; 
-	margin: 200px auto;
+	margin: 0 auto;
 	border-radius: 30px; 
 	background-color: #D9D9D9; 
-	position: relative; 
+	 
 	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8),  inset 0 2px 3px rgba(0, 0, 0, 0.2); }
 
 .load-bar p a {color:#757575; text-decoration:none;}
@@ -187,6 +205,36 @@ FOOTER
 	border-radius: inherit; 
 	position: relative; 
 	background-color: rgba(105, 162, 208, 1.0); 
-	/* background: red; */
-	animation: loader 10s linear infinite; 
 }
+
+@keyframes float {
+    from,
+    to {
+        -webkit-transform: transofrmY(0);
+                transform: transofrmY(0);
+    }
+    50% {
+        -webkit-transform: translateY(4px);
+                transform: translateY(4px);
+    }
+}
+
+@keyframes zoom {
+    from,
+    to {
+        background-color: rgba(170, 178, 189, 0.3);
+        -webkit-transform: scale(.6) rotate(0.01deg);
+                transform: scale(.6) rotate(0.01deg);
+    }
+    50% {
+        background-color: rgba(170, 178, 189, 0.6);
+        -webkit-transform: scale(.8) rotate(0.01deg);
+                transform: scale(.8) rotate(0.01deg);
+    }
+}
+
+@keyframes popUp{0%{-webkit-transform:translate(0,0) scale(1);transform:translate(0,0) scale(1)}10%{-webkit-transform:translate(-10px,10px) scale(1);transform:translate(-10px,10px) scale(1)}50%{-webkit-transform:translate(-15px,15px) scale(1);transform:translate(-15px,15px) scale(1);opacity:1}100%{-webkit-transform:translate(500px,-500px) scale(0);transform:translate(500px,-500px) scale(0);opacity:0}}
+
+.flyaway.pushOut{-webkit-animation-name:pushOut;animation-name:pushOut;-webkit-animation-timing-function:linear;animation-timing-function:lienar}
+
+.flyaway.popUp{-webkit-animation-name:popUp;animation-name:popUp}

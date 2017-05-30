@@ -2,7 +2,6 @@
 #file-container {
   width: 100%;
   height: 517px;
-  /* min-height: 517px; */
   overflow: auto;
   cursor: default;
 }
@@ -21,7 +20,6 @@
   background-color: #fff;
   box-sizing: border-box;
   box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
-  /* overflow: hidden; */
 }
 
 .layout-preview .file.active {
@@ -35,7 +33,6 @@
 
 /* 文件控制面板 */
 .layout-preview .file-panel {
-  /* display: none; */
   float: left;
   width: 154px;
   height: 20px;
@@ -80,7 +77,6 @@
 }
 /* 文件信息 */
 .layout-preview .file-info {
-  /* display: none; */
   max-width: 100%;
   height: 16%;
   border: 2px solid transparent;
@@ -88,9 +84,7 @@
   font-size: 14px;
   text-align: center;
 }
-.layout-preview .file-info::selection {
-  background: transparent;
-}
+
 /* 文件重命名输入框 */
 .layout-preview .file-rename-text {
   display: none;
@@ -199,7 +193,6 @@
   border-radius: 5px;
   background: #f6f6f6;
   box-shadow: 0 0 10px rgba(0, 0, 0, .5); 
-  /* overflow: hidden; */
 }
 .menu li {
   width: 132px;
@@ -241,7 +234,6 @@
 }
 
 .menu .sub-menu {
-  /* display: none; */
   position: relative;
   top: 9999px;
   left: 9999px;
