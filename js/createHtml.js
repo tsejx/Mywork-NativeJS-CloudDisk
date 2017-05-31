@@ -10,12 +10,6 @@ var wrapFeature = tool.$('.feature'); //功能按键面板
 
 var wrapSidebar = tool.$('.active-window'); //侧边栏目录树活动窗
 
-var catalogSidebar = tool.$('.tree-menu', wrapSidebar); //目录树根目录列表
-
-var questionBox = tool.$('.question');//咨询弹窗
-
-var arrBtn = tool.$('span', questionBox); //询问弹窗的确定/取消按钮
-
 var allChecked = tool.$('.all-in'); //全选框
 
 // -------------------------------------------------------------
@@ -31,8 +25,11 @@ var clipBoard = new Array(); //剪贴板
 // -------------------------------------------------------------
 //初始化页面
 function initHtml() {
+  var catalogSidebar = tool.$('.tree-menu', wrapSidebar); //目录树根目录列表
+
   wrapFiles.innerHTML = createFileHtml(currentData);
   catalogSidebar.innerHTML = createCatalogTree(data);
+
   addFileEvent();
   catalogEvent();
   eventAllChecked();
@@ -52,9 +49,10 @@ function createFileHtml(data) {
                 <span class="file-delete"></span>
                 <span class="file-rename"></span>
               </div>
-              <div class="file-img"></div>
+              <div class="file-img ${'file-type-' + data[i].type}"></div>
               <div class="file-info" title="${data[i].name}">${data[i].name}</div>
-              <input class="file-rename-text" type="text" value="${data[i].name}">
+              <input class="file-rename-text" type="text" value="${data[i].name}" spellcheck="false">
+              <time class="file-time">${data[i].time}</time>
             </div>`
   }
   return str;

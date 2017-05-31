@@ -14,7 +14,7 @@ function contextMenu(e) {
   var menu = tool.$('.menu'),
   dataId;
 
-  dataId = isFileChecked() || isMouseInFile(e.pageX, e.pageY) ? 1:0;
+  dataId = isFileChecked() || isMouseOnFile(e.pageX, e.pageY) ? 1:0;
 
   createContextMenu(e, dataId);
 
@@ -41,7 +41,7 @@ function mouseDraw(e) {
   var startX = e.pageX,
     startY = e.pageY;
 
-  if (isMouseInFile(startX, startY)) return;
+  if (isMouseOnFile(startX, startY)) return;
 
   // 创建一个画框的div
   var div = document.createElement('div');
@@ -103,7 +103,7 @@ function mouseDraw(e) {
     
     
     function cancelChecked(e) {
-      if (isMouseInFile(e.pageX, e.pageY)) return;
+      if (isMouseOnFile(e.pageX, e.pageY)) return;
       if (!isFileChecked()) return;
       if (isRename()) return;
 
@@ -137,7 +137,7 @@ function isCollide(current, target) {
 }
 
 //检测鼠标按下时的起点是否在文件范围内
-function isMouseInFile(mouseX, mouseY) {
+function isMouseOnFile(mouseX, mouseY) {
   var eleTop, eleRight, eleBottom, eleLeft;
   for (var i = 0; i < arrFile.length; i++) {
     eleTop = arrFile[i].getBoundingClientRect().top,
@@ -283,7 +283,7 @@ function eventWrapMenu(menu,arrSubMenu) {
 
     if (targetCls.contains('file-paste') || targetParentCls.contains('file-paste')) {
       if (!clipBoard[0]) {
-        notification('未复制文件','error');
+        notification('请您选择要拷贝的文件','error');
         hiddenContextMenu(menu);
         return;
       }
@@ -293,7 +293,7 @@ function eventWrapMenu(menu,arrSubMenu) {
 
   })
 
-  //右键菜单的移动事件----------------------------------------------------------
+  //右键菜单的悬浮事件----------------------------------------------------------
   menu.addEventListener('mouseover', function(e) {
     var target = e.target,
       targetCls = target.classList;
@@ -330,12 +330,26 @@ function eventWrapMenu(menu,arrSubMenu) {
 
 // 右键菜单（文件相关操作）
 function eventFileMenu(menu){
-  menu.addEventListener('mousedown',function(e){
-    var target = e.target,targetCls = target.classList;
-    if (!target.parentNode) return;
+  menu.addEventListener('click',function(e){
+    if (!e.target.parentNode) return;
+
+    var target = e.target,targetCls = target.classList,isOnFile = isMouseOnFile(menu.offsetLeft,menu.offsetTop);
+
+    if (isOnFile) {
+        //通过菜单左上角判断是否在文件范围内
+        //通过函数获取这个文件的节点与数据
+        var eleSelect = eleUncheckedSelect(menu.offsetLeft,menu.offsetTop),
+        dataSelect = getItemDataById(currentData, eleSelect.dataset.id*1);
+      }
+
     if (targetCls.contains('file-open') || target.parentNode.classList.contains('file-open')) {
-      var arrChecked = filesChecked();
-      fileClick(arrChecked[0].id);
+      if (isOnFile) {
+        fileClick(dataSelect.id);
+      }else{
+        var arrChecked = filesChecked();
+        if (!arrChecked.length) return;
+        fileClick(arrChecked[0].id);
+      }
       hiddenContextMenu(menu);
       return;
     }
@@ -347,17 +361,36 @@ function eventFileMenu(menu){
     }
 
     if (targetCls.contains('file-copy') || target.parentNode.classList.contains('file-copy')) {
-      fileCopy();
+      isOnFile ? fileCopy(dataSelect) : fileCopy();
       hiddenContextMenu(menu);
       return;
     }
 
     if (targetCls.contains('file-cut') || target.parentNode.classList.contains('file-cut')) {
-      fileCut();
+      isOnFile ? fileCut(dataSelect) : fileCut();
       hiddenContextMenu(menu);
       return;
     }
 
+    if (targetCls.contains('file-rename-contextmenu') || target.parentNode.classList.contains('file-rename-contextmenu')) {
+      //无选中 点击单个文件夹的情况// console.log(menu.offsetLeft,menu.offsetTop);
+      if (isOnFile) {
+        fileRename(dataSelect.id,eleSelect);
+      }
+
+      //有选中的情况
+      var arrCheackedData = filesChecked(),arrCheacekedEle = fileCheckedElement();
+      arrCheackedData.length ? fileRename(arrCheackedData[0].id,arrCheacekedEle[0]) : '';
+      hiddenContextMenu(menu);
+      return;
+    }
+
+    //获取当右键菜单起点在文件上的那个文件的节点
+    function eleUncheckedSelect(menuX, menuY) {
+      for (var i = arrFile.length - 1; i >= 0; i--) {
+        if (isMouseInEle(menuX, menuY, arrFile[i])) return arrFile[i];
+      }
+    }
   })
 }
 

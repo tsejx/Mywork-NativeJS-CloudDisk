@@ -1,5 +1,5 @@
 var user_data = {
-  maxId: 7,
+  maxId: 9,
   files: [
     {
       name: 'Root',
@@ -12,7 +12,7 @@ var user_data = {
           id: 1,
           pId: 0,
           type:'folder',
-          time: '2017-01-02',
+          time: '2017-10-02',
           children: [
             {
               name: 'React',
@@ -46,7 +46,7 @@ var user_data = {
           id: 2,
           pId: 0,
           type:'folder',
-          time: '2017-02-01',
+          time: '2017-01-01',
           children: []
         },
         {
@@ -54,8 +54,24 @@ var user_data = {
           id: 3,
           pId: 0,
           type:'folder',
-          time: '2017-03-01',
+          time: '2017-05-01',
           children:[]
+        },
+        {
+          name : 'Mindmap',
+          id : 7,
+          pId : 0,
+          type : 'image',
+          time : '2017-03-28',
+          children :[]
+        },
+        {
+          name : 'BookNotes',
+          id : 8,
+          pId : 0,
+          type : 'note',
+          time : '2017-04-28',
+          children :[]
         }
       ]
     }    
@@ -66,7 +82,6 @@ var dataContextMenu = [{
   menuname: 'document',
   data: [{
     name: '查看',
-    id: 0,
     classname: 'parent-menu view-way',
     childname: 'view-menu',
     children: [{
@@ -78,7 +93,6 @@ var dataContextMenu = [{
     }]
   }, {
     name: '排序',
-    id: 1,
     classname: 'parent-menu sort-way',
     childname: 'sort-menu',
     children: [{
@@ -96,11 +110,9 @@ var dataContextMenu = [{
     classname: 'file-paste',
   },{
     name: '新建文件夹',
-    id : 2,
     classname: 'file-create'
   }, {
     name: '重新加载页面',
-    id : 3,
     classname: 'reload'
   }]
 }, {
@@ -114,7 +126,11 @@ var dataContextMenu = [{
   }, {
     name: '剪切',
     classname: 'file-cut',
-  }, {
+  },{
+    name : '重命名',
+    classname : 'file-rename-contextmenu',
+  } 
+  ,{
     name: '移动到',
     classname: 'file-move',
   }]

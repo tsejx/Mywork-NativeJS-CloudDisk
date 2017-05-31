@@ -72,8 +72,18 @@
 .layout-preview .file-img {
   width: 100%;
   height: 84%;
-  background: url(../img/file.png) center 24px no-repeat;
   background-size: 80%;
+  background-position: center 24px;
+  background-repeat: no-repeat;
+}
+.file-type-folder {
+  background-image: url(../img/file.png);
+}
+.file-type-image {
+  background-image: url(../img/image.png);
+}
+.file-type-note {
+  background-image: url(../img/notes.png);
 }
 /* 文件信息 */
 .layout-preview .file-info {
@@ -99,20 +109,23 @@
   border-radius: 10px;
   outline: none;
 }
+.layout-preview .file-time {
+  display: none;
+}
 
 /* ------------------- 列表布局 ----------------------*/
 .layout-list .file {
   float: left;
   width: 100%;
   height: 48px;
-  display: flex;
+  color: rgba(120, 128, 138, 1.0);
 }
 .layout-list .file:nth-of-type(2n){
   background: rgba(105, 162, 208, .1);
 }
-.layout-list .file div {
+.layout-list .file div,
+.layout-list .file time {
   display: inline-block;
-  
   height: 48px;
   font-size: 14px;
   line-height: 48px;
@@ -161,11 +174,11 @@
 }
 
 .layout-list .file-info {
+  display: none;
  float: left;
  width: 200px;
-  margin-left: 5px;
-  color: rgba(120, 128, 138, 1.0);
-  text-align: left;
+ margin-left: 5px;
+ text-align: left;
 }
 .layout-list .file-rename-text {
   display: none;
@@ -173,13 +186,19 @@
   height: 24px;
   padding-left: 5px;
   margin: 12px 0 0 5px;
-  color: rgba(120, 128, 138, 1.0);
   text-align: left;
   line-height: 48px;
   box-sizing: border-box;
   border: 2px solid rgba(105, 162, 208, 1.0);
   border-radius: 10px;
   outline: none;
+}
+.layout-list .file-time {
+  float: right;
+  width: 100px;
+}
+.layout-list .file-size {
+
 }
 
 /* ---------------------------- 鼠标右键菜单 --------------------------------------------- */

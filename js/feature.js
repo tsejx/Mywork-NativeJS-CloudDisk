@@ -2,7 +2,6 @@
 //2弹窗相关函数
 //3文件操作相关函数
 
-
 // ---------------------------------------
 //判断是否有文件被选中
 function isFileChecked() {
@@ -18,9 +17,20 @@ function isFileChecked() {
 
 //获取被选中的文件的数据
 function filesChecked() {
-  var arr = [];
+  var arr = new Array();
   Array.from(currentData).forEach(function(item) {
     if (item.checked === true) {
+      arr.push(item);
+    }
+  })
+  return arr;
+}
+
+//获取被选中的文件的节点
+function fileCheckedElement(){
+  var arr = new Array();
+  Array.from(arrFile).forEach(function(item) {
+    if (item.classList.contains('active')) {
       arr.push(item);
     }
   })
@@ -54,9 +64,7 @@ function changeCheckedbox(file, checkedbox, data, onOff) {
     file.onmouseout = function() {
       this.firstElementChild.style.opacity = '';
     }
-
     checkedbox.classList.remove('active');
-
     data.checked = false;
   }
 }
@@ -93,7 +101,8 @@ function notification(message, type) {
 
 //咨询弹窗
 function question(message, onOff) {
-  var askMessage = tool.$('p', questionBox),
+  var questionBox = tool.$('.question'),
+    askMessage = tool.$('p', questionBox),
     shadowQuestion = tool.$('.question-shadow'),
     main = tool.$('.main');
 
@@ -120,6 +129,20 @@ function question(message, onOff) {
   }
 }
 
+function feedback(fn) {
+  var arrBtn = tool.$('.question span'); //询问弹窗的确定/取消按钮
+  arrBtn.forEach(function(item, i) {
+    item.index = i;
+    item.onclick = function() {
+      if (!this.index) {
+        fn();
+        initHtml();
+      }
+      question('', false);
+    };
+  })
+}
+
 //遮罩层函数
 function shadow(onOff) {
   var shadowBox = tool.$('.shadow'),
@@ -137,7 +160,7 @@ function shadow(onOff) {
 
 // 文件操作相关函数---------------------------------------------
 // 重命名功能函数---------------------------------------------
-function fileRename(target, fileId) {
+function fileRename(fileId,target) {
   if (isFileChecked()) {
     var arrCheckedBox = tool.$('.file-checkbox');
     for (var i = 0; i < arrFile.length; i++) {
@@ -146,7 +169,7 @@ function fileRename(target, fileId) {
     }
   }
 
-  var inputFileName = target.parentNode.parentNode.lastElementChild;
+  var inputFileName = target.lastElementChild.previousElementSibling;
 
   var textFileName = inputFileName.previousElementSibling;
 
@@ -154,7 +177,8 @@ function fileRename(target, fileId) {
   var originFileName = inputFileName.value;
 
   textFileName.style.display = 'none';
-  inputFileName.style.display = 'block';
+  inputFileName.style.display = 'inline-block';
+
   inputFileName.select();
 
   var isRename;
@@ -177,6 +201,7 @@ function fileRename(target, fileId) {
       if (isRename === 'success') initHtml();
     }
   })
+
 }
 
 
@@ -293,13 +318,16 @@ function fileCreate() {
     }
   }
 
-  fileRenameText.addEventListener('blur', function() {
-    if (this.style.display === 'none') {
+  fileRenameText.addEventListener('blur', isSetName);
+
+  function isSetName(e){
+    if (e.target.style.display === 'none') {
       return;
     } else {
       setName();
+      fileRenameText.removeEventListener('blur', isSetName);
     }
-  });
+  }
 
   function setName() {
     var isCreate = rename(fileInfo, fileRenameText, 'create-file');
@@ -308,6 +336,8 @@ function fileCreate() {
       name: fileRenameText.value,
       id: ++user_data.maxId,
       pId: currentDataId,
+      type : 'folder',
+      time : getNowTime(),
       children: [],
     };
     switch (isCreate) {
@@ -328,32 +358,36 @@ function fileCreate() {
 }
 
 //删除文件相关函数--------------------------------------------------------------
-//删除单个文件功能函数
-function fileDeleteSingle(fileId) {
+//删除单个未选中文件功能函数
+function fileDeleteUnchecked(fileId) {
   question('您要删除这个文件吗？', true);
 
-  arrBtn.forEach(function(item, i) {
-    item.index = i;
-    item.onclick = function() {
-      if (!this.index) {
-        var fileData = getItemDataById(currentData, fileId);
+  feedback(executeDelete);
 
-        for (var i = 0; i < currentData.length; i++) {
-          if (currentData[i] === fileData) {
-            currentData.splice(i, 1);
-          }
-        }
-        notification(`您已成功删除文件`, 'success');
-        initHtml();
+  function executeDelete() {
+    var fileData = getItemDataById(currentData, fileId);
+
+    for (var i = 0; i < currentData.length; i++) {
+      if (currentData[i] === fileData) {
+        currentData.splice(i, 1);
       }
-      question('', false);
-    };
-  })
+    }
+    notification(`您已成功删除文件`, 'success');
+  }
 }
-//删除多个文件功能函数
-//
-//
 
+//删除多个选中文件功能函数
+function fileDeleteChecked() {
+  var deleteNum = 0;
+  for (var i = 0; i < currentData.length; i++) {
+    if (currentData[i].checked) {
+      currentData.splice(i, 1);
+      i--;
+      deleteNum++;
+    }
+  }
+  notification(`您已成功删除${deleteNum}个文件`, 'success');
+}
 
 //移动文件夹功能函数-------------------------------------------------------------------------
 function fileShift() {
@@ -367,7 +401,6 @@ function fileShift() {
   //移动文件夹弹窗遮罩层//移动文件夹弹窗//移动文件夹弹窗的树状目录
   var alertShiftFile = tool.$('#shift-file-box'),
     catalogShiftFile = tool.$('.catalog-tree-list', alertShiftFile);
-
 
   catalogShiftFile.innerHTML = createCatalogTree(data);
 
@@ -440,41 +473,36 @@ function fileShift() {
       //检测无误，询问是否移动
       question(`您确定要移动到 ${targetData.name} 吗？`, true);
 
-      arrBtn.forEach(function(item, i) {
-        item.index = i;
-        item.onclick = function() {
-          if (!this.index) {
-            //给目标文件夹添加
-            dataFilesChecked.forEach(function(item) {
-              targetChildrenData.push(item);
-              item.pId = targetId;
-            })
+      feedback(executeShift);
 
+      function executeShift() {
+        //给目标文件夹添加
+        dataFilesChecked.forEach(function(item) {
+          targetChildrenData.push(item);
+          item.pId = targetId;
+        })
 
-            // 删除当前文件中选中文件夹
-            for (var i = 0; i < currentData.length; i++) {
-              if (currentData[i].checked) {
-                currentData[i].checked = false;
-                currentData.splice(i, 1);
-                i--;
-              }
-            }
-
-            tool.animate(alertShiftFile, {
-              top: 1600
-            }, 'easeBoth', function() {
-              tool.css(alertShiftFile, {
-                top: -450
-              });
-              shadow(false);
-            });
-
-            initHtml();
-            notification(`您已成功移动 ${numChecked} 个文件到 ${targetData.name}`, 'success');
+        // 删除当前文件中选中文件夹
+        for (var i = 0; i < currentData.length; i++) {
+          if (currentData[i].checked) {
+            currentData[i].checked = false;
+            currentData.splice(i, 1);
+            i--;
           }
-          question('', false)
-        };
-      })
+        }
+
+        tool.animate(alertShiftFile, {
+          top: 1600
+        }, 'easeBoth', function() {
+          tool.css(alertShiftFile, {
+            top: -450
+          });
+          shadow(false);
+        });
+
+        notification(`您已成功移动 ${numChecked} 个文件到 ${targetData.name}`, 'success');
+      }
+
     }
   })
 }
@@ -536,7 +564,6 @@ function eventView(btnViewCls, onOff) {
   }
 }
 
-
 //进入文件夹功能更函数(显示当前数据某个子元素的子集)------------------------------------------------------------------------------------------
 function fileClick(dataId) {
   dataId = dataId * 1;
@@ -579,15 +606,23 @@ function fileClick(dataId) {
 var isCopyOrCut = true; //剪贴面板的数据是复制还是剪贴的//复制是true//剪贴是false
 
 //文件复制操作的功能函数
-function fileCopy() {
-  clipBoard = new Array();
-  var arrFilesChecked = filesChecked();
+function fileCopy(dataUncheackedCopy) {
+  var objNew;
 
-  for (var i = 0; i < arrFilesChecked.length; i++) {
-    var objNew = JSON.parse(JSON.stringify(arrFilesChecked[i]));
+  clipBoard = new Array();
+
+  if (isFileChecked()) {
+    var arrFilesChecked = filesChecked();
+    for (var i = 0; i < arrFilesChecked.length; i++) {
+      objNew = JSON.parse(JSON.stringify(arrFilesChecked[i]));
+      clipBoard.push(objNew);
+    }
+  } else {
+    objNew = JSON.parse(JSON.stringify(dataUncheackedCopy));
     clipBoard.push(objNew);
   }
   isCopyOrCut = true;
+  notification('鼠标右击空白可粘贴','tip');
 }
 
 //复制后的剪贴面板的数据
@@ -596,6 +631,7 @@ function dataCopy(data, parentId) {
     item.checked = false;
     item.id = ++user_data.maxId;
     item.pId = parentId;
+    item.time = getNowTime();
     if (item.children) {
       item.children = dataCopy(item.children, item.id);
     }
@@ -604,20 +640,31 @@ function dataCopy(data, parentId) {
 }
 
 //剪切功能------------------------------------------------------------------------------------------
-function fileCut() {
+function fileCut(dataUncheackedCut) {
   clipBoard = new Array();
-  //拷贝当前显示的
-  clipBoard = filesChecked();
 
-  //删除当前显示的
-  for (var i = 0; i < currentData.length; i++) {
-    if (currentData[i].checked) {
-      currentData.splice(i, 1);
-      i--;
+  if (isFileChecked()) {
+    //拷贝当前显示的
+    clipBoard = filesChecked();
+    //删除当前显示的
+    for (var i = 0; i < currentData.length; i++) {
+      if (currentData[i].checked) {
+        currentData.splice(i, 1);
+        i--;
+      }
+    }
+  } else {
+    clipBoard.push(dataUncheackedCut);
+    for (var i = 0; i < currentData.length; i++) {
+      if (currentData[i].id === dataUncheackedCut.id) {
+        currentData.splice(i, 1);
+        i--;
+      }
     }
   }
   isCopyOrCut = false;
   initHtml();
+  notification('鼠标右击空白可粘贴','tip');
 }
 
 //剪切后剪贴面板的数据
@@ -625,14 +672,15 @@ function dataCut(data) {
   data.forEach(function(item, i) {
     item.checked = false;
     item.pId = currentDataId;
+    item.time = getNowTime();
   })
   return data;
 }
 
 //删除数组特定位置的方法
-function spliceOne(arr, index){
-  for(var i=index; i<arr.length; i++){
-    arr[i] = arr[i+1];
+function spliceOne(arr, index) {
+  for (var i = index; i < arr.length; i++) {
+    arr[i] = arr[i + 1];
   }
   arr.pop();
 }
@@ -645,38 +693,32 @@ function filePaste() {
   if (isCanPaste()) { //有重复名字cover?cancel
 
     question('文档中已有重复文件，是否全部覆盖?', true);
-    arrBtn.forEach(function(item, i) {
-      item.index = i;
-      item.onclick = function() {
-        if (!this.index) {
-          for (var i = 0; i < currentData.length; i++) {
+
+    feedback(executeCover);
+
+    function executeCover() {
+      for (var i = 0; i < currentData.length; i++) {
+        if (!clipBoard.length) break;
+        for (var j = 0; j < clipBoard.length; j++) {
+          if (currentData[i].name === clipBoard[j].name) {
+            currentData[i] = clipBoard[j];
+            spliceOne(clipBoard, j);
             if (!clipBoard.length) break;
-            for (var j = 0; j < clipBoard.length; j++) {
-              if (currentData[i].name === clipBoard[j].name) {
-                currentData[i] = clipBoard[j];
-                spliceOne(clipBoard,j);
-                if (!clipBoard.length) break;
-                j--;
-              }
-            }
-          }
-          console.log(clipBoard);
-          if (clipBoard.length) {
-            for (var i = 0; i < clipBoard.length; i++) {
-              currentData.push(clipBoard[i]);
-            }
+            j--;
           }
         }
-        clipBoard = new Array();
-        question('', false);
-        initHtml();
-        return;
-      };
-    })
+      }
+      if (clipBoard.length) {
+        for (var i = 0; i < clipBoard.length; i++) {
+          currentData.push(clipBoard[i]);
+        }
+      }
+    }
+
 
   } else if (isCopyOrCut) { //复制//无重复名字
     paste();
-    notification('已成功复制文件', 'success');
+    notification('已成功拷贝文件', 'success');
   } else { //剪切
     cut();
     notification('已成功剪切文件', 'success');
@@ -700,7 +742,7 @@ function filePaste() {
 
 }
 
-//判断能否粘贴
+//判断能否粘贴（有重复名字的时候会提示是否覆盖）
 function isCanPaste() {
   for (var i = 0; i < currentData.length; i++) {
     for (var j = 0; j < clipBoard.length; j++) {
@@ -710,11 +752,37 @@ function isCanPaste() {
   return false;
 }
 
-function setStorage(){
-  console.log(JSON.stringify(user_data));
+//获取即时日期//以xxx-xx-xx形式输出
+function getNowTime(){
+  var time = new Date(),
+  year = time.getFullYear(),
+  month = add0(time.getMonth() + 1),
+  date = time.getDate();
 
-  localStorage.setItem('storage',JSON.stringify(user_data));
-
-  console.log(localStorage.getItem('storage'));
+  //补零函数
+  function add0(num){
+    return num < 10 ? '0' + num : '' + num;
+  }
+  return year + '-' + month + '-' + date;
 }
+
+function sortTime() {
+  var arr = new Array();
+  for (var i = 0; i < currentData.length; i++) {
+    arr.push(Number(currentData[i].time.split('-').join('')));
+  }
+  console.log(currentData);
+
+  for(var i=0; i<arr.length - 1; i++){
+      for(var j=0; j<arr.length-1 - i; j++){
+        if(arr[j] > arr[j+1]){
+
+        }
+      }
+    }
+
+
+  console.log(currentData);
+}
+
 

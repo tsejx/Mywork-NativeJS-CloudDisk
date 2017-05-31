@@ -84,5 +84,7 @@ h2 {cursor: default}
 q::before, 
 q::after { content:""; } 
 legend{ display:none;} 
-span::selection{background-color: transparent}
-::selection {background-color: transparent}
+span::selection,strong::selection,a::selection,p::selection,li::selection,div::selection{background-color: transparent}
+input::selection {background: rgba(105, 162, 208, 1.0);color: #fff}
+
+/* ::selection {background-color: transparent} */

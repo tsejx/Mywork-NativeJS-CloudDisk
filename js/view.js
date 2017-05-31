@@ -11,6 +11,20 @@ header.addEventListener('click', function(e) {
   }
 })
 
+header.addEventListener('mouseover',function(e){
+  var userPage = tool.$('.user-page');
+  if (e.target.classList.contains('user')) {
+    tool.css(userPage,{display:'block',opacity:1});
+  }
+})
+
+header.addEventListener('mouseout',function(e){
+  var userPage = tool.$('.user-page');
+  if (e.target.classList.contains('user')) {
+    tool.css(userPage,{display:'none',opacity:0});
+  }
+})
+
 // -----------------------------------------------------------------------------------------------
 //点击文件的相关事件
 wrapFiles.addEventListener('click', function(e) {
@@ -25,26 +39,33 @@ wrapFiles.addEventListener('click', function(e) {
   if (targetCls.contains('file-checkbox')) {
     var dataChecked = getItemDataById(data, fileId),
       onOff = !dataChecked.checked;
-    changeCheckedbox(fileGrandparent, target, dataChecked, onOff)
+    changeCheckedbox(fileGrandparent, target, dataChecked, onOff);
     eventAllChecked();
   }
 
   //重命名功能--------------------------------------------------------
   if (targetCls.contains('file-rename')) {
-    fileRename(target, fileId);
+    fileRename(fileId,fileGrandparent);
   }
 
   //删除文件功能----------------------------------------------------------
   if (targetCls.contains('file-delete')) {
-    fileDeleteSingle(fileId);
+    fileDeleteUnchecked(fileId);
   }
 
   //进入文件夹----------------------------------------------------------
   if (targetCls.contains('file-img')) {
     fileId = target.parentNode.dataset.id * 1;
-    fileClick(fileId);
+    if (getItemDataById(currentData,fileId).type === 'folder') {
+      fileClick(fileId);
+    }
   }
 
+  if (targetCls.contains('file-info')) {
+    var timerRename = setTimeout(function(){
+      fileRename(target.parentNode.dataset.id*1,target.parentNode);
+    },400);
+  }
 });
 
 // -------------------------------------------------------------------------------------------------------
@@ -73,7 +94,6 @@ wrapFeature.addEventListener('click', function(e) {
     fileShift();
   }
 
-
   //删除文件夹------------------------------------------------------------------
   if (targetCls.contains('delete-file')) {
 
@@ -81,28 +101,9 @@ wrapFeature.addEventListener('click', function(e) {
       notification('您未选中文件！', 'worry');
       return;
     }
-
     question('您要删除选中的文件吗？', true);
 
-    arrBtn.forEach(function(item, i) {
-      item.index = i;
-      item.onclick = function() {
-        if (!this.index) {
-          var deleteNum = 0;
-          for (var i = 0; i < currentData.length; i++) {
-            if (currentData[i].checked) {
-              currentData.splice(i, 1);
-              i--;
-              deleteNum++;
-            }
-          }
-          notification(`您已成功删除${deleteNum}个文件`, 'success');
-          initHtml();
-        }
-        question('', false);
-      };
-    })
-
+    feedback(fileDeleteChecked);
   }
 
   //分享文件夹----------------------------------------------------------------
@@ -116,7 +117,6 @@ wrapFeature.addEventListener('click', function(e) {
   }
 
   //--- 功能按键面板---
-
   //搜索栏------------------------------------------------------------------
   if (targetCls.contains('search-text')) {
     notification('尚未开启搜索功能', 'error');
@@ -131,10 +131,8 @@ wrapFeature.addEventListener('click', function(e) {
 
   //查看方式-------------------------------------------------------------------
   if (targetCls.contains('btn-view')) {
-    // notification('尚未开启查看方式转换功能', 'error');
     targetCls.contains('tabular-form') ? eventView(targetCls, true) : eventView(targetCls, false);
   }
-
 });
 
 //全选功能
@@ -193,4 +191,24 @@ wrapSidebar.addEventListener('click', function(e) {
       target.style.background = 'none';
     }
   }
+})
+
+//侧边栏的树状目录的动画效果----------------------------
+
+var timerTree;
+
+wrapSidebar.addEventListener('mouseenter', function(e) {
+
+  cancelAnimationFrame(timerTree);
+  timerTree = tool.animate(wrapSidebar, {
+    left: 0
+  }, 300);
+
+})
+
+wrapSidebar.addEventListener('mouseleave', function(e) {
+  cancelAnimationFrame(timerTree);
+  timerTree = tool.animate(wrapSidebar, {
+    left: -239
+  }, 300);
 })

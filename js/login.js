@@ -56,7 +56,11 @@ if (e.target.classList.contains('input') || e.target.classList.contains('sign-in
 login.addEventListener('mousedown',enterCloudDisk);
 
 function enterCloudDisk(){
-	var loadBar = tool.$('.load-bar'),inner = tool.$('.load-bar-inner'),fly = tool.$('.fly');
+	var loadBar = tool.$('.load-bar'),
+	inner = tool.$('.load-bar-inner'),
+  percentage = tool.$('.load-bar-percentage'),
+	fly = tool.$('.fly');
+	
 	
   tool.animate(wrapLogin,{opacity:0},200,function(){
   	wrapLogin.style.display = 'none';
@@ -72,6 +76,11 @@ function enterCloudDisk(){
 					window.location.href = 'home.html';
 				},2000);
 			});
+			setInterval(function(){
+				console.log(inner.style.width);
+				percentage.innerHTML = parseInt(parseInt(inner.style.width)/350*100) + '%';
+			}, 4);
+
   	})
   });
 
