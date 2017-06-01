@@ -27,7 +27,7 @@ function filesChecked() {
 }
 
 //获取被选中的文件的节点
-function fileCheckedElement(){
+function fileCheckedElement() {
   var arr = new Array();
   Array.from(arrFile).forEach(function(item) {
     if (item.classList.contains('active')) {
@@ -158,9 +158,37 @@ function shadow(onOff) {
   }
 }
 
+function fileImage(fileId) {
+
+  shadow(true);
+
+  var dataImage = getItemDataById(currentData, fileId),
+    wrapImage = tool.$('.img-box');
+  wrapImage.src = dataImage.src;
+  tool.css(wrapImage, {
+    width: dataImage.width,
+    height: dataImage.height
+  });
+
+  wrapImage.style.left = window.innerWidth / 2 - dataImage.width / 2 + 'px';
+  wrapImage.style.top = window.innerHeight / 2 - dataImage.height / 2 + 'px';
+
+  tool.animate(wrapImage, {
+    scale: 1
+  }, 100);
+
+  wrapImage.addEventListener('click', function() {
+    shadow(false);
+    tool.animate(wrapImage, {
+      scale: 0
+    }, 50);
+  })
+
+}
+
 // 文件操作相关函数---------------------------------------------
 // 重命名功能函数---------------------------------------------
-function fileRename(fileId,target) {
+function fileRename(fileId, target) {
   if (isFileChecked()) {
     var arrCheckedBox = tool.$('.file-checkbox');
     for (var i = 0; i < arrFile.length; i++) {
@@ -292,7 +320,7 @@ function fileCreate() {
   filePanel.appendChild(fileDelete);
 
   var fileImg = document.createElement('div');
-  fileImg.className = 'file-img';
+  fileImg.className = 'file-img file-type-folder';
 
   var fileInfo = document.createElement('div');
   fileInfo.className = 'file-info';
@@ -320,7 +348,7 @@ function fileCreate() {
 
   fileRenameText.addEventListener('blur', isSetName);
 
-  function isSetName(e){
+  function isSetName(e) {
     if (e.target.style.display === 'none') {
       return;
     } else {
@@ -336,8 +364,8 @@ function fileCreate() {
       name: fileRenameText.value,
       id: ++user_data.maxId,
       pId: currentDataId,
-      type : 'folder',
-      time : getNowTime(),
+      type: 'folder',
+      time: getNowTime(),
       children: [],
     };
     switch (isCreate) {
@@ -435,6 +463,11 @@ function fileShift() {
     }
 
     if (target.nodeName === 'A') {
+
+      if (target.dataset.type !== 'folder') {
+        notification('无法移动到非文件夹类型', 'error');
+        return;
+      }
       var targetId = target.dataset.id * 1;
 
       //获取已选中的文件夹的数据
@@ -622,7 +655,7 @@ function fileCopy(dataUncheackedCopy) {
     clipBoard.push(objNew);
   }
   isCopyOrCut = true;
-  notification('鼠标右击空白可粘贴','tip');
+  notification('鼠标右击空白可粘贴', 'tip');
 }
 
 //复制后的剪贴面板的数据
@@ -664,7 +697,7 @@ function fileCut(dataUncheackedCut) {
   }
   isCopyOrCut = false;
   initHtml();
-  notification('鼠标右击空白可粘贴','tip');
+  notification('鼠标右击空白可粘贴', 'tip');
 }
 
 //剪切后剪贴面板的数据
@@ -753,36 +786,111 @@ function isCanPaste() {
 }
 
 //获取即时日期//以xxx-xx-xx形式输出
-function getNowTime(){
+function getNowTime() {
   var time = new Date(),
-  year = time.getFullYear(),
-  month = add0(time.getMonth() + 1),
-  date = time.getDate();
+    year = time.getFullYear(),
+    month = add0(time.getMonth() + 1),
+    date = time.getDate();
 
   //补零函数
-  function add0(num){
+  function add0(num) {
     return num < 10 ? '0' + num : '' + num;
   }
   return year + '-' + month + '-' + date;
 }
 
-function sortTime() {
-  var arr = new Array();
-  for (var i = 0; i < currentData.length; i++) {
-    arr.push(Number(currentData[i].time.split('-').join('')));
+//---------------------------------------------------------
+//排序函數
+function eventSort(btnSortCls,onOff){
+
+  if (onOff) {
+    sortName();
+    btnSortCls.remove('time-sort');
+    btnSortCls.add('initial-letter');
+  }else{
+    sortTime();
+    btnSortCls.remove('initial-letter');
+    btnSortCls.add('time-sort');
   }
-  console.log(currentData);
+}
 
-  for(var i=0; i<arr.length - 1; i++){
-      for(var j=0; j<arr.length-1 - i; j++){
-        if(arr[j] > arr[j+1]){
+//时间排序
+function sortTime() {
+  currentData.sort(function(a,b){
+    return parseInt(a.time.replace(/-/g,'')) - parseInt(b.time.replace(/-/g,''));
+  })
+  initHtml();
 
-        }
-      }
-    }
+}
 
-
-  console.log(currentData);
+//名称排序
+function sortName(){
+  currentData.sort(function(a,b){
+    return a.name > b.name;
+  });
+  initHtml();
 }
 
 
+//----------------------------------------------------------
+//文件搜索
+function search() {
+  var inputSearch = tool.$('.search-text'),
+    catalog = tool.$('.catalog'),
+    arrSearchResult = new Array(),
+    regSearchValue = new RegExp(inputSearch.value, 'gi'),
+    allData = getChildrenById(data, 0);
+
+  if (inputSearch.value === '') {
+    notification('请输入内容再搜索','error');
+    return;
+  }
+  
+  for (var i = 1; i < allData.length; i++) {
+
+    if (regSearchValue.test(allData[i].name)) {
+      arrSearchResult.push(allData[i]);
+    }
+  }
+
+  wrapFiles.innerHTML = createFileHtml(arrSearchResult);
+  catalog.innerHTML = `Search : ${inputSearch.value}`;
+
+}
+
+//文件类型匹配
+function fileTypeSelect(targetItem) {
+
+  changeFileTypeItem();
+
+  var fileType = targetItem.dataset.type;
+
+  if (fileType === 'all') {
+    fileClick(0);
+    return;
+  }
+
+  var catalog = tool.$('.catalog'),
+    arrSameTypeFile = new Array(),
+    regSameTypeFile = new RegExp(fileType),
+    allData = getChildrenById(data, 0);
+
+  for (var i = 0; i < allData.length; i++) {
+    if (regSameTypeFile.test(allData[i].type)) {
+      arrSameTypeFile.push(allData[i]);
+    }
+  }
+
+  wrapFiles.innerHTML = createFileHtml(arrSameTypeFile);
+
+  catalog.innerHTML = `File Type : ${fileType.toUpperCase()}`;
+
+  function changeFileTypeItem() {
+    var fileTypeItems = tool.$('.file-type').children;
+    for (var i = 0; i < fileTypeItems.length; i++) {
+      fileTypeItems[i].classList.remove('active');
+    }
+    targetItem.classList.add('active');
+  }
+
+}

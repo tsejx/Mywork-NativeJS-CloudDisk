@@ -77,13 +77,16 @@
   background-repeat: no-repeat;
 }
 .file-type-folder {
-  background-image: url(../img/file.png);
+  background-image: url(../img/file-type/file.png);
 }
 .file-type-image {
-  background-image: url(../img/image.png);
+  background-image: url(../img/file-type/image.png);
 }
 .file-type-note {
-  background-image: url(../img/notes.png);
+  background-image: url(../img/file-type/notes.png);
+}
+.file-type-video {
+  background-image: url(../img/file-type/video.png);
 }
 /* 文件信息 */
 .layout-preview .file-info {
@@ -168,9 +171,10 @@
 .layout-list .file-img {
   float: left;
   width: 24px;
-  background: url(../img/file.png) center center no-repeat;
   background-size: 80%;
-    cursor: pointer;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .layout-list .file-info {

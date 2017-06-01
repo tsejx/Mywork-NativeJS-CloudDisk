@@ -7,7 +7,8 @@ header.addEventListener('click', function(e) {
   }
 
   if (targetCls.contains('write-off')) {
-    window.location.href = 'index.html';
+    question('你确定要退出云盘吗？', true)
+    feedback(function(){window.location.href = 'index.html';});
   }
 })
 
@@ -23,6 +24,15 @@ header.addEventListener('mouseout',function(e){
   if (e.target.classList.contains('user')) {
     tool.css(userPage,{display:'none',opacity:0});
   }
+})
+
+// -----------------------------------------------------------------------------------------------
+//侧边栏的相关事件
+wrapSideBar.addEventListener('click',function(e){
+  if (e.target.nodeName === 'LI') {
+    fileTypeSelect(e.target);
+  }
+
 })
 
 // -----------------------------------------------------------------------------------------------
@@ -56,9 +66,15 @@ wrapFiles.addEventListener('click', function(e) {
   //进入文件夹----------------------------------------------------------
   if (targetCls.contains('file-img')) {
     fileId = target.parentNode.dataset.id * 1;
-    if (getItemDataById(currentData,fileId).type === 'folder') {
+    var fileType = getItemDataById(currentData,fileId).type;
+    if ( fileType === 'folder') {
       fileClick(fileId);
     }
+    if (fileType === 'image') {
+      fileImage(fileId);
+    }
+
+
   }
 
   if (targetCls.contains('file-info')) {
@@ -75,7 +91,7 @@ wrapFeature.addEventListener('click', function(e) {
     targetCls = target.classList;
   //上传功能---------------------------------------------------------
   if (targetCls.contains('upload')) {
-    notification('尚未开启上传功能', 'error');
+    notification('上传功能正在紧张开发中', 'error');
   }
 
   //创建文件夹-------------------------------------------------------
@@ -86,7 +102,7 @@ wrapFeature.addEventListener('click', function(e) {
 
   //下载文件-----------------------------------------------------------------
   if (targetCls.contains('download')) {
-    notification('尚未开启下载功能', 'error');
+    notification('下载功能正在紧张开发中', 'error');
   }
 
   //移动文件------------------------------------------------------------------
@@ -118,15 +134,13 @@ wrapFeature.addEventListener('click', function(e) {
 
   //--- 功能按键面板---
   //搜索栏------------------------------------------------------------------
-  if (targetCls.contains('search-text')) {
-    notification('尚未开启搜索功能', 'error');
+  if (targetCls.contains('search-click')) {
+    search();
   }
 
   //排序方式-----------------------------------------------------------------
-  if (targetCls.contains('sort-by')) {
-    notification('尚未开启文件排序功能', 'error');
-    // targetCls.toggle('initial-letter');
-    // targetCls.toggle('time-sort');
+  if (targetCls.contains('btn-sort')) {
+    targetCls.contains('time-sort') ? eventSort(targetCls,true):eventSort(targetCls,false);
   }
 
   //查看方式-------------------------------------------------------------------
@@ -165,10 +179,11 @@ allChecked.addEventListener('click', function() {
 })
 
 //目录树的相关事件-------------------------------------------
-wrapSidebar.addEventListener('click', function(e) {
+wrapActiveWindow.addEventListener('click', function(e) {
   var catalog = tool.$('.catalog'),
     target = e.target,
-    targetId = target.dataset.id * 1;
+    targetId = target.dataset.id * 1,
+    targetType = target.dataset.type;
 
   if (targetId === 0) {
     currentData = getItemDataById(data, 0).children;
@@ -176,8 +191,12 @@ wrapSidebar.addEventListener('click', function(e) {
     catalog.innerHTML = 'Root';
   }
 
-  if (target.nodeName === 'A' && targetId) {
-    fileClick(targetId);
+  if (target.nodeName === 'A' && targetId >= 0) {
+    if (targetType === 'folder') {
+      fileClick(targetId);
+      }else{
+        notification('非文件夹类型无法打开','error');
+      }
   }
 
   if (target.nodeName === 'SPAN') {
@@ -197,18 +216,20 @@ wrapSidebar.addEventListener('click', function(e) {
 
 var timerTree;
 
-wrapSidebar.addEventListener('mouseenter', function(e) {
+wrapActiveWindow.addEventListener('mouseenter', function(e) {
 
   cancelAnimationFrame(timerTree);
-  timerTree = tool.animate(wrapSidebar, {
+  timerTree = tool.animate(wrapActiveWindow, {
     left: 0
   }, 300);
 
 })
 
-wrapSidebar.addEventListener('mouseleave', function(e) {
+wrapActiveWindow.addEventListener('mouseleave', function(e) {
   cancelAnimationFrame(timerTree);
-  timerTree = tool.animate(wrapSidebar, {
+  timerTree = tool.animate(wrapActiveWindow, {
     left: -239
   }, 300);
 })
+
+

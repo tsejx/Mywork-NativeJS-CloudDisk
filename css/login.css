@@ -18,7 +18,7 @@ input {
   top: 100px;
   left: calc(50% - 150px);
   width: 300px;
-  height: 400px;
+  height: 330px;
   cursor: default;
 }
 .login-form {

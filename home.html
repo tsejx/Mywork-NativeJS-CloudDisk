@@ -39,11 +39,11 @@
     <!-- 分类区 -->
 		<div class="side-bar">
 		  <ul class="file-type">
-			  <li class="all active">All</li>
-			  <li class="picture">Picture</li>
-			  <li class="diary">Diary</li>
-			  <li class="video">Video</li>
-			  <li class="other">Other</li>
+			  <li class="all active" data-type="all">All</li>
+			  <li class="picture" data-type="image">Picture</li>
+			  <li class="note" data-type="note">Note</li>
+			  <li class="video" data-type="video">Video</li>
+			  <li class="other" data-type="other">Other</li>
 		  </ul>
 		  <div class="capacity">
 	  	    <strong><span></span></strong>
@@ -71,10 +71,10 @@
         <!-- 搜索排序面板 -->
         <div class="search-panel">
           <div class="search">
-            <input class="search-text" type="search" name="搜索文件" placeholder="Search your files">
+            <input class="search-text" type="search" name="搜索文件" placeholder="Search your files" spellcheck="false">
             <span class="search-click"></span>
           </div>
-          <span class="sort-by initial-letter"></span>
+          <span class="btn-sort time-sort"></span>
           <span class="btn-view tabular-form"></span>   
         </div>
         <!--/ 搜索排序面板 -->
@@ -230,6 +230,8 @@
     <!-- 遮罩层 -->
     <div class="shadow"></div>
     <!--/ 遮罩层 -->
+
+    <img class="img-box" src="" alt="">
   </div>
   <!--/ 弹窗 -->
 	

@@ -34,10 +34,10 @@ header {
 
 /* 控制面板 */
 .control-panel {
-  float: right;
-  /* position: absolute;
-  top: 0;
-  right: 0; */
+  /* float: right; */
+  position: absolute;
+  top: 0px;
+  right: 0px;
   display: flex;
   width: 246px;
   height: 58px;
@@ -75,7 +75,7 @@ header {
   display: none;
   position: absolute;
   top: 52px;
-  left: 1050px;
+  left: 1200px;
   width: 200px;
   height: 80px;
   border-radius: 10px;
@@ -182,9 +182,9 @@ header {
 .picture:hover,
 .picture.active {background: url(../img/file-type.png) 50px -265px;}
 
-.diary {background: url(../img/file-type.png) 50px -89px;}
-.diary:hover,
-.diary.active {background: url(../img/file-type.png) 50px -309px;}
+.note {background: url(../img/file-type.png) 50px -89px;}
+.note:hover,
+.note.active {background: url(../img/file-type.png) 50px -309px;}
 
 .video {background: url(../img/file-type.png) 50px -131px;}
 .video:hover,
@@ -458,14 +458,29 @@ header {
   height: 26px;
   padding: 0 6px 0 22px;
   border-radius: 2px;
-  background: url(../img/file_icon.png) 4px center no-repeat;
   color: rgba(190, 213, 232, 1.0);
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
   line-height: 26px;
   transition: 300ms;
+  background-position: 4px center;
+  background-repeat: no-repeat;
 }
+.tree-menu a.catalog-file-folder,
+.catalog-tree-list a.catalog-file-folder {
+background-image: url(../img/file_icon.png);
+}
+.tree-menu a.catalog-file-image,
+.catalog-tree-list a.catalog-file-image {
+  background-image: url(../img/img_icon.png);
+}
+.tree-menu a.catalog-file-note,
+.catalog-tree-list a.catalog-file-note {
+  background-image: url(../img/doc_icon.png);
+}
+
+
 .tree-menu a:hover,
 .tree-menu a.active{
   color: rgba(255, 255, 255, 1.0);
@@ -515,3 +530,14 @@ header {
   background-color: rgba(37, 83, 121, .6);
   cursor: pointer;
 }
+
+.catalog-tree-list a.catalog-file-image {
+  background-image: url(../img/img_icon.png);
+}
+.catalog-tree-list a.catalog-file-note {
+  background-image: url(../img/doc_icon.png);
+}
+
+/* file -2 -2
+img -2 -18
+doc -2 -34 */

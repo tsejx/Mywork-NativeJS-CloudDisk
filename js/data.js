@@ -1,10 +1,11 @@
 var user_data = {
-  maxId: 9,
+  maxId: 10,
   files: [
     {
       name: 'Root',
       id: 0,
       type: 'root',
+      type:'folder',
       time: '2017-01-01',
       children: [
         {
@@ -58,16 +59,30 @@ var user_data = {
           children:[]
         },
         {
-          name : 'Mindmap',
+          name : 'WebDeveloper',
           id : 7,
           pId : 0,
           type : 'image',
+          src : 'img/data-image/WebDeveloper.gif',
+          width: 800,
+          height :533,
           time : '2017-03-28',
           children :[]
         },
         {
-          name : 'BookNotes',
+          name : 'WorkHard',
           id : 8,
+          pId : 0,
+          type : 'image',
+          src : 'img/data-image/WorkHard.jpg',
+          width: 1000,
+          height :714,
+          time : '2017-06-01',
+          children :[]
+        },
+        {
+          name : 'BookNotes',
+          id : 9,
           pId : 0,
           type : 'note',
           time : '2017-04-28',
@@ -98,10 +113,7 @@ var dataContextMenu = [{
     children: [{
       name: 　 '名称排序',
       classname: 'letter-way'
-    }, {
-      name: '大小排序',
-      classname: 'size-way'
-    }, {
+    },{
       name: '时间排序',
       classname: 'time-way'
     }]

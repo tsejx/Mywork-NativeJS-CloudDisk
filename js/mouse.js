@@ -276,9 +276,20 @@ function eventWrapMenu(menu,arrSubMenu) {
       hiddenContextMenu(menu);
       return;
     }
+
+    var btnSortCls = tool.$('.btn-sort').classList;
     
-    if (targetCls.contains('sort-way') ) {
-      notification('相关功能仍在紧张开发中，敬请期待','error');
+    if (targetCls.contains('name-way') || targetParentCls.contains('name-way')) {
+      eventSort(btnSortCls,true);
+      hiddenContextMenu(menu);
+      return;
+    }
+
+
+    if (targetCls.contains('time-way') || targetParentCls.contains('size-way')) {
+      eventSort(btnSortCls,false);
+      hiddenContextMenu(menu);
+      return;
     }
 
     if (targetCls.contains('file-paste') || targetParentCls.contains('file-paste')) {
@@ -344,10 +355,20 @@ function eventFileMenu(menu){
 
     if (targetCls.contains('file-open') || target.parentNode.classList.contains('file-open')) {
       if (isOnFile) {
+        if (dataSelect.type !== 'folder'){
+          notification('非文件夹类型无法打开','error');
+          hiddenContextMenu(menu);
+          return;
+        }
         fileClick(dataSelect.id);
       }else{
         var arrChecked = filesChecked();
         if (!arrChecked.length) return;
+        if (arrChecked[0].type !== 'folder'){
+          notification('非文件夹类型无法打开','error');
+          hiddenContextMenu(menu);
+          return;
+        }
         fileClick(arrChecked[0].id);
       }
       hiddenContextMenu(menu);

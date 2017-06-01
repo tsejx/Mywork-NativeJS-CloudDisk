@@ -8,7 +8,9 @@ var arrFile = wrapFiles.children; //文件内容区的 子元素集合
 
 var wrapFeature = tool.$('.feature'); //功能按键面板
 
-var wrapSidebar = tool.$('.active-window'); //侧边栏目录树活动窗
+var wrapSideBar = tool.$('.side-bar');//侧边栏
+
+var wrapActiveWindow = tool.$('.active-window'); //侧边栏目录树活动窗
 
 var allChecked = tool.$('.all-in'); //全选框
 
@@ -25,7 +27,7 @@ var clipBoard = new Array(); //剪贴板
 // -------------------------------------------------------------
 //初始化页面
 function initHtml() {
-  var catalogSidebar = tool.$('.tree-menu', wrapSidebar); //目录树根目录列表
+  var catalogSidebar = tool.$('.tree-menu', wrapActiveWindow); //目录树根目录列表
 
   wrapFiles.innerHTML = createFileHtml(currentData);
   catalogSidebar.innerHTML = createCatalogTree(data);
@@ -65,7 +67,7 @@ function createCatalogTree(data) {
 
   Array.from(data).forEach(function(item, i) {
 
-    str += `<li><span class="${cls = !!item.children[0] ? 'open':''}"></span><a href="javascript:;" data-id="${item.id}">${item.name}</a>`;
+    str += `<li><span class="${cls = !!item.children[0] ? 'open':''}"></span><a class="${'catalog-file-' + item.type}" href="javascript:;" data-id="${item.id}" data-type="${item.type}">${item.name}</a>`;
     if (item.children) {
       str += '<ul>' + createCatalogTree(item.children) + '</ul>';
     }
