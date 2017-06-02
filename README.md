@@ -1,4 +1,4 @@
-﻿# Cloud Disk Project 
+﻿# 原生JS Cloud Disk Project 
 
 ## HTML
 
@@ -11,19 +11,19 @@
     login.css /*云盘登录页样式表*/
     master.css /*云盘内容页主体样式表*/
     file.css /*云盘文档相关样式表*/
-    alert.css /*云盘内容也弹窗灯箱样式表*/
+    alert.css /*云盘内容页弹窗灯箱样式表*/
 
 ## Javascript
     
     too.js /*工具函数*/
-    data.js /*JSON数据*/
+    data.js /*模拟JSON数据*/
     createHtml.js /*页面结构生成的相关函数*/
     feature.js /*文件操作的功能函数*/
-    view.js /*视图层相关函数(元素事件增添)*/
+    view.js /*视图层相关函数*/
     mouse.js /*鼠标操作相关函数*/
     
     
-### 功能说明
+## 功能说明
  1. 选中文件夹
   - 选中文件夹
   - 全选文件夹
@@ -64,6 +64,8 @@
 
 
 ## Coding Summary
+![概念云盘思维导图][1]
+
 ### HTML
 1） 添加浏览器标签网页图标
 
@@ -98,3 +100,6 @@ placeholder 属性规定可描述输入字段预期值的简短的提示信息�
 
     var obj = { name: 'FungLeo', sex: 'man', old: '18' } 
     var obj2 = JSON.parse(JSON.stringify(obj))
+
+
+  [1]: http://upload-images.jianshu.io/upload_images/3376841-ff5ea58bbd4d7a25.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
