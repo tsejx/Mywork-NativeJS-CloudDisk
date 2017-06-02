@@ -34,7 +34,6 @@ header {
 
 /* 控制面板 */
 .control-panel {
-  /* float: right; */
   position: absolute;
   top: 0px;
   right: 0px;
@@ -54,12 +53,8 @@ header {
   background-repeat: no-repeat;
   cursor: pointer;
 }
-.control-panel span:hover {
-  background-repeat: no-repeat;
-}
-.control-panel span + span {
-  border-left: 1px solid #464545;
-}
+.control-panel span:hover {background-repeat: no-repeat;}
+.control-panel span + span {border-left: 1px solid #464545;}
 
 /* 用户信息 */
 .user {background: url(../img/control-panel.png) 19px -6px ;}
@@ -75,13 +70,13 @@ header {
   display: none;
   position: absolute;
   top: 52px;
-  left: 1200px;
+  left: 1050px;
   width: 200px;
   height: 80px;
   border-radius: 10px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   background: rgba(162, 197, 226, 1.0);
-  /* opacity: 0; */
+  opacity: 0;
   animation: fadeIn 0.4s ease-in-out;
 }
 .user-page:before {
@@ -128,7 +123,6 @@ header {
   text-align: left;
   line-height: 100%;
 }
-
 @keyframes fadeIn {
   0% { opacity:0; }
   100% { opacity:100%; }
@@ -196,6 +190,7 @@ header {
 
 /* 云盘容量 */
 .capacity {
+  position: relative;
   width: 100%;
   height: 18%;
   background-color: rgba(41, 44, 52, 1.0);
@@ -224,8 +219,8 @@ header {
 .capacity p {
   display: inline-block;
   position: relative;
-  top: 28px;
-  right: 6px;
+  top: 25px;
+  left: 0px;
   color: #ccc;
   font-size: 12px;
 }
@@ -333,30 +328,17 @@ header {
   background-color: transparent;
   background-repeat: no-repeat;
 }
-.search span:hover {
-  background: url(../img/search-panel.png) -3px -39px no-repeat;
-}
+.search span:hover {background: url(../img/search-panel.png) -3px -39px no-repeat;}
 
 /* 文件排序方式 */
-.search-panel .initial-letter {
-  background: url(../img/search-panel.png) -2px -72px;
-}
-/* -6px -114px
--6px -150px
--6px -186px  */
-.search-panel .time-sort {
-  background: url(../img/search-panel.png) -8px -146px;
-}
+.search-panel .initial-letter {background: url(../img/search-panel.png) -2px -72px;}
+.search-panel .time-sort {background: url(../img/search-panel.png) -8px -146px;}
 
 /* 文件查看方式 */
 .search-panel .tabular-form {
   background: url(../img/search-panel.png) -1px -253px;
 }
-.search-panel .preview-form {
-  background: url(../img/search-panel.png) -1px -216px;
-  /* background-size: 100%; */
-}
-/* -6px -250px */
+.search-panel .preview-form {background: url(../img/search-panel.png) -1px -216px;}
 
 /* ----------------------------------------- 导航区 --------------------------------------------- */
 .nav {
@@ -384,9 +366,7 @@ header {
 .all-in.active {background: url(../img/file-panel.png) -8px -36px no-repeat;}
 
 /* 文件路径导航栏 */
-.catalog {
-  display: inline;
-}
+.catalog {display: inline;}
 .catalog a ,
 .catalog span{
   margin-right: 4px;
@@ -399,7 +379,6 @@ header {
 }
 
 /* ----------------------------------------- 活动框 ----------------------------------------------- */
-
 .active-window {
   position: absolute;
   top: 0;
@@ -421,9 +400,7 @@ header {
   margin-bottom: 8px;
   padding-left:12px;
 }
-.tree-menu ul li {
-  margin-top: 4px;
-}
+.tree-menu ul li {margin-top: 4px;}
 
 .tree-menu li {
   position: relative;
@@ -439,18 +416,10 @@ header {
   vertical-align: bottom;
 }
 
-.tree-menu span.open {
-  background: url(../img/arrow.png) -6px -113px no-repeat;
-}
-.tree-menu span.close {
-  background: url(../img/arrow.png) -6px -29px no-repeat;
-}
-.tree-menu span.open:hover {
-  background: url(../img/arrow.png) -6px -85px no-repeat;
-}
-.tree-menu span.close:hover {
-  background: url(../img/arrow.png) -6px -1px no-repeat;
-}
+.tree-menu span.open {background: url(../img/arrow.png) -6px -113px no-repeat;}
+.tree-menu span.close {background: url(../img/arrow.png) -6px -29px no-repeat;}
+.tree-menu span.open:hover {background: url(../img/arrow.png) -6px -85px no-repeat}
+.tree-menu span.close:hover {background: url(../img/arrow.png) -6px -1px no-repeat;}
 
 .tree-menu a {
   display: inline-block;
@@ -480,7 +449,6 @@ background-image: url(../img/file_icon.png);
   background-image: url(../img/doc_icon.png);
 }
 
-
 .tree-menu a:hover,
 .tree-menu a.active{
   color: rgba(255, 255, 255, 1.0);
@@ -505,12 +473,8 @@ background-image: url(../img/file_icon.png);
   height: 22px;
   vertical-align: bottom;
 }
-.catalog-tree-list span.open {
-  background: url(../img/arrow.png) -6px -141px no-repeat;
-}
-.catalog-tree-list span.close {
-  background: url(../img/arrow.png) -6px -57px no-repeat;
-}
+.catalog-tree-list span.open {background: url(../img/arrow.png) -6px -141px no-repeat;}
+.catalog-tree-list span.close {background: url(../img/arrow.png) -6px -57px no-repeat;}
 .catalog-tree-list a {
   display: inline-block;
   width: auto;
@@ -531,13 +495,5 @@ background-image: url(../img/file_icon.png);
   cursor: pointer;
 }
 
-.catalog-tree-list a.catalog-file-image {
-  background-image: url(../img/img_icon.png);
-}
-.catalog-tree-list a.catalog-file-note {
-  background-image: url(../img/doc_icon.png);
-}
-
-/* file -2 -2
-img -2 -18
-doc -2 -34 */
+.catalog-tree-list a.catalog-file-image {background-image: url(../img/img_icon.png);}
+.catalog-tree-list a.catalog-file-note {background-image: url(../img/doc_icon.png);}

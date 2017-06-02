@@ -83,12 +83,10 @@ function addFileEvent() {
     var itemPanel = tool.$('.file-panel', item);
 
     item.onmouseover = function() {
-      // itemPanel.style.display = 'block';
       itemPanel.style.opacity = '1';
     }
 
     item.onmouseout = function() {
-      // itemPanel.style.display = '';
       itemPanel.style.opacity = '';
     }
   });
@@ -138,4 +136,62 @@ function eventAllChecked() {
   } else {
     allChecked.classList.remove('active');
   }
+}
+
+// 通过id获取对应数据
+function getItemDataById(data, id) {
+
+  var current = null,
+    i, len = data.length;
+
+  for (var i = 0; i < len; i++) {
+    if (data[i].id === id) {
+      current = data[i];
+      break;
+    }
+    if (!current && data[i].children.length) {
+      current = getItemDataById(data[i].children, id);
+      if (current) break;
+    }
+  }
+  return current;
+}
+
+// 通过id获取对应祖先数据
+function getParentsById(data, id) {
+  if (typeof id === 'undefined') return;
+
+  var arr = [];
+
+  var current = getItemDataById(data, id);
+
+  arr.push(current);
+
+  arr = arr.concat(getParentsById(data, current.pId));
+
+  return arr;
+}
+
+// 通过id获取对应子孙数据
+function getChildrenById(data, id){
+  if (typeof id === 'undefined') return;
+
+  var arr = [];
+
+  var current = getItemDataById(data, id);
+
+  arr.push(current);
+
+  var currentChildren = current.children;
+
+  if (current.children.length) {
+    for (var i = 0; i < currentChildren.length; i++) {
+
+    if (currentChildren[i].children) {
+      arr = arr.concat(getChildrenById(data,currentChildren[i].id));
+    }
+   }
+  }
+  
+  return arr;
 }

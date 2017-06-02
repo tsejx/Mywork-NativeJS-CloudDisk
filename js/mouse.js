@@ -99,9 +99,10 @@ function mouseDraw(e) {
 
     wrapFiles.addEventListener('click', cancelChecked);
     
+    if (div.parentNode === null) return;
+    
     wrapFiles.removeChild(div);
-    
-    
+
     function cancelChecked(e) {
       if (isMouseOnFile(e.pageX, e.pageY)) return;
       if (!isFileChecked()) return;
@@ -193,7 +194,7 @@ function createContextMenu(e, dataId) {
   }
 }
 
-
+//设置子菜单位置的函数（解决子菜单溢出）
 function setSubMenuPosition(parentMenu, parentMenuItem, subMenu) {
   var parentRight = window.innerWidth - parentMenu.offsetLeft - parentMenu.offsetWidth,
     parentBottom = window.innerHeight - parentMenu.offsetTop - parentMenu.offsetHeight,
@@ -229,6 +230,7 @@ function setSubMenuPosition(parentMenu, parentMenuItem, subMenu) {
   }
 }
 
+//生成右键菜单
 function createContextMenuHtml(data) {
   var str = '';
   for (var i = 0; i < data.length; i++) {
@@ -244,7 +246,7 @@ function createContextMenuHtml(data) {
 }
 
 
-//右键菜单（文档内容区相关操作）
+//右键菜单相关功能（文档内容区相关操作）
 function eventWrapMenu(menu,arrSubMenu) {
   //右键菜单选项的点击事件-----------------------------------------------------
   menu.addEventListener('click', function(e) {
@@ -279,14 +281,15 @@ function eventWrapMenu(menu,arrSubMenu) {
 
     var btnSortCls = tool.$('.btn-sort').classList;
     
-    if (targetCls.contains('name-way') || targetParentCls.contains('name-way')) {
+    if (targetCls.contains('letter-way') || targetParentCls.contains('letter-way')) {
+      console.log(123);
       eventSort(btnSortCls,true);
       hiddenContextMenu(menu);
       return;
     }
 
 
-    if (targetCls.contains('time-way') || targetParentCls.contains('size-way')) {
+    if (targetCls.contains('time-way') || targetParentCls.contains('time-way')) {
       eventSort(btnSortCls,false);
       hiddenContextMenu(menu);
       return;
@@ -339,7 +342,7 @@ function eventWrapMenu(menu,arrSubMenu) {
   })();
 }
 
-// 右键菜单（文件相关操作）
+// 右键菜单的相关功能（文件相关操作）
 function eventFileMenu(menu){
   menu.addEventListener('click',function(e){
     if (!e.target.parentNode) return;

@@ -73,10 +73,9 @@ wrapFiles.addEventListener('click', function(e) {
     if (fileType === 'image') {
       fileImage(fileId);
     }
-
-
   }
 
+  //点击文件名重命名------------------------------------------------------
   if (targetCls.contains('file-info')) {
     var timerRename = setTimeout(function(){
       fileRename(target.parentNode.dataset.id*1,target.parentNode);
@@ -124,7 +123,6 @@ wrapFeature.addEventListener('click', function(e) {
 
   //分享文件夹----------------------------------------------------------------
   if (targetCls.contains('share')) {
-
     if (!isFileChecked()) {
       notification('您未选中文件！', 'worry');
       return;

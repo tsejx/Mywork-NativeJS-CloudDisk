@@ -23,7 +23,6 @@
   line-height: 38px;
   cursor: default;
 }
-#notification p::selection {background-color: transparent}
 
 #notification span {
   display: inline-block;

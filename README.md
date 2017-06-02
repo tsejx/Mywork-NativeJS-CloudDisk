@@ -1,4 +1,4 @@
-﻿# Cloud Disk Project Notes
+﻿# Cloud Disk Project 
 
 ## HTML
 
@@ -21,7 +21,6 @@
     feature.js /*文件操作的功能函数*/
     view.js /*视图层相关函数(元素事件增添)*/
     mouse.js /*鼠标操作相关函数*/
-    animate.js /*动画相关函数*/
     
     
 ### 功能说明
@@ -38,7 +37,7 @@
    - 一次只能重命名一个文件夹
 
  4. 移动文件夹
-   - 不能移动到自身及自身的子目录
+   - 不能移动到自身及自身的子目录和父目录
    - 如果移动的目标目录有相同的名字，要做一些操作
     
  5. 删除文件夹
@@ -47,18 +46,26 @@
 
  6. 复制/剪切/粘贴文件夹
  
- 7. 文件显示方式切换
+ 7. 布局转换
 
- 8. 侧栏树状目录栏
+ 8. 文件排序
+ 
+ 8. 活动窗树状目录栏
+  - 随着数据更新而更新
 
  9. 右键菜单及其子菜单
+  - 菜单及其子菜单的溢出处理
+  - 子菜单悬浮显示的问题
 
  10. 消息灯箱/咨询弹窗
  
+（详细信息参考思维导图）
+## MindMap
+
 
 ## Coding Summary
 ### HTML
-1. 添加浏览器标签网页图标
+1） 添加浏览器标签网页图标
 
 (1)favicon图标要求
 位色 :　8 / 24
@@ -72,7 +79,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" > 
 ```
 
-2. HTML5 input placeholder属性
+2） HTML5 input placeholder属性
 
 placeholder 属性规定可描述输入字段预期值的简短的提示信息（比如：一个样本值或者预期格式的短描述）。
 
@@ -81,10 +88,13 @@ placeholder 属性规定可描述输入字段预期值的简短的提示信息�
 注意：placeholder 属性适用于下面的 input 类型：text、search、url、tel、email 和 password。
 
 ### CSS
-1. flex布局
-2. 选择器span + span
-3. keyframes 关键帧
-
-
+1） flex布局相关 
+2） 选择器span + span 
+3） keyframes 关键帧 
 
 ### Javascript
+
+1）对象的深拷贝
+
+    var obj = { name: 'FungLeo', sex: 'man', old: '18' } 
+    var obj2 = JSON.parse(JSON.stringify(obj))

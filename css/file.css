@@ -5,9 +5,7 @@
   overflow: auto;
   cursor: default;
 }
-#file-container.active {
-  background: url(../img/error-page.png) center center no-repeat;
-}
+#file-container.active {background: url(../img/error-page.png) center center no-repeat;}
 
 /* ------------------- 缩略图布局 ----------------------*/
 .layout-preview .file {
@@ -26,10 +24,7 @@
   border: 2px solid rgba(105, 162, 208, 1.0);
   box-shadow: 6px 6px 6px rgba(120, 128, 138, .6); 
 }
-.layout-preview .file:hover {
-  box-shadow: 7px 7px 8px rgba(120, 128, 138, .5); 
-}
-
+.layout-preview .file:hover {box-shadow: 7px 7px 8px rgba(120, 128, 138, .5); }
 
 /* 文件控制面板 */
 .layout-preview .file-panel {
@@ -76,18 +71,10 @@
   background-position: center 24px;
   background-repeat: no-repeat;
 }
-.file-type-folder {
-  background-image: url(../img/file-type/file.png);
-}
-.file-type-image {
-  background-image: url(../img/file-type/image.png);
-}
-.file-type-note {
-  background-image: url(../img/file-type/notes.png);
-}
-.file-type-video {
-  background-image: url(../img/file-type/video.png);
-}
+.file-type-folder {background-image: url(../img/file-type/file.png);}
+.file-type-image {background-image: url(../img/file-type/image.png);}
+.file-type-note {background-image: url(../img/file-type/notes.png);}
+.file-type-video {background-image: url(../img/file-type/video.png);}
 /* 文件信息 */
 .layout-preview .file-info {
   max-width: 100%;
@@ -112,9 +99,7 @@
   border-radius: 10px;
   outline: none;
 }
-.layout-preview .file-time {
-  display: none;
-}
+.layout-preview .file-time {display: none;}
 
 /* ------------------- 列表布局 ----------------------*/
 .layout-list .file {
@@ -138,9 +123,7 @@
   transition: 300ms;
   background: rgba(105, 162, 208, .4);
 }
-.layout-list .file.active {
-  transition: 300ms;
-}
+.layout-list .file.active {transition: 300ms;}
 .layout-list .file-panel {
   display: block;
   float: left;
@@ -200,9 +183,6 @@
 .layout-list .file-time {
   float: right;
   width: 100px;
-}
-.layout-list .file-size {
-
 }
 
 /* ---------------------------- 鼠标右键菜单 --------------------------------------------- */

@@ -258,6 +258,12 @@ function isRename() {
   return false;
 }
 
+//判断是否含有特殊字符
+function isNameSensitive(fileName){
+  var reg = /[\<\>\?\*\\\|]/g;
+  return reg.test(fileName);
+}
+
 //重命名函数
 function rename(nameShow, nameInput, approch, nameOrigin, fileClickId) {
   if (approch === 'create-file') {
@@ -276,7 +282,7 @@ function rename(nameShow, nameInput, approch, nameOrigin, fileClickId) {
     }
     if (nameCanUse(nameInput.value, fileClickId)) {
       notification('你输入的文件名已经有了！', 'worry');
-      nameInput.focus();
+      nameInput.select();
       return;
     }
     getItemDataById(data, fileClickId).name = nameInput.value;
@@ -285,6 +291,12 @@ function rename(nameShow, nameInput, approch, nameOrigin, fileClickId) {
   if (nameInput.value.length >= 12) {
     notification('你输入的文件名太长啦！', 'worry');
     nameInput.focus();
+    return;
+  }
+
+  if (isNameSensitive(nameInput.value)) {
+    notification('文件名不能包含以下字符:<,>,|,*,?,\\', 'worry');
+    nameInput.select();
     return;
   }
 
@@ -379,6 +391,7 @@ function fileCreate() {
       case 'success':
         currentData.unshift(newFileData);
         initHtml();
+
         notification('您已成功创建文件夹', 'success');
         break;
     }
@@ -597,7 +610,66 @@ function eventView(btnViewCls, onOff) {
   }
 }
 
-//进入文件夹功能更函数(显示当前数据某个子元素的子集)------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------
+//排序函數
+function eventSort(btnSortCls,onOff){
+
+  if (onOff) {
+    sortName();
+    btnSortCls.remove('time-sort');
+    btnSortCls.add('initial-letter');
+  }else{
+    sortTime();
+    btnSortCls.remove('initial-letter');
+    btnSortCls.add('time-sort');
+  }
+}
+
+//时间排序
+function sortTime() {
+  currentData.sort(function(a,b){
+    return parseInt(a.time.replace(/-/g,'')) - parseInt(b.time.replace(/-/g,''));
+  })
+  initHtml();
+
+}
+
+//名称排序
+function sortName(){
+  currentData.sort(function(a,b){
+    return a.name > b.name;
+  });
+  initHtml();
+}
+
+
+//---------------------------------------------------------------------------------
+//文件搜索
+function search() {
+  var inputSearch = tool.$('.search-text'),
+    catalog = tool.$('.catalog'),
+    arrSearchResult = new Array(),
+    regSearchValue = new RegExp(inputSearch.value, 'gi'),
+    allData = getChildrenById(data, 0);
+
+  if (inputSearch.value === '') {
+    notification('请输入内容再搜索','error');
+    return;
+  }
+  
+  for (var i = 1; i < allData.length; i++) {
+
+    if (regSearchValue.test(allData[i].name)) {
+      arrSearchResult.push(allData[i]);
+    }
+  }
+
+  wrapFiles.innerHTML = createFileHtml(arrSearchResult);
+  catalog.innerHTML = `Search : ${inputSearch.value}`;
+
+}
+
+//进入文件夹功能函数(显示当前数据某个子元素的子集)------------------------------------------------------------------------------------------
 function fileClick(dataId) {
   dataId = dataId * 1;
 
@@ -797,65 +869,6 @@ function getNowTime() {
     return num < 10 ? '0' + num : '' + num;
   }
   return year + '-' + month + '-' + date;
-}
-
-//---------------------------------------------------------
-//排序函數
-function eventSort(btnSortCls,onOff){
-
-  if (onOff) {
-    sortName();
-    btnSortCls.remove('time-sort');
-    btnSortCls.add('initial-letter');
-  }else{
-    sortTime();
-    btnSortCls.remove('initial-letter');
-    btnSortCls.add('time-sort');
-  }
-}
-
-//时间排序
-function sortTime() {
-  currentData.sort(function(a,b){
-    return parseInt(a.time.replace(/-/g,'')) - parseInt(b.time.replace(/-/g,''));
-  })
-  initHtml();
-
-}
-
-//名称排序
-function sortName(){
-  currentData.sort(function(a,b){
-    return a.name > b.name;
-  });
-  initHtml();
-}
-
-
-//----------------------------------------------------------
-//文件搜索
-function search() {
-  var inputSearch = tool.$('.search-text'),
-    catalog = tool.$('.catalog'),
-    arrSearchResult = new Array(),
-    regSearchValue = new RegExp(inputSearch.value, 'gi'),
-    allData = getChildrenById(data, 0);
-
-  if (inputSearch.value === '') {
-    notification('请输入内容再搜索','error');
-    return;
-  }
-  
-  for (var i = 1; i < allData.length; i++) {
-
-    if (regSearchValue.test(allData[i].name)) {
-      arrSearchResult.push(allData[i]);
-    }
-  }
-
-  wrapFiles.innerHTML = createFileHtml(arrSearchResult);
-  catalog.innerHTML = `Search : ${inputSearch.value}`;
-
 }
 
 //文件类型匹配

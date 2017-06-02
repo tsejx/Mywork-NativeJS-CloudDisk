@@ -2,14 +2,11 @@ var wrapLogin = tool.$('.wrap-login');
 
 var login = tool.$('.sign-in');
 
-
 wrapLogin.addEventListener('mousedown',wrapLoginMouseDown);
 
-
-
+//登录界面拖拽
 function wrapLoginMouseDown(e) {
 if (e.target.classList.contains('input') || e.target.classList.contains('sign-in') || e.target.classList.contains('sign-up') ) return;
-
 
 	// e.preventDefault();
 
@@ -18,7 +15,6 @@ if (e.target.classList.contains('input') || e.target.classList.contains('sign-in
 
 	var disX = x - this.offsetLeft,
 		disY = y - this.offsetTop;
-
 
 	document.addEventListener('mousemove', wrapLoginMouseMove);
 
@@ -55,6 +51,7 @@ if (e.target.classList.contains('input') || e.target.classList.contains('sign-in
 
 login.addEventListener('mousedown',enterCloudDisk);
 
+//登录动画
 function enterCloudDisk(){
 	var loadBar = tool.$('.load-bar'),
 	inner = tool.$('.load-bar-inner'),
