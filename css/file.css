@@ -22,7 +22,7 @@
 
 .layout-preview .file.active {
   border: 2px solid rgba(105, 162, 208, 1.0);
-  box-shadow: 6px 6px 6px rgba(120, 128, 138, .6); 
+  box-shadow: 6px 6px 6px rgba(120, 128, 138, .6);
 }
 .layout-preview .file:hover {box-shadow: 7px 7px 8px rgba(120, 128, 138, .5); }
 
@@ -195,7 +195,7 @@
   height: auto;
   border-radius: 5px;
   background: #f6f6f6;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .5); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, .5);
 }
 .menu li {
   width: 132px;
@@ -255,6 +255,3 @@
   margin: 2px 0;
   padding-left: 11px;
 }
-
-
-
