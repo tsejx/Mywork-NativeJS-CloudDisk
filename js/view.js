@@ -32,7 +32,6 @@ wrapSideBar.addEventListener('click',function(e){
   if (e.target.nodeName === 'LI') {
     fileTypeSelect(e.target);
   }
-
 })
 
 // -----------------------------------------------------------------------------------------------

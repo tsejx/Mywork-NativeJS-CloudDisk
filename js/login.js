@@ -43,7 +43,6 @@ if (e.target.classList.contains('input') || e.target.classList.contains('sign-in
 
 	function wrapLoginMouseUp(e) {
 		document.removeEventListener('mousemove', wrapLoginMouseMove);
-
 		document.removeEventListener('mouseup', wrapLoginMouseUp);
 	}
 
@@ -57,8 +56,7 @@ function enterCloudDisk(){
 	inner = tool.$('.load-bar-inner'),
   percentage = tool.$('.load-bar-percentage'),
 	fly = tool.$('.fly');
-	
-	
+
   tool.animate(wrapLogin,{opacity:0},200,function(){
   	wrapLogin.style.display = 'none';
   	loadBar.style.display = 'block';

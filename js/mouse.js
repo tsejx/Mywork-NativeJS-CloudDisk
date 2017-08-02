@@ -1,5 +1,4 @@
 //////////////////-----------  鼠标事件 ----------------///////////////
-
 wrapFiles.addEventListener('contextmenu', contextMenu);
 
 wrapFiles.addEventListener('mousedown', mouseDraw);
@@ -20,7 +19,7 @@ function contextMenu(e) {
 
   //右键菜单选项的相关事件------------------------
   !!dataId ? eventFileMenu(menu):eventWrapMenu(menu);
-  
+
   //点击window隐藏右键菜单
   window.addEventListener('mousedown', function(e) {
     if (isMouseInEle(e.pageX, e.pageY, menu)) return;
@@ -36,7 +35,7 @@ function contextMenu(e) {
 function mouseDraw(e) {
   // e.preventDefault();
   if (isRename()) return;
-  
+
   // 按下的时候的横纵坐标
   var startX = e.pageX,
     startY = e.pageY;
@@ -98,9 +97,9 @@ function mouseDraw(e) {
     document.removeEventListener('mousemove', mouseMove);
 
     wrapFiles.addEventListener('click', cancelChecked);
-    
+
     if (div.parentNode === null) return;
-    
+
     wrapFiles.removeChild(div);
 
     function cancelChecked(e) {
@@ -261,7 +260,7 @@ function eventWrapMenu(menu,arrSubMenu) {
 
     if (targetCls.contains('file-create') || targetParentCls.contains('file-create')) {
       hiddenContextMenu(menu);
-      fileCreate(); 
+      fileCreate();
       return;
     }
 
@@ -280,7 +279,7 @@ function eventWrapMenu(menu,arrSubMenu) {
     }
 
     var btnSortCls = tool.$('.btn-sort').classList;
-    
+
     if (targetCls.contains('letter-way') || targetParentCls.contains('letter-way')) {
       console.log(123);
       eventSort(btnSortCls,true);
