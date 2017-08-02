@@ -2,27 +2,27 @@
 
 **加载页**
 
-![加载页][1]
+[![加载页](http://storage1.imgchr.com/AJ2a6.md.png)](https://imgchr.com/i/AJ2a6)
 
 **云盘主页**
 
-![云盘主页][2]
+[![云盘主页](http://storage1.imgchr.com/AJ6q1.md.png)](https://imgchr.com/i/AJ6q1)
 
 **布局转换**
 
-![布局转换][3]
+[![布局转换](http://storage1.imgchr.com/AJgVx.md.png)](https://imgchr.com/i/AJgVx)
 
 **移动文件夹**
 
-![移动文件夹][4]
+[![移动文件夹](http://storage1.imgchr.com/AJRIK.md.png)](https://imgchr.com/i/AJRIK)
 
 **画框多选**
 
-![画框多选][6]
+[![画框多选](http://storage1.imgchr.com/AJyrR.md.png)](https://imgchr.com/i/AJyrR)
 
 **右键菜单**
 
-![右键菜单][5]
+[![右键菜单](http://storage1.imgchr.com/AJsM9.md.png)](https://imgchr.com/i/AJsM9)
 
 ## 技术栈
 
@@ -108,13 +108,12 @@ JavaScript（DOM/BOM） + CSS3 + HTML
 
 ## MindMap
 
-![概念云盘思维导图][7]
+[![概念云盘思维导图](http://storage1.imgchr.com/AJfPO.md.jpg)](https://imgchr.com/i/AJfPO)
+
+  
 
 
-  [1]: http://wx3.sinaimg.cn/mw690/c0096cf9ly1fhznp3uqg9j214u0loaa6.jpg
-  [2]: http://wx1.sinaimg.cn/mw690/c0096cf9ly1fhznpbesbrj214u0lo3zm.jpg
-  [3]: http://wx1.sinaimg.cn/mw690/c0096cf9ly1fhznpgzgofj214u0lodh4.jpg
-  [4]: http://wx2.sinaimg.cn/mw690/c0096cf9ly1fhznpmbwqpj214u0loq5k.jpg
-  [5]: http://wx2.sinaimg.cn/mw690/c0096cf9ly1fhznppdziyj20ko0g874p.jpg
-  [6]: http://wx1.sinaimg.cn/mw690/c0096cf9ly1fhzo4g1h3lj214u0lo3zw.jpg
-  [7]: http://upload-images.jianshu.io/upload_images/3376841-ff5ea58bbd4d7a25.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+
+
+
+
