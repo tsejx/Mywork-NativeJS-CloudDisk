@@ -1,29 +1,64 @@
-﻿# 原生JS Cloud Disk Project 
+﻿# 原生JS概念云盘实战作品 Cloud-Disk
 
-## HTML
+**加载页**
 
-    index.html /*云盘登录页*/
-    home.html /*云盘内容页*/
+![加载页][1]
 
-## CSS
+**云盘主页**
 
-    reset.css /*初始化样式*/
-    login.css /*云盘登录页样式表*/
-    master.css /*云盘内容页主体样式表*/
-    file.css /*云盘文档相关样式表*/
-    alert.css /*云盘内容页弹窗灯箱样式表*/
+![云盘主页][2]
 
-## Javascript
+**布局转换**
+
+![布局转换][3]
+
+**移动文件夹**
+
+![移动文件夹][4]
+
+**画框多选**
+
+![画框多选][6]
+
+**右键菜单**
+
+![右键菜单][5]
+
+## 技术栈
+
+JavaScript（DOM/BOM） + CSS3 + HTML
+
+## 快速开始
+
+    本实战作品为静态页面，直接在浏览器打开即可预览效果
+    进入登录页面 index.html 
+    直接进入主页 home.html
     
-    too.js /*工具函数*/
-    data.js /*模拟JSON数据*/
-    createHtml.js /*页面结构生成的相关函数*/
-    feature.js /*文件操作的功能函数*/
-    view.js /*视图层相关函数*/
-    mouse.js /*鼠标操作相关函数*/
+## 项目目录
+
+    .
+    ├─ doc/                 # 文档目录
+    ├─ img/                 # 图像目录
+    ├─ ui/                  # UI设计稿
+    ├─ css/                 # CSS样式文件夹
+    │   ├── alert.css/      # 消息弹窗样式
+    │   ├── file.css/       # 文件内容样式
+    │   ├── login.css/      # 登录页样式
+    │   ├── master.css/     # 主页样式
+    │   ├── reset.css/      # 重置样式
+    ├── js/                 # JavaScript脚本文件夹
+    │   ├── createHtml.js/  # 页面结构生成脚本
+    │   ├── data.js/        # 应用数据
+    │   ├── feature.js/     # 文件操作功能脚本
+    │   ├── login.js/       # 登录页脚本
+    │   ├── mouse.js/       # 鼠标事件脚本
+    │   ├── tool.js         # 工具脚本
+    │   ├── view.js         # 视图层脚本
+    ├── favicon.ico         # 网页图标
+    ├── home.html           # 主页静态页面
+    ├── index.html          # 登录页静态页面
     
-    
-## 功能说明
+## 功能特色
  1. 选中文件夹
   - 选中文件夹
   - 全选文件夹
@@ -59,47 +94,27 @@
 
  10. 消息灯箱/咨询弹窗
  
-（详细信息参考思维导图）
+（详细原型设计请参考脑图）
+
+## 项目描述
+
+- 在遵循W3C标准及前端开发规范基础上，依照设计稿搭建语义化的页面架构
+- 利用Photoshop等图像编辑软件制作CSS Spirit图
+- 运用CSS3过渡/动画/弹性盒子等新特性效果美化UI界面
+- 根据实际开发需要，封装规范化的JavaScript函数
+- 利用DOM/BOM操作应用元素，并通过Event对象实现鼠标画框/右键菜单等功能
+
+本项目在对应用页面进行艺术设计的基础上，运用了表现形式和数据结构分离的MVC原理，实现具备新建/删除/重命名/移动/拷贝/剪切/鼠标画框/右键菜单等功能的模拟云盘应用。
+
 ## MindMap
 
-![概念云盘思维导图][1]
-
-## Coding Summary
-
-### HTML
-1） 添加浏览器标签网页图标
-
-(1)favicon图标要求
-位色 :　8 / 24
-像素 :　16*16px / 32*32px
-格式 : png / ico / gif
-
-(2)把图标放在根目录下
-
-(3)在html表头head添加link
-```
-<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" > 
-```
-
-2） HTML5 input placeholder属性
-
-placeholder 属性规定可描述输入字段预期值的简短的提示信息（比如：一个样本值或者预期格式的短描述）。
-
-该提示会在用户输入值之前显示在输入字段中。
-
-注意：placeholder 属性适用于下面的 input 类型：text、search、url、tel、email 和 password。
-
-### CSS
-1） flex布局相关 
-2） 选择器span + span 
-3） keyframes 关键帧 
-
-### Javascript
-
-1）对象的深拷贝
-
-    var obj = { name: 'FungLeo', sex: 'man', old: '18' } 
-    var obj2 = JSON.parse(JSON.stringify(obj))
+![概念云盘思维导图][7]
 
 
-  [1]: http://upload-images.jianshu.io/upload_images/3376841-ff5ea58bbd4d7a25.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+  [1]: http://wx3.sinaimg.cn/mw690/c0096cf9ly1fhznp3uqg9j214u0loaa6.jpg
+  [2]: http://wx1.sinaimg.cn/mw690/c0096cf9ly1fhznpbesbrj214u0lo3zm.jpg
+  [3]: http://wx1.sinaimg.cn/mw690/c0096cf9ly1fhznpgzgofj214u0lodh4.jpg
+  [4]: http://wx2.sinaimg.cn/mw690/c0096cf9ly1fhznpmbwqpj214u0loq5k.jpg
+  [5]: http://wx2.sinaimg.cn/mw690/c0096cf9ly1fhznppdziyj20ko0g874p.jpg
+  [6]: http://wx1.sinaimg.cn/mw690/c0096cf9ly1fhzo4g1h3lj214u0lo3zw.jpg
+  [7]: http://upload-images.jianshu.io/upload_images/3376841-ff5ea58bbd4d7a25.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
