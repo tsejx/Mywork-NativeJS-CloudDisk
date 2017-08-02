@@ -2,27 +2,27 @@
 
 **加载页**
 
-[![加载页](http://storage1.imgchr.com/AJ2a6.md.png)](https://imgchr.com/i/AJ2a6)
+![加载页][1]
 
 **云盘主页**
 
-[![云盘主页](http://storage1.imgchr.com/AJ6q1.md.png)](https://imgchr.com/i/AJ6q1)
+![云盘主页][2]
 
 **布局转换**
 
-[![布局转换](http://storage1.imgchr.com/AJgVx.md.png)](https://imgchr.com/i/AJgVx)
+![布局转换][3]
 
 **移动文件夹**
 
-[![移动文件夹](http://storage1.imgchr.com/AJRIK.md.png)](https://imgchr.com/i/AJRIK)
+![移动文件夹][4]
 
 **画框多选**
 
-[![画框多选](http://storage1.imgchr.com/AJyrR.md.png)](https://imgchr.com/i/AJyrR)
+![画框多选][5]
 
 **右键菜单**
 
-[![右键菜单](http://storage1.imgchr.com/AJsM9.md.png)](https://imgchr.com/i/AJsM9)
+![右键菜单][6]
 
 ## 技术栈
 
@@ -108,12 +108,12 @@ JavaScript（DOM/BOM） + CSS3 + HTML
 
 ## MindMap
 
-[![概念云盘思维导图](http://storage1.imgchr.com/AJfPO.md.jpg)](https://imgchr.com/i/AJfPO)
+![概念云盘思维导图][7]
 
-  
-
-
-
-
-
-
+  [1]: http://storage1.imgchr.com/AJ2a6.png
+  [2]: http://storage1.imgchr.com/AJ6q1.png
+  [3]: http://storage1.imgchr.com/AJgVx.png
+  [4]: http://storage1.imgchr.com/AJRIK.png
+  [5]: http://storage1.imgchr.com/AJyrR.png
+  [6]: http://storage1.imgchr.com/AJsM9.png
+  [7]: http://storage1.imgchr.com/AJfPO.jpg
